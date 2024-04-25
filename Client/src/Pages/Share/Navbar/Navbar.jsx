@@ -77,16 +77,16 @@ const Navbar = () => {
   return (
     <div className="">
       <nav
-        className={`w-[100%] fixed border border-b  z-50 mx-auto ${
+        className={`w-[100%] fixed  border-b  z-50 mx-auto ${
           location.pathname === "/"
-            ? scrolled
-              ? "bg-[#10202B]"
+           ? scrolled
+              ? "shadow-sm"
               : ""
-            : "bg-[#10202B]"
+            : "shadow"
         } text-black`}
       >
         <div className="mx-auto">
-          <div className="z-50 px-5 md:px-8 py-3 md:py-0 flex justify-between items-center text-white">
+          <div className="z-50 px-5 bg-white md:px-8 py-3 md:py-0 flex justify-between items-center text-white">
             <Link to="/" className="flex items-center gap-2">
               <img className=" " src={logo} alt="" />
               {/* <h2 className="text-2xl text-black font-semibold ">MernShop</h2> */}
