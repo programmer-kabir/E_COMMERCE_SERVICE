@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "./styles.css";
+import "./banner.css";
 import { GoArrowRight } from "react-icons/go";
 
 // import required modules
@@ -44,7 +44,7 @@ const Banner = () => {
               </div>
 
               <div>
-                <img src="https://i.ibb.co/6mKWtD3/slider-1.png" />
+                <img className="bannerImg" src="https://i.ibb.co/6mKWtD3/slider-1.png" />
               </div>
             </div>
           </SwiperSlide>
@@ -64,7 +64,7 @@ const Banner = () => {
               </div>
 
               <div>
-                <img src="https://i.ibb.co/wKnz9mt/slider-2.png" />
+                <img className="bannerImg" src="https://i.ibb.co/wKnz9mt/slider-2.png" />
               </div>
             </div>
           </SwiperSlide>
@@ -84,7 +84,7 @@ const Banner = () => {
               </div>
 
               <div>
-                <img src="https://i.ibb.co/9HSDk0M/slider-3.png" />
+                <img className="bannerImg" src="https://i.ibb.co/9HSDk0M/slider-3.png" />
               </div>
             </div>
           </SwiperSlide>
