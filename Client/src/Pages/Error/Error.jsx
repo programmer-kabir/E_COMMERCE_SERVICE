@@ -1,12 +1,16 @@
 import React from "react";
 import svg from "../../assets/Error/404.svg";
-import './Error.css'
+import "./Error.css";
+import { Link } from "react-router-dom";
 const Error = () => {
   return (
     <div>
-      <div className="error-img pt-10 flex flex-col justify-center items-center h-[80vh]">
+      <div className="error-img lg:px-80 pt-5 flex flex-col justify-center items-center ">
         <img className="w-full h-full" src={svg} alt="svg" />
-        <button className="bg-[#F50963] hover:bg-[#03041C] font-medium px-10 py-3 text-white transition-colors duration-300 ease-in-out">Back to Home</button>
+       <Link to={'/'}>
+       <button className="bg-[#F50963] hover:bg-[#03041C] font-medium px-10 py-3 text-white transition-colors duration-300 ease-in-out">
+          Back to Home
+        </button></Link>
       </div>
     </div>
   );
