@@ -2,3 +2,21 @@
     height: 200px;
     width: 280px;
 }
+@media (max-width: 555px) {
+    .categoryImg {
+      width: 333px;
+    }
+  }
+.swiper-scrollbar {
+    background-color:#e7e7e7 !important;
+    opacity: 1 !important; 
+    transition: opacity 0.3s;
+
+  }
+  
+  .swiper-scrollbar:hover {
+    opacity: 1 !important; 
+  }
+  .swiper-scrollbar-drag {
+    background-color: #F62977 !important; 
+  }
