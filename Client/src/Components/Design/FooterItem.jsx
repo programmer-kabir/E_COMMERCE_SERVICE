@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const FooterItem = ({ name, items }) => {
   return (
-    <div className="text-center sm:text-left">
-      <p className="text-xl font-medium text-[#03041c]">{name}</p>
+    <div className="">
+      <p className="text-xl font-medium">{name}</p>
       <div className="mt-7  text-sm space-y-2">
         
         {items.map((item, index) => (
-          <p className="text-[#525258] text-base">
+          <p className="primaryColor text-base">
             <Link>{item} </Link>
           </p>
         ))}
