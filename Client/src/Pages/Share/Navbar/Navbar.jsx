@@ -91,18 +91,18 @@ const Navbar = () => {
               <img className=" " src={logo} alt="" />
               {/* <h2 className="text-2xl text-black font-semibold ">MernShop</h2> */}
             </Link>
-            <div className="hidden md:flex gap-8 items-center font-medium p-4">
+            <div className="hidden md:flex gap-8 items-center  p-4 text-[15px] font-medium">
               {/* <div className="flex items-center space-x-7 "> */}
-              <Link className=" text-[#525258] hover:text-[#F62977] font-medium">
+              <Link className=" primaryColor hover:text-[#F62977]">
                 Home
               </Link>
-              <Link className=" text-[#525258] hover:text-[#F62977] font-medium">
+              <Link className=" primaryColor hover:text-[#F62977] ">
                 About
               </Link>
-              <Link className=" text-[#525258] hover:text-[#F62977] font-medium">
+              <Link className=" primaryColor hover:text-[#F62977] ">
                 Contact
               </Link>
-              <Link className=" text-[#525258] hover:text-[#F62977] font-medium">
+              <Link className=" primaryColor hover:text-[#F62977] ">
                 Shop
               </Link>
               <DropDown name="Pages" items={pageItems} />
@@ -114,23 +114,23 @@ const Navbar = () => {
             <div className="hidden md:flex  items-center space-x-5">
               <FiSearch
                 size={22}
-                className="text-[#525258] hover:text-black cursor-pointer"
+                className="primaryColor hover:text-black cursor-pointer"
               />
               <FiUser
                 size={22}
-                className="text-[#525258] hover:text-black cursor-pointer"
+                className="primaryColor hover:text-black cursor-pointer"
               />
               <FaRegHeart
                 size={22}
-                className="text-[#525258] hover:text-black cursor-pointer"
+                className="primaryColor hover:text-black cursor-pointer"
               />
               <FaCodeCompare
                 size={22}
-                className="text-[#525258] hover:text-black cursor-pointer rotate-90"
+                className="primaryColor hover:text-black cursor-pointer rotate-90"
               />
               <FiShoppingCart
                 size={22}
-                className="text-[#525258] hover:text-black cursor-pointer"
+                className="primaryColor hover:text-black cursor-pointer"
               />
             </div>
 
@@ -162,21 +162,21 @@ const Navbar = () => {
                   <button onClick={handleNav}>
                     <RxCross2
                       size={40}
-                      className="text-[#525258] cursor-pointer hover:text-white border p-2 transition-background transition-text  duration-300 ease-in-out  hover:bg-[#F62977] rounded-full "
+                      className="primaryColor cursor-pointer hover:text-white border p-2 transition-background transition-text  duration-300 ease-in-out  hover:bg-[#F62977] rounded-full "
                     />
                   </button>
                 </div>
-                <div className="flex flex-col justify-center items-start pt-10 space-y-3 ">
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] font-medium">
+                <div className="flex flex-col justify-center items-start pt-10 font-medium space-y-3 ">
+                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
                     Home
                   </Link>
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] font-medium">
+                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
                     About
                   </Link>
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] font-medium">
+                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
                     Contact
                   </Link>
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] font-medium">
+                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
                     Shop
                   </Link>
                   <MobileDropDown name="Pages" items={pageItems} />
