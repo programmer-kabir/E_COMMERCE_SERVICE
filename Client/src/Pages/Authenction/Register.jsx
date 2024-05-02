@@ -10,7 +10,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleCheckboxChange = () => {
     setIsCheckboxChecked(!isCheckboxChecked);
   };
@@ -25,10 +25,10 @@ const navigate = useNavigate()
   // console.log(import.meta.env.VITE_LOCALHOST_KEY);
   const onSubmit = (data) => {
     const name = data.FirstName + " " + data.LastName;
-    if (data.password !== data.PasswordConfirmation) {
-      toast.error("Password and Confirm Password do not match");
-      return;
-    }
+    // if (data.password !== data.PasswordConfirmation) {
+    //   toast.error("Password and Confirm Password do not match");
+    //   return;
+    // }
     console.log(data);
     // newRegister(data.email, data.password)
     //   .then((result) => {
@@ -40,7 +40,7 @@ const navigate = useNavigate()
     //     });
     //     toast.success("Registration successful! You can now log in.");
     //     navigate('/')
-        
+
     //   })
     //   .catch((error) => {
     //     // Check if the error is due to email already in use
@@ -72,54 +72,52 @@ const navigate = useNavigate()
                 </h1>
 
                 <p className="mt-4 leading-relaxed primaryColor">
-                You can signup with you social account below
-
+                  You can signup with you social account below
                 </p>
               </div>
 
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="mt-8 grid grid-cols-6 gap-6"
-              >
-                <div className="col-span-6 sm:col-span-3">
-                  <label
-                    htmlFor="FirstName"
-                    className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
-                  >
-                    <input
-                      type="text"
-                      id="FirstName"
-                      {...register("FirstName", { required: true })}
-                      placeholder="FirstName"
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                    />
+              <form onSubmit={handleSubmit(onSubmit)} className="mt-8  space-y-4">
+                <div className="lg:flex w-full gap-4 space-y-4 md:space-y-0">
+                  <div className="w-full">
+                    <label
+                      htmlFor="FirstName"
+                      className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
+                    >
+                      <input
+                        type="text"
+                        id="FirstName"
+                        {...register("FirstName", { required: true })}
+                        placeholder="FirstName"
+                        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      />
 
-                    <span className="absolute font-medium start-3 top-3 -translate-y-1/2 text-xs primaryColor transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
-                      First Name <span className="text-red-700">*</span>
-                    </span>
-                  </label>
+                      <span className="absolute font-medium start-3 top-3 -translate-y-1/2 text-xs primaryColor transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
+                        First Name <span className="text-red-700">*</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className="w-full">
+                    <label
+                      htmlFor="LastName"
+                      className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
+                    >
+                      <input
+                        type="text"
+                        id="LastName"
+                        {...register("LastName", { required: true })}
+                        placeholder="LastName"
+                        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      />
+
+                      <span className="absolute font-medium  start-3 top-3 -translate-y-1/2 text-xs primaryColor transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
+                        Last Name <span className="text-red-700">*</span>
+                      </span>
+                    </label>
+                  </div>
                 </div>
 
-                <div className="col-span-6 sm:col-span-3">
-                  <label
-                    htmlFor="LastName"
-                    className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
-                  >
-                    <input
-                      type="text"
-                      id="LastName"
-                      {...register("LastName", { required: true })}
-                      placeholder="LastName"
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                    />
-
-                    <span className="absolute font-medium  start-3 top-3 -translate-y-1/2 text-xs primaryColor transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
-                      Last Name <span className="text-red-700">*</span>
-                    </span>
-                  </label>
-                </div>
-
-                <div className="col-span-6">
+                <div className="">
                   <label
                     htmlFor="UserEmail"
                     className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
@@ -138,7 +136,8 @@ const navigate = useNavigate()
                   </label>
                 </div>
 
-                <div className="col-span-6 sm:col-span-3">
+                <div className="lg:flex w-full gap-4 space-y-4 md:space-y-0">
+                <div className="w-full">
                   <label
                     htmlFor="password"
                     className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
@@ -169,7 +168,7 @@ const navigate = useNavigate()
                   </label>
                 </div>
 
-                <div className="col-span-6 sm:col-span-3">
+                <div className="w-full">
                   <label
                     htmlFor="PasswordConfirmation"
                     className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
@@ -201,8 +200,9 @@ const navigate = useNavigate()
                     </span>
                   </label>
                 </div>
+                </div>
 
-                <div className="col-span-6">
+                <div className="">
                   <label htmlFor="MarketingAccept" className="flex gap-4">
                     <input
                       type="checkbox"
@@ -220,8 +220,7 @@ const navigate = useNavigate()
                   </label>
                 </div>
 
-                <div className="col-span-6">
-                
+                <div className="">
                   <p className="text-sm primaryColor">
                     By creating an account, you agree to our
                     <Link className="secondaryColor px-1 underline">
@@ -233,14 +232,13 @@ const navigate = useNavigate()
                     </Link>
                     .
                   </p>
-                
                 </div>
 
-                <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
+                <div className="md:flex items-center gap-5">
                   <button
                     className={`inline-block shrink-0 rounded-md border ${
                       isCheckboxChecked
-                        ? "border-[#F62977] bg-[#F62977] hover:bg-transparent hover:text-[#F62977]"
+                        ? "bg-[#F62977] hover:bg-[#080921] "
                         : "border-gray-300 bg-gray-300 cursor-not-allowed"
                     } px-12 py-3 text-sm font-medium text-white transition focus:outline-none focus:ring active:text-blue-500`}
                     disabled={!isCheckboxChecked}
@@ -251,8 +249,8 @@ const navigate = useNavigate()
                   <p className="mt-4 text-sm primaryColor sm:mt-0">
                     Already have an account?
                     <Link
-                      to="/sign-in"
-                      className="secondaryColor pl-1 underline"
+                      to="/login"
+                      className="secondaryColor font-medium pl-1 underline"
                     >
                       Log in
                     </Link>

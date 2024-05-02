@@ -155,7 +155,7 @@ const Login = () => {
                   <button
                     className={`inline-block shrink-0 rounded-md border ${
                       isCheckboxChecked
-                        ? "border-[#F62977] bg-[#F62977] hover:bg-gray-100 hover:text-[#F62977]"
+                        ? "bg-[#F62977] hover:bg-[#080921]"
                         : "border-gray-300 bg-gray-300 cursor-not-allowed"
                     } px-12 py-3 text-sm font-medium text-white transition focus:outline-none focus:ring `}
                     disabled={!isCheckboxChecked}
