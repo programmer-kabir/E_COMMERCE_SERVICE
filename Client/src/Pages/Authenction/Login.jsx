@@ -78,7 +78,7 @@ const Login = () => {
                       className="peer h-8 w-full border-none bg-white p-0 placeholder-transparent outline-none sm:text-sm"
                     />
 
-                    <span className="absolute font-medium start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
+                    <span className="absolute font-medium start-3 top-3 -translate-y-1/2 text-xs primaryColor transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
                       Email
                     </span>
                   </label>
@@ -97,7 +97,7 @@ const Login = () => {
                       className="peer h-8 w-full border-none bg-white p-0 placeholder-transparent outline-none sm:text-sm"
                     />
 
-                    <span className="absolute font-medium start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
+                    <span className="absolute font-medium start-3 top-3 -translate-y-1/2 text-xs primaryColor transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
                       Password
                     </span>
 
@@ -166,7 +166,7 @@ const Login = () => {
                   <p className="mt-4  text-sm primaryColor sm:mt-0">
                     Already have an account?
                     <Link
-                      to="/sign-up"
+                      to="/register"
                       className="secondaryColor font-medium pl-2 underline"
                     >
                       Create New Account
