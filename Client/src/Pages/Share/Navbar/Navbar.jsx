@@ -116,10 +116,11 @@ const Navbar = () => {
                 size={22}
                 className="primaryColor hover:text-black cursor-pointer"
               />
+              <Link to={'/login'}>
               <FiUser
                 size={22}
                 className="primaryColor hover:text-black cursor-pointer"
-              />
+              /></Link>
               <FaRegHeart
                 size={22}
                 className="primaryColor hover:text-black cursor-pointer"

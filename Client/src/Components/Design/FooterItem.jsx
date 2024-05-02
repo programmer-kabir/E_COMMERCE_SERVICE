@@ -8,7 +8,7 @@ const FooterItem = ({ name, items }) => {
       <div className="mt-7  text-sm space-y-2">
         
         {items.map((item, index) => (
-          <p className="primaryColor text-base">
+          <p key={index} className="primaryColor text-base">
             <Link>{item} </Link>
           </p>
         ))}
