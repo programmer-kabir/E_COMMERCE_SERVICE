@@ -17,3 +17,8 @@ html,
   width: 100%;
   height: 550px;
 }
+.swiper-slide .bannerMobileImg {
+  display: block;
+  width: 70%;
+  height: 250px;
+}
