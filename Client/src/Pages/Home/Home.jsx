@@ -11,8 +11,8 @@ const Home = () => {
   return (
     <div className="space-y-16">
       <Banner />
-      {/* <Categories />
-     <PopularProducts />
+      <Categories />
+     {/* <PopularProducts />
      <AllStore />
      <BannerCompany />
      <Sponsor />
