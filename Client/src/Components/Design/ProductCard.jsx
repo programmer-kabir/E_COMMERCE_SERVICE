@@ -21,7 +21,7 @@ const ProductCard = () => {
         <div className="absolute bottom-0 w-full">
           <div className="duration-500 translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
             <Link to="/checkout">
-              <button className="bg-[#080921] py-2 font-medium w-full text-white">
+              <button className="primaryButton ">
                 Add to Cart
               </button>
             </Link>

@@ -1,0 +1,12 @@
+.swiper-button-prev,.swiper-button-next{
+    background: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Adds a box shadow to create a sense of depth */
+
+}
+.swiper-button-prev:after, .swiper-button-next:after{
+   font-size: 20px;
+    color: black;
+}
