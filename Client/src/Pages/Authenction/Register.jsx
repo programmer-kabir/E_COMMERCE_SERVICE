@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// import useAuth from "../../Components/Hooks/useAuth";
 import toast from "react-hot-toast";
+import useAuth from "../../Components/Hooks/useAuth";
 // import { RegisterUser } from "../../Components/Apis/userApis";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,7 +14,7 @@ const Register = () => {
   const handleCheckboxChange = () => {
     setIsCheckboxChecked(!isCheckboxChecked);
   };
-  const { newRegister, updateUserProfile } = false;
+  const { createUser, updateUserProfile } = useAuth();
   const {
     handleSubmit,
     control,
@@ -30,26 +30,25 @@ const Register = () => {
     //   return;
     // }
     console.log(data);
-    // newRegister(data.email, data.password)
-    //   .then((result) => {
-    //     const user = result.user;
-    //     console.log(user);
-    //     updateUserProfile(name)
-    //     .then((data) => {
-    //       RegisterUser(user);
-    //     });
-    //     toast.success("Registration successful! You can now log in.");
-    //     navigate('/')
-
-    //   })
-    //   .catch((error) => {
-    //     // Check if the error is due to email already in use
-    //     if (error.code === 'auth/email-already-in-use') {
-    //       toast.error('Email is already in use. Please use a different email.');
-    //     } else {
-    //       toast.error(error.message);
-    //     }
-    //   });
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        // updateUserProfile(name)
+        // .then((data) => {
+        //   RegisterUser(user);
+        // });
+        toast.success("Registration successful! You can now log in.");
+        navigate('/')
+      })
+      .catch((error) => {
+        // Check if the error is due to email already in use
+        // if (error.code === 'auth/email-already-in-use') {
+        //   toast.error('Email is already in use. Please use a different email.');
+        // } else {
+          toast.error(error.message);
+        // }
+      });
   };
 
   return (
