@@ -20,7 +20,7 @@ body{
     font-weight: 500;
     padding: 9px 0px;
     transition: all 0.3s ease-in-out;
-    width: 100%;
+    /* width: 100%; */
 }
 .primaryButton:hover{
     background-color: #F62977;

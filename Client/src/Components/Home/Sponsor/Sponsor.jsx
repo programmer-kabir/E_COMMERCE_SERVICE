@@ -36,7 +36,7 @@ const Sponsor = () => {
           </div>
         </div>
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-10 items-center mt-10">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-10 items-center mt-16">
         {/* 1 */}
         <div className="flex gap-5">
           <div className="border rounded-full p-4 h-[64px] w-[64px]">

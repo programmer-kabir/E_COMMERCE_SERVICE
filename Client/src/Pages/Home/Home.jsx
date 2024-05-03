@@ -5,6 +5,7 @@ import PopularProducts from "../../Components/Home/PopularProducts/PopularProduc
 import AllStore from "../../Components/Home/AllStore/AllStore";
 import BannerCompany from "../../Components/Home/BannerComapny/BannerCompany";
 import Sponsor from "../../Components/Home/Sponsor/Sponsor";
+import NewsLetter from "../../Components/Home/NewsLetter/NewsLetter";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
      <AllStore />
      <BannerCompany />
      <Sponsor />
+     <NewsLetter />
     </div>
   );
 };
