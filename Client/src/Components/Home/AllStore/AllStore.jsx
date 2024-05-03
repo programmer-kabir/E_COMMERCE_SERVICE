@@ -77,7 +77,7 @@ const AllStore = () => {
             <SwiperSlide key={index}>
               <div>
                 <img className="categoryImg w-full" src={store.imgUrl} alt="" />
-                <p className="text-center pt-5 font-medium primaryColor pt-2">{store.name}</p>
+                <p className="text-center pt-5 font-medium primaryColor">{store.name}</p>
               </div>
             </SwiperSlide>
           ))}
