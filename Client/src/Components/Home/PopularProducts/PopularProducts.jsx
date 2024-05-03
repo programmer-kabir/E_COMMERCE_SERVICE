@@ -12,8 +12,8 @@ const PopularProducts = () => {
     <section>
       <Content>
         {/* Title */}
-        <div className="flex justify-between">
-          <h2 className="text-3xl font-semibold border-s-4 border-[#F62977] pl-3">
+        <div className="md:flex space-y-8 lg:space-y-0 justify-between">
+          <h2 className="text-3xl font-semibold border-s-2 md:border-s-3 border-[#F62977] pl-3">
             Popular Products
           </h2>
 

@@ -33,7 +33,6 @@ body{
     font-weight: 500;
     padding: 12px 30px;
     transition: all 0.3s ease-in-out;
-    width: 100%;
 }
 .secondaryButton:hover{
     background-color: #080921;

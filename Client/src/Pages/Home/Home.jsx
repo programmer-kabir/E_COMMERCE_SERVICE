@@ -12,11 +12,11 @@ const Home = () => {
     <div className="space-y-16">
       <Banner />
       <Categories />
-     {/* <PopularProducts />
+     <PopularProducts />
      <AllStore />
      <BannerCompany />
      <Sponsor />
-     <NewsLetter /> */}
+     <NewsLetter />
     </div>
   );
 };

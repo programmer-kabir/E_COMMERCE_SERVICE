@@ -13,15 +13,18 @@ const Sponsor = () => {
           backgroundImage: "url('https://i.ibb.co/1RT19bq/i-phone.jpg')",
         }}
       >
+        
+        <div className="absolute inset-0 bg-gray-50 opacity-50 md:hidden"></div>
         <div class="absolute inset-0 flex items-center ">
-          <div class="lg:pl-24 space-y-3">
+          <div class="lg:pl-24 pl-5 space-y-3">
             <p class="primaryColor font-medium">Apple iPhone 12 Pro</p>
-            <h2 class="text-5xl font-bold mb-2">
-              The wait is on: <br /> iphone 12 max pro
+            <h2 class="md:text-5xl text-3xl font-bold mb-2">
+              The wait is on: <br className="hidden md:flex" /> iphone{" "}
+              <br className="md:hidden" /> 12 max pro
             </h2>
             <p class="primaryColor pb-5">
               Last call for up to{" "}
-              <span className="text-[24px] t text-black font-medium">32%</span>{" "}
+              <span className="text-[24px]  text-black font-medium">32%</span>{" "}
               off!
             </p>
             <button
