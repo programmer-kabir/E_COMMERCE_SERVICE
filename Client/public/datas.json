@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "66372a4b2dcbcd66c8845dcd",
+    "name": 0,
+    "category": "5494b525-2ee8-4d6c-a9bd-7cb116e16b8c",
+    "image": false
+  },
+  {
+    "_id": "66372a4b8fbae0927b6145da",
+    "name": 1,
+    "category": "a7b404cf-3f9b-464e-bd39-d3223c21b55a",
+    "image": true
+  },
+  {
+    "_id": "66372a4bfacfd5c1c940cad8",
+    "name": 2,
+    "category": "119bcd02-66e5-4a97-a035-268e77bfa405",
+    "image": false
+  },
+  {
+    "_id": "66372a4bc528cd548cc49125",
+    "name": 3,
+    "category": "cb06989c-8780-4a67-99ed-3b3a3c3f7463",
+    "image": true
+  }
+]

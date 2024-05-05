@@ -1,0 +1,116 @@
+const [activeTab, setActiveTab] = useState("grid");
+const [isOpen, setIsOpen] = useState(false);
+
+const [activeFilter, setActiveFilter] = useState("Short Filtering");
+const handleFilterClick = (filterName) => {
+  setActiveFilter(filterName);
+  setIsOpen(false);
+};
+const handleTabClick = (tabName) => {
+  setActiveTab(tabName);
+};
+
+const toggleDropdown = () => {
+  setIsOpen(!isOpen);
+};
+
+
+<div className="mt-6 py-4 border flex px-7 items-center justify-between">
+        <p className="primaryColor text-base">Showing 1–9 of 31 results</p>
+        <div className="flex justify-center gap-6 ">
+          <div className="flex gap-3">
+            <p
+              className={`shrink-0 cursor-pointer  text-sm font-medium ${
+                activeTab === "grid" ? "secondaryColor  " : "primaryColor "
+              }`}
+              onClick={() => handleTabClick("grid")}
+            >
+              <CiGrid41 size={30} />
+            </p>
+
+            <p
+              className={`shrink-0  cursor-pointer  text-sm font-medium ${
+                activeTab === "bar" ? "secondaryColor " : "primaryColor "
+              }`}
+              onClick={() => handleTabClick("bar")}
+            >
+              <HiBars3 size={30} />
+            </p>
+          </div>
+          {/* Filtareing */}
+          <div className="relative inline-block cursor-pointer">
+            <div
+              className="flex justify-between w-60 border px-3 py-2 items-center"
+              onClick={toggleDropdown}
+            >
+              <p className="text-sm primaryColor cursor-pointer">
+                {activeFilter}
+              </p>
+              <div className="transition-transform ">
+                {isOpen ? (
+                  <IoIosArrowUp className="text-black   duration-500 " />
+                ) : (
+                  <IoIosArrowUp className="text-black -rotate-180 duration-500" />
+                )}
+              </div>
+            </div>
+            {isOpen && (
+              <div className="absolute  right-0 px-3 space-y-2 py-4 text-sm primaryColor  w-52 bg-white border border-gray-300  z-10">
+                {/* Dropdown content */}
+                <p
+                  className={`cursor-pointer ${
+                    activeFilter === "Short Filtering"
+                      ? "font-medium text-[#03041c]"
+                      : ""
+                  }`}
+                  onClick={() => handleFilterClick("Short Filtering")}
+                >
+                  Short Filtering
+                </p>
+                <p
+                  className={`cursor-pointer ${
+                    activeFilter === "Latest Product"
+                      ? "font-medium text-[#03041c]"
+                      : ""
+                  }`}
+                  onClick={() => handleFilterClick("Latest Product")}
+                >
+                  Latest Product
+                </p>
+                <p
+                  className={`cursor-pointer ${
+                    activeFilter === "Price low to high"
+                      ? "font-medium text-[#03041c]"
+                      : ""
+                  }`}
+                  onClick={() => handleFilterClick("Price low to high")}
+                >
+                  Price low to high
+                </p>
+                <p
+                  className={`cursor-pointer ${
+                    activeFilter === "Price high to low"
+                      ? "font-medium text-[#03041c]"
+                      : ""
+                  }`}
+                  onClick={() => handleFilterClick("Price high to low")}
+                >
+                  Price high to low
+                </p>
+              </div>
+            )}
+          </div>
+          {/* section */}
+        </div>
+      </div>
+
+
+
+
+
+
+
+<div className="flex items-center gap-1 cursor-pointer">
+            Computers Monitor & Laptop
+            <IoIosArrowUp className="rotate-90" />
+          </div>

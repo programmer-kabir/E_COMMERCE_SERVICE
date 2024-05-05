@@ -102,7 +102,7 @@ const Navbar = () => {
               <Link className=" primaryColor hover:text-[#F62977] ">
                 Contact
               </Link>
-              <Link className=" primaryColor hover:text-[#F62977] ">
+              <Link to={'/shop'} className=" primaryColor hover:text-[#F62977] ">
                 Shop
               </Link>
               <DropDown name="Pages" items={pageItems} />
