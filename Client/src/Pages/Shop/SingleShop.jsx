@@ -29,12 +29,11 @@ const SingleShop = () => {
       <section className="pt-12 ">
         {DetailsData.map((Data) => (
           <div key={Data._id}>
-            <span>{Data.title}</span>
-            {Data.productDescription.map((d) => (
-              <div>{d.description.map((line, index) => (
-                <p key={index}>{line}</p>
-              ))}</div>
-            ))}
+            <div className="w-1/2" >
+
+            <img src="https://i.ibb.co/VqfXJyx/1.webp" alt="" />
+            </div>
+            
           </div>
         ))}
       </section>
