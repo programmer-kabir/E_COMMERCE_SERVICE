@@ -1,19 +1,19 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-const useCategories = () => {
+const useDatas = () => {
   const {
     refetch,
-    data: categories = [],
+    data: datas = [],
     isLoading: loading,
   } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["datas"],
     queryFn: async () => {
-      const res = await fetch("./category.json");
+      const res = await fetch("./datas.json");
       return res.json();
     },
   });
-  return [categories, refetch, loading];
+  return [datas, refetch, loading];
 };
 
-export default useCategories;
+export default useDatas;

@@ -1,38 +1,114 @@
 [
   {
-    "category": "Football",
-    "title": "New Football Jersey"
+    "category": "footballClub",
+    "title": "AC Milan"
   },
   {
-    "category": "Football",
-    "title": "English Premier League Jersey"
+    "category": "footballClub",
+    "title": "Arsenal"
   },
   {
-    "category": "Football",
-    "title": "La Liga Club Jersey"
+    "category": "footballClub",
+    "title": "Atletico Madrid"
   },
   {
-    "category": "Football",
-    "title": "FIFA World Cup Jersey"
+    "category": "footballClub",
+    "title": "Barcelona"
   },
   {
-    "category": "Football",
-    "title": "MLS club"
+    "category": "footballClub",
+    "title": "Bayern Munich"
   },
   {
-    "category": "Football",
-    "title": "Saudi Pro League"
+    "category": "footballClub",
+    "title": "Chelsea"
   },
   {
-    "category": "Cricket",
-    "title": "IPL"
+    "category": "footballClub",
+    "title": "Fluminense"
   },
   {
-    "category": "Cricket",
-    "title": "BPL"
+    "category": "footballClub",
+    "title": "Juventus"
   },
   {
-    "category": "Cricket",
-    "title": "ICC"
+    "category": "footballClub",
+    "title": "Liverpool"
+  },
+  {
+    "category": "footballClub",
+    "title": "Manchester City"
+  },
+  {
+    "category": "footballClub",
+    "title": "Manchester United"
+  },
+  {
+    "category": "footballClub",
+    "title": "Palmeiras"
+  },
+  {
+    "category": "footballClub",
+    "title": "Paris Saint-Germain (PSG)"
+  },
+  {
+    "category": "footballClub",
+    "title": "Real Madrid"
+  },
+  {
+    "category": "footballClub",
+    "title": "Sevilla"
+  },
+  {
+    "category": "footballClub",
+    "title": "Santos"
+  },
+  {
+    "category": "footballClub",
+    "title": "Tottenham Hotspur"
+  },
+  {
+    "category": "footballClub",
+    "title": "West Ham United"
+  },
+  {
+    "category": "footballClub",
+    "title": "Bashundhara Kings"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Argentina"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Brazil"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Bangladesh"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Croatia"
+  },
+  {
+    "category": "footballCountry",
+    "title": "England"
+  },
+  {
+    "category": "footballCountry",
+    "title": "France"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Germany"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Portugal"
+  },
+  {
+    "category": "footballCountry",
+    "title": "Spain"
   }
 ]

@@ -93,7 +93,7 @@ const Navbar = () => {
             </Link>
             <div className="hidden md:flex gap-8 items-center  p-4 text-[15px] font-medium">
               {/* <div className="flex items-center space-x-7 "> */}
-              <Link className=" primaryColor hover:text-[#F62977]">
+              <Link to='/' className=" primaryColor hover:text-[#F62977]">
                 Home
               </Link>
               <Link className=" primaryColor hover:text-[#F62977] ">

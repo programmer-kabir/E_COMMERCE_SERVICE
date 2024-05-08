@@ -1,26 +1,86 @@
 [
   {
     "_id": "66372a4b2dcbcd66c8845dcd",
-    "name": 0,
-    "category": "5494b525-2ee8-4d6c-a9bd-7cb116e16b8c",
-    "image": false
+    "SKU": "14_BD-RE_1",
+    "category": "Real Madrid",
+    "title": "Real Madrid Jersey 2024 Half Sleeve for men",
+    "image": [
+      "https://i.ibb.co/sKj3p4n/Real-Madrid-home-kit-23-24-4.webp",
+      "https://i.ibb.co/ftkTZ1k/Real-Madrid-home-kit-23-24-3.jpg",
+      "https://i.ibb.co/t2wdzzd/Real-Madrid-home-kit-23-24-2-600x732.webp",
+      "https://i.ibb.co/89JL5s0/Real-Madrid-home-kit-23-24-1-1.jpg",
+      "https://i.ibb.co/X2wD8Zh/Real-Madrid-Home-Jersey-23-24-Fan-Edition.jpg"
+    ],
+
+    "Size": ["M", "L", "XL", "XXL"],
+    "Color": "white",
+    "productDescription": [
+      "Logo :Embroidery",
+      "Material: Mesh fabric for ventilation and comfort",
+      "Color: white",
+      "Brand: No Brand",
+      "Design: 2023-2024 Season",
+      "Club: Real Madrid Club Jersey with full sleeves",
+      " Unisex design suitable for all",
+      "Made of high-quality Mesh & polyester material",
+      "Made of high-quality mesh material for breathability",
+      "Perfect for sports and outdoor activities",
+      "Represents with Real Madrid pride"
+    ]
   },
   {
     "_id": "66372a4b8fbae0927b6145da",
-    "name": 1,
-    "category": "a7b404cf-3f9b-464e-bd39-d3223c21b55a",
-    "image": true
+    "SKU": "14_BD-RE_2",
+    "category": "Real Madrid",
+    "title": "Real Madrid Jersey Black 2024 Thai premium",
+    "Size": ["M", "L", "XL", "XXL"],
+    "image": [
+      "https://i.ibb.co/9c0CrSR/black.webp",
+      "https://i.ibb.co/ZW6F3wQ/2.webp",
+      "https://i.ibb.co/qsF0n5M/3.webp",
+      "https://i.ibb.co/cv3pMBL/4.webp",
+      "https://i.ibb.co/n792JLc/5.webp"
+    ],
+    "Color": "Black",
+    "productDescription": [
+      "Logo :Embroidery",
+      "Material: Thai Fabric",
+      "Color: Black",
+      "Brand: No Brand",
+      "Design: 2023-2024 Season",
+      "Club: Real Madrid Club Jersey with full sleeves",
+      " Unisex design suitable for all",
+      "Made of high-quality Mesh & polyester material",
+      "Made of high-quality mesh material for breathability",
+      "We provide fashionable trendy and good quality product",
+      "Represents with Real Madrid pride"
+    ]
   },
   {
-    "_id": "66372a4bfacfd5c1c940cad8",
-    "name": 2,
-    "category": "119bcd02-66e5-4a97-a035-268e77bfa405",
-    "image": false
-  },
-  {
-    "_id": "66372a4bc528cd548cc49125",
-    "name": 3,
-    "category": "cb06989c-8780-4a67-99ed-3b3a3c3f7463",
-    "image": true
+    "_id": "66372a4b8fbae0927b6145da",
+    "SKU": "2_BD-BR_1",
+    "category": "Brazil",
+    "Size": ["M", "L", "XL", "XXL"],
+    "title": "Brazil home kit half sleeve jersey For Men",
+    "image": [
+      "https://i.ibb.co/VqfXJyx/1.webp",
+      "https://i.ibb.co/J52DDYv/2.webp",
+      "https://i.ibb.co/4gNShvn/3.jpg",
+      "https://i.ibb.co/zSv8DrM/4.jpg",
+      "https://i.ibb.co/z258y1s/5.jpg"
+    ],
+    "Color": "Yellow",
+    "productDescription": [
+      "Logo :Embroidery",
+      "Color: Yellow",
+      "Brand: No Brand",
+      "Design: 2023-2024 Season",
+      "Sleeve:Short Sleeve",
+
+      "Country: Brazil Jersey with full sleeves",
+      " Unisex design suitable for all",
+      "Made of high-quality Mesh & polyester material",
+      "Made of high-quality mesh material for breathability"
+    ]
   }
 ]

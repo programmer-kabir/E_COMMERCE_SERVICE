@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCodeCompare, FaRegEye } from "react-icons/fa6";
-const ProductCard = () => {
+const ProductCard = ({TShirt}) => {
     const [isHoveredHeart, setIsHoveredHeart] = useState(false);
     const [isHoveredEye, setIsHoveredEye] = useState(false);
     const [isHoveredCompare, setIsHoveredCompare] = useState(false);
   return (
+    <Link to={`../product-details/${TShirt._id}`}>
+    
     <div className="relative overflow-hidden">
       <a href="#" className="group relative block">
         <div className="w-[261px] h-[305px]">
           {" "}
           {/* Fixed height for the image container */}
           <img
-            src="https://next-frontend-ashen-psi.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FCB7zKR9%2Fproduct-26.jpg&w=1080&q=75"
+            src={TShirt.image[0]}
             alt=""
             className="w-full h-[305px] object-cover transition group-hover:scale-105"
           />
@@ -72,6 +74,7 @@ const ProductCard = () => {
         </div>
       </a>
     </div>
+    </Link>
   );
 };
 
