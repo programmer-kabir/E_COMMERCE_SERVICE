@@ -37,11 +37,13 @@ const AuthProvider = ({ children }) => {
   };
     // exiting user sing in
     const singIn = (email, password) => {
+      setLoading(true);
       return signInWithEmailAndPassword(auth, email, password);
     };
   // Value pass
   const authInfo = {
     user,
+    loading,
     setLoading,
     createUser,
     singIn

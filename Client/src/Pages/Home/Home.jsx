@@ -8,6 +8,7 @@ import Sponsor from "../../Components/Home/Sponsor/Sponsor";
 import NewsLetter from "../../Components/Home/NewsLetter/NewsLetter";
 
 const Home = () => {
+
   return (
     <div className="space-y-16">
       <Banner />

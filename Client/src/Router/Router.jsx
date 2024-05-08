@@ -6,6 +6,7 @@ import Login from "../Pages/Authenction/Login";
 import Register from "../Pages/Authenction/Register";
 import Shop from "../Pages/Shop/Shop";
 import SingleShop from "../Pages/Shop/SingleShop";
+import Loader from "../Components/Loader/Loader";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: <Loader />,
       },
       {
         path: "/register",

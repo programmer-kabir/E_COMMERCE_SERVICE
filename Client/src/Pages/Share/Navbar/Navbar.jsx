@@ -10,8 +10,9 @@ import { RxCross2 } from "react-icons/rx";
 import MobileDropDown from "../../../Components/Design/MobileDropDown";
 import { MdArrowForwardIos } from "react-icons/md";
 import useAuth from "../../../Components/Hooks/useAuth";
+import Loader from "../../../Components/Loader/Loader";
 const Navbar = () => {
-  const [letter, setLetter] = useState('')
+  const [letter, setLetter] = useState("");
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -35,16 +36,19 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [location.pathname]);
+
+  if (loading) {
+    <Loader />;
+  }
   useEffect(() => {
     if (user && user.email) {
-        const firstLetter = user.email.charAt(0).toUpperCase();
-        setLetter(firstLetter);
+      const firstLetter = user.email.charAt(0).toUpperCase();
+      setLetter(firstLetter);
     } else {
-        console.log("User email not available");
+      console.log("User email not available");
     }
-}, [user]);
+  }, [user]);
 
-console.log(letter); 
   const pageItems = [
     "FAQs",
     "Privacy & Policy",
@@ -88,125 +92,133 @@ console.log(letter);
   return (
     <div className="">
       <nav
-        className={`w-[100%] fixed  border-b  z-50 mx-auto ${
-          location.pathname === "/"
-           ? scrolled
-              ? "shadow-sm"
-              : ""
-            : "shadow"
-        } text-black`}
-      >
-        <div className="mx-auto">
-          <div className="z-50 px-5 bg-white md:px-8 py-3 md:py-0 flex justify-between items-center text-white">
-            <Link to="/" className="flex items-center gap-2">
-              <img className=" " src={logo} alt="" />
-              {/* <h2 className="text-2xl text-black font-semibold ">MernShop</h2> */}
-            </Link>
-            <div className="hidden md:flex gap-8 items-center  p-4 text-[15px] font-medium">
-              {/* <div className="flex items-center space-x-7 "> */}
-              <Link to='/' className=" primaryColor hover:text-[#F62977]">
-                Home
+          className={`w-[100%] fixed  border-b  z-50 mx-auto ${
+            location.pathname === "/" ? (scrolled ? "shadow-sm" : "") : "shadow"
+          } text-black`}
+        >
+          <div className="mx-auto">
+            <div className="z-50 px-5 bg-white md:px-8 py-3 md:py-0 flex justify-between items-center text-white">
+              <Link to="/" className="flex items-center gap-2">
+                <img className=" " src={logo} alt="" />
+                {/* <h2 className="text-2xl text-black font-semibold ">MernShop</h2> */}
               </Link>
-              <Link className=" primaryColor hover:text-[#F62977] ">
-                About
-              </Link>
-              <Link className=" primaryColor hover:text-[#F62977] ">
-                Contact
-              </Link>
-              <Link to={'/shop'} className=" primaryColor hover:text-[#F62977] ">
-                Shop
-              </Link>
-              <DropDown name="Pages" items={pageItems} />
-              <DropDown name="Category" items={categoriesItems} />
-              <DropDown name="Brand" items={brandItems} />
-              <DropDown name="Store" items={storeItems} />
-            </div>
+              <div className="hidden md:flex gap-8 items-center  p-4 text-[15px] font-medium">
+                {/* <div className="flex items-center space-x-7 "> */}
+                <Link to="/" className=" primaryColor hover:text-[#F62977]">
+                  Home
+                </Link>
+                <Link className=" primaryColor hover:text-[#F62977] ">
+                  About
+                </Link>
+                <Link className=" primaryColor hover:text-[#F62977] ">
+                  Contact
+                </Link>
+                <Link
+                  to={"/shop"}
+                  className=" primaryColor hover:text-[#F62977] "
+                >
+                  Shop
+                </Link>
+                <DropDown name="Pages" items={pageItems} />
+                <DropDown name="Category" items={categoriesItems} />
+                <DropDown name="Brand" items={brandItems} />
+                <DropDown name="Store" items={storeItems} />
+              </div>
 
-            <div className="hidden md:flex  items-center space-x-5">
-              <FiSearch
-                size={22}
-                className="primaryColor hover:text-black cursor-pointer"
-              />
-              <Link to={'/login'}>
-              <FiUser
-                size={22}
-                className="primaryColor hover:text-black cursor-pointer"
-              /></Link>
-              <FaRegHeart
-                size={22}
-                className="primaryColor hover:text-black cursor-pointer"
-              />
-              <FaCodeCompare
-                size={22}
-                className="primaryColor hover:text-black cursor-pointer rotate-90"
-              />
-              <FiShoppingCart
-                size={22}
-                className="primaryColor hover:text-black cursor-pointer"
-              />
-            </div>
+              <div className="hidden md:flex  items-center space-x-5">
+                <FiSearch
+                  size={22}
+                  className="primaryColor hover:text-black cursor-pointer"
+                />
+                {user ? (
+                  <div className="rounded-full flex  justify-center items-center w-8 h-8 text-center p-1 font-semibold border-black border primaryColor">
+                    <p>{letter}</p>
+                  </div>
+                ) : (
+                  <>
+                    <Link to={"/login"}>
+                      <FiUser
+                        size={22}
+                        className="primaryColor hover:text-black cursor-pointer"
+                      />
+                    </Link>
+                  </>
+                )}
 
-            <div onClick={handleNav} className="block  md:hidden">
-              {nav ? (
-                <p />
-              ) : (
-                <div className="flex items-center gap-2 font-semibold">
-                  <HiOutlineMenuAlt3
-                    size={25}
-                    className="text-black cursor-pointer"
-                  />
-                </div>
-              )}
-            </div>
-            <div
-              className={
-                nav
-                  ? "fixed right-0  top-0 w-full overflow-auto  h-full text-center md:hidden bg-white  border-r-gray-900 ease-in-out duration-500"
-                  : "ease-in-out duration-500 w-full h-full top-0 fixed overflow-auto right-[-100%]"
-              }
-            >
-              <div className="px-5 text-left pb-16">
-                <div className="flex items-center justify-between py-3 ">
-                  <Link to="/" className="">
-                    <img className=" " src={logo} alt="" />
-                    {/* <h2 className="text-2xl text-black font-semibold ">MernShop</h2> */}
-                  </Link>
-                  <button onClick={handleNav}>
-                    <RxCross2
-                      size={40}
-                      className="primaryColor cursor-pointer hover:text-white border p-2 transition-background transition-text  duration-300 ease-in-out  hover:bg-[#F62977] rounded-full "
+                <FaRegHeart
+                  size={22}
+                  className="primaryColor hover:text-black cursor-pointer"
+                />
+                <FaCodeCompare
+                  size={22}
+                  className="primaryColor hover:text-black cursor-pointer rotate-90"
+                />
+                <FiShoppingCart
+                  size={22}
+                  className="primaryColor hover:text-black cursor-pointer"
+                />
+              </div>
+
+              <div onClick={handleNav} className="block  md:hidden">
+                {nav ? (
+                  <p />
+                ) : (
+                  <div className="flex items-center gap-2 font-semibold">
+                    <HiOutlineMenuAlt3
+                      size={25}
+                      className="text-black cursor-pointer"
                     />
+                  </div>
+                )}
+              </div>
+              <div
+                className={
+                  nav
+                    ? "fixed right-0  top-0 w-full overflow-auto  h-full text-center md:hidden bg-white  border-r-gray-900 ease-in-out duration-500"
+                    : "ease-in-out duration-500 w-full h-full top-0 fixed overflow-auto right-[-100%]"
+                }
+              >
+                <div className="px-5 text-left pb-16">
+                  <div className="flex items-center justify-between py-3 ">
+                    <Link to="/" className="">
+                      <img className=" " src={logo} alt="" />
+                      {/* <h2 className="text-2xl text-black font-semibold ">MernShop</h2> */}
+                    </Link>
+                    <button onClick={handleNav}>
+                      <RxCross2
+                        size={40}
+                        className="primaryColor cursor-pointer hover:text-white border p-2 transition-background transition-text  duration-300 ease-in-out  hover:bg-[#F62977] rounded-full "
+                      />
+                    </button>
+                  </div>
+                  <div className="flex flex-col justify-center items-start pt-10 font-medium space-y-3 ">
+                    <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
+                      Home
+                    </Link>
+                    <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
+                      About
+                    </Link>
+                    <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
+                      Contact
+                    </Link>
+                    <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
+                      Shop
+                    </Link>
+                    <MobileDropDown name="Pages" items={pageItems} />
+                    <MobileDropDown name="Category" items={categoriesItems} />
+                    <MobileDropDown name="Brand" items={brandItems} />
+                    <MobileDropDown name="Store" items={storeItems} />
+                  </div>
+                  <button className="bg-[#F50963] mt-8 flex gap-2 items-center px-5 py-3">
+                    <p className=" font-medium">Getting Started </p>
+                    <MdArrowForwardIos size={20} />
                   </button>
+                  {/*  */}
                 </div>
-                <div className="flex flex-col justify-center items-start pt-10 font-medium space-y-3 ">
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
-                    Home
-                  </Link>
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
-                    About
-                  </Link>
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
-                    Contact
-                  </Link>
-                  <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
-                    Shop
-                  </Link>
-                  <MobileDropDown name="Pages" items={pageItems} />
-                  <MobileDropDown name="Category" items={categoriesItems} />
-                  <MobileDropDown name="Brand" items={brandItems} />
-                  <MobileDropDown name="Store" items={storeItems} />
-                </div>
-                <button className="bg-[#F50963] mt-8 flex gap-2 items-center px-5 py-3">
-                  <p className=" font-medium">Getting Started </p>
-                  <MdArrowForwardIos size={20} />
-                </button>
-                {/*  */}
-                
               </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
     </div>
   );
 };
