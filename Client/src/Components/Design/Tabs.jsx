@@ -36,12 +36,21 @@ const Tabs = ({ TShirt }) => {
   };
   const [reviewsNotes, setReviewsNotes] = useState("");
   const [questionNotes, setQuestionNotes] = useState("");
-  console.log(questionNotes);
+  //   console.log(questionNotes);
   const handleClear = () => {
     toast.success("Your Not is Clear");
     setReviewsNotes("");
   };
-
+  // console.log(rating,reviewsNotes);
+  const handleReviews = () => {
+    const userReviews = {
+         productId : TShirt._id,
+         ratting : rating,
+         reviews : reviewsNotes
+    }
+    
+    console.log(userReviews);
+  };
   return (
     <div>
       <div className="w-full pt-10">
@@ -164,6 +173,7 @@ const Tabs = ({ TShirt }) => {
 
                     <button
                       type="button"
+                      onClick={handleReviews}
                       className="rounded bg-[#439DDF] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#1e4a69]"
                     >
                       Add

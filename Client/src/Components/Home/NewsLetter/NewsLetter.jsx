@@ -13,8 +13,8 @@ const NewsLetter = () => {
       >
         <div className="absolute inset-0  flex items-center justify-center w-full">
           <Content>
-            <div class=" bg-white w-full md:flex px-5 items-center justify-between md:px-20 rounded-md py-10">
-              <h2 class="md:text-4xl text-2xl font-bold">
+            <div className=" bg-white w-full md:flex px-5 items-center justify-between md:px-20 rounded-md py-10">
+              <h2 className="md:text-4xl text-2xl font-bold">
                 Subscribe for <br />
                 Latest Trends & Offers
               </h2>

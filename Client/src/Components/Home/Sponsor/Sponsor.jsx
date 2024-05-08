@@ -4,6 +4,8 @@ import { GoArrowRight } from "react-icons/go";
 import { MdCreditScore, MdOutlineLocalShipping } from "react-icons/md";
 import { HiOutlineCurrencyDollar } from "react-icons/hi2";
 import { BiSupport } from "react-icons/bi";
+import { AiOutlineDollar } from "react-icons/ai";
+
 const Sponsor = () => {
   return (
     <Content>
@@ -15,14 +17,14 @@ const Sponsor = () => {
       >
         
         <div className="absolute inset-0 bg-gray-50 opacity-50 md:hidden"></div>
-        <div class="absolute inset-0 flex items-center ">
-          <div class="lg:pl-24 pl-5 space-y-3">
-            <p class="primaryColor font-medium">Apple iPhone 12 Pro</p>
-            <h2 class="md:text-5xl text-3xl font-bold mb-2">
+        <div className="absolute inset-0 flex items-center ">
+          <div className="lg:pl-24 pl-5 space-y-3">
+            <p className="primaryColor font-medium">Apple iPhone 12 Pro</p>
+            <h2 className="md:text-5xl text-3xl font-bold mb-2">
               The wait is on: <br className="hidden md:flex" /> iphone{" "}
               <br className="md:hidden" /> 12 max pro
             </h2>
-            <p class="primaryColor pb-5">
+            <p className="primaryColor pb-5">
               Last call for up to{" "}
               <span className="text-[24px]  text-black font-medium">32%</span>{" "}
               off!
@@ -32,7 +34,7 @@ const Sponsor = () => {
                 boxShadow:
                   "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
               }}
-              class="bg-white text-sm text-black flex transition-colors hover:text-white 0.3s ease-in-ou items-center gap-2 hover:bg-[#F62977] font-medium py-3 px-5"
+              className="bg-white text-sm text-black flex transition-colors hover:text-white 0.3s ease-in-ou items-center gap-2 hover:bg-[#F62977] font-medium py-3 px-5"
             >
               Buy Now <GoArrowRight size={19} />
             </button>
@@ -52,15 +54,17 @@ const Sponsor = () => {
             </p>
           </div>
         </div>
+        
+       
         {/* 2 */}
         <div className="flex gap-5">
           <div className="border rounded-full h-[64px] w-[64px] p-4">
-            <HiOutlineCurrencyDollar className="w-[30px] h-[30px]" />
+            <AiOutlineDollar className="w-[30px] h-[30px]" />
           </div>
           <div>
-            <h2 className="text-lg font-medium">Refund</h2>
+            <h2 className="text-lg font-medium">Support</h2>
             <p className="text-[15px] primaryColor">
-              Within 30 days for an exchange.
+            Within 30 days for an exchange.
             </p>
           </div>
         </div>

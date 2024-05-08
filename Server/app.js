@@ -31,6 +31,7 @@ async function run() {
     // Send a ping to confirm a successful connection
 
     const TShirtCollection = client.db("TShirtCollection").collection("AllTShirt");
+    const reviewsCollection = client.db("TShirtCollection").collection("reviews");
 
 app.get('/all_t_shirt', async(req , res) =>{
   const allTShirt = await TShirtCollection.find().toArray()
@@ -41,6 +42,10 @@ app.get('/all_t_shirt', async(req , res) =>{
 
 
 
+app.post('/reviews', async(req, res) =>{
+  const reviews = req.body
+  console.log(reviews);
+})
 
     await client.db("admin").command({ ping: 1 });
     console.log("MONGODB Connect successfully😊😊😊");
