@@ -9,11 +9,13 @@ import DropDown from "../../../Components/Design/DropDown";
 import { RxCross2 } from "react-icons/rx";
 import MobileDropDown from "../../../Components/Design/MobileDropDown";
 import { MdArrowForwardIos } from "react-icons/md";
+import useAuth from "../../../Components/Hooks/useAuth";
 const Navbar = () => {
+  const [letter, setLetter] = useState('')
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { user, logOut, loading } = false;
   const location = useLocation();
+  const { user, logOut, loading } = useAuth();
 
   const handleNav = () => {
     setNav(!nav);
@@ -33,7 +35,16 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [location.pathname]);
+  useEffect(() => {
+    if (user && user.email) {
+        const firstLetter = user.email.charAt(0).toUpperCase();
+        setLetter(firstLetter);
+    } else {
+        console.log("User email not available");
+    }
+}, [user]);
 
+console.log(letter); 
   const pageItems = [
     "FAQs",
     "Privacy & Policy",

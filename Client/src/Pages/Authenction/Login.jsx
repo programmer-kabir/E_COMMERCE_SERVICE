@@ -5,8 +5,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 // import useAuth from "../../Components/Hooks/useAuth";
 import { useForm } from "react-hook-form";
+import useAuth from "../../Components/Hooks/useAuth";
+import toast from 'react-hot-toast'
 const Login = () => {
-  const { singIn,setLoading } = false;
+  const { singIn,setLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -23,12 +25,13 @@ const Login = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    // singIn(data.email, data.password)
-    // .then((result) => {
-    //   const loggedUser = result.user;
-    //   navigate(from , {replace:true})
-    //   setLoading(false);
-    // });
+    singIn(data.email, data.password)
+    .then((result) => {
+      const loggedUser = result.user;
+      toast.success('login successful')
+      navigate(from , {replace:true})
+      setLoading(false);
+    });
   };
   return (
     <Content>
