@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Content from "../../Components/Content/Content";
 import useCategories from "../../Components/Hooks/useCategories";
 import useDatas from "../../Components/Hooks/useData";
 import ProductCard from "../../Components/Design/ProductCard";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTShirt } from "../Redux/TShirt/tShirtSlice";
 
-const Shop = () => {;
+const Shop = () => {
+  const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTShirt());
+  }, []);
+  // console.log(TShirts);
   const [selectedTShirt, setSelectedTShirt] = useState("footballClub");
   const [selectedName, setSelectedName] = useState(null);
-console.log(selectedName);
+// console.log(selectedName);
   const [categories] = useCategories();
   const [datas] = useDatas();
   // Football Club List
@@ -28,8 +36,8 @@ console.log(selectedName);
     setSelectedName(title);
   };
   // Filter data
-  const filterData = datas.filter(data => !selectedName || data.category === selectedName);
-  console.log(filterData);
+  const filterData = TShirts.filter(data => !selectedName || data.category === selectedName);
+  // console.log(filterData);
   return (
     <Content>
       <section className="mt-10 bg-white">

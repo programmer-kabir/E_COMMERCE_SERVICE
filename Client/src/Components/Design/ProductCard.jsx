@@ -7,12 +7,18 @@ const ProductCard = ({TShirt}) => {
     const [isHoveredEye, setIsHoveredEye] = useState(false);
     const [isHoveredCompare, setIsHoveredCompare] = useState(false);
   return (
-    <Link to={`../product-details/${TShirt._id}`}>
+    <div>
+<div className="product-card">
+      {/* <Link to={`/product/${product.id}`}>
+        <img src={product.image} alt={product.name} />
+        <h2>{product.name}</h2>
+      </Link> */}
+       <Link to={`../product-details/${TShirt._id}`}>
     
     <div className="relative overflow-hidden">
-      <a href="#" className="group relative block">
+      <div  className="group relative block">
         <div className="w-[261px] h-[305px]">
-          {" "}
+         
           {/* Fixed height for the image container */}
           <img
             src={TShirt.image[0]}
@@ -72,9 +78,12 @@ const ProductCard = ({TShirt}) => {
             </div>
           </div>
         </div>
-      </a>
+      </div>
     </div>
     </Link>
+    </div>
+   
+    </div>
   );
 };
 
