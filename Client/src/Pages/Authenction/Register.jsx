@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAuth from "../../Components/Hooks/useAuth";
+import { RegisterUser } from "../../Components/Apis/userApis";
 // import { RegisterUser } from "../../Components/Apis/userApis";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,10 +35,10 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        // updateUserProfile(name)
-        // .then((data) => {
-        //   RegisterUser(user);
-        // });
+        updateUserProfile(name)
+        .then((data) => {
+          RegisterUser(user);
+        });
         toast.success("Registration successful! You can now log in.");
         navigate('/')
       })

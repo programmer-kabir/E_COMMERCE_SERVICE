@@ -11,7 +11,7 @@ app.use(express.json());
 // TShirtBussiness
 // WXnaBIXl94LNzLWB
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri =
   "mongodb+srv://TShirtBussiness:WXnaBIXl94LNzLWB@cluster0.0i3pjbq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -30,22 +30,38 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
-    const TShirtCollection = client.db("TShirtCollection").collection("AllTShirt");
-    const reviewsCollection = client.db("TShirtCollection").collection("reviews");
+    const TShirtCollection = client
+      .db("TShirtCollection")
+      .collection("AllTShirt");
+    const usersCollection = client.db("TShirtCollection").collection("users");
+    const reviewsCollection = client
+      .db("TShirtCollection")
+      .collection("reviews");
 
-app.get('/all_t_shirt', async(req , res) =>{
-  const allTShirt = await TShirtCollection.find().toArray()
-  res.send(allTShirt)
-})
+    // User Collection
+    // post user
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await usersCollection.findOne(query);
+      if (existingUser) {
+        return res.send({ message: "user already exist" });
+      }
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
+    // Get all user
+    app.get("/users", async (req, res) => {
+      const user = await usersCollection.find().toArray();
+      res.send(user);
+    });
 
+    app.get("/all_t_shirt", async (req, res) => {
+      const allTShirt = await TShirtCollection.find().toArray();
+      res.send(allTShirt);
+    });
 
-
-
-
-app.post('/reviews', async(req, res) =>{
-  const reviews = req.body
-  console.log(reviews);
-})
+   
 
     await client.db("admin").command({ ping: 1 });
     console.log("MONGODB Connect successfully😊😊😊");

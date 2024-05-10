@@ -16,107 +16,102 @@ import Content from "../../Content/Content";
 
 const Banner = () => {
   return (
-    <div className="mt-16">
-      <Content>
-        <Swiper
-          spaceBetween={30}
-          effect={"fade"}
-          // navigation={true}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[EffectFade, Navigation, Pagination]}
-          className="mySwiper"
-        >
-          <SwiperSlide>
-            <div className="bg-white w-full mb-7 lg:flex items-center">
-              <div className="lg:w-[50%] space-y-5">
-                <p className="border-l-2 pl-3 text-[#525258] font-normal border-[#F62977]">
-                  Best Ear <br /> Headphones
-                </p>
-                <h2 className="lg:text-7xl text-4xl font-bold pb-7">
-                  Find Best <br /> Matley Sound.
-                </h2>
-                <button className="border border-[#080921] px-8 py-3 flex items-center gap-1 font-medium transition duration-300 ease-in-out hover:text-white hover:bg-[#080921]">
-                  <p>Shop Now</p>
-                  <GoArrowRight size={20} />
-                </button>
+    <div className="">
+      <Swiper
+        spaceBetween={30}
+        effect={"fade"}
+        // navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[EffectFade, Navigation, Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide className="pt-2">
+          <div className="bg-center bg-cover h-[550px]  bannerImage1">
+            <Content>
+              <div className="mx-auto  md:flex text-white gap-5 items-center ">
+                <div className="space-y-3 w-[100%]">
+                  <p className="border-l-2 pl-3  text-[#f0f0f0] font-semibold  border-[#F62977]">
+                    Premium Quality
+                  </p>
+                  <h2 className="md:text-[52px] leading-tight  text-3xl font-semibold">
+                    Our Team Jersey <br className="py-5" />
+                    Our Passion Our Pride
+                  </h2>
+                  <p className=" text-base pb-5 text-[#f1f1f1] font-medium">
+                    Where threads weave tales of triumph, In colors,
+                    <br />
+                    we find our unity. Jersey, the emblem of our shared journey.
+                  </p>
+                  <button
+                    style={{
+                      boxShadow:
+                        "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+                    }}
+                    className="secondaryButton px-12 py-3"
+                  >
+                    Buy Now
+                  </button>
+                </div>
+                <div className="">
+                  <img src="https://i.ibb.co/k3qKYb4/football.png" alt="" />
+                </div>
               </div>
+            </Content>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="pt-2">
+          <div className="bg-center  bg-cover h-[550px]  bannerImage2">
+            <Content>
+              <div className="mx-auto text-white  md:flex gap-5 items-center ">
+                <div className="space-y-3 w-[100%]">
+                  <p className="border-l-2 pl-3 text-[#f0f0f0] font-semibold border-[#F62977]">
+                    Premium Quality
+                  </p>
+                  <h2 className="md:text-[52px] text-white leading-tight  text-3xl font-semibold">
+                    Unfolding Pride <br className="py-5" />
+                    Unity Victory in Jersey
+                  </h2>
+                  <p className="text-[#f1f1f1] font-medium text-base pb-5">
+                    Crafted with Passion, Worn with Pride, Each Thread Tells
+                    <br />
+                    Our Journey's Stride. In Unity's Embrace, Victory Resides.
+                  </p>
+                  <button
+                    style={{
+                      boxShadow:
+                        "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+                    }}
+                    className="secondaryButton px-12 py-3"
+                  >
+                    Buy Now
+                  </button>
+                </div>
+                <div className="">
+                  <img src="https://i.ibb.co/180MgY5/cricket.png" alt="" />
+                </div>
+              </div>
+            </Content>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="pt-2">
+  <div className="bg-center bg-cover h-[550px] bannerImage3 relative">
+    <div className="absolute inset-0 flex flex-col items-center justify-center">
+      <div style={{boxShadow: "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px"}} className="bg-[#080921] space-y-3 px-28 py-10 rounded">
+      <p className="border-l-2 pl-3 text-[#f0f0f0] font-semibold border-[#F62977]">
+                    Premium Quality
+                  </p>
+        <h2 className="text-white leading-tight text-[50px] font-bold ">Style Speaks<br /> Wear Your Story Proud.</h2>
+        <p className="text-white font-medium ">Threads of passion, stitched with dreams,<br/>
+          Every fabric, a tale it seems.
+          In every wear, our spirit gleams.</p>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
 
-              <div className="md:hidden pt-5 flex justify-end">
-                <img
-                  className="bannerMobileImg"
-                  src="https://i.ibb.co/6mKWtD3/slider-1.png"
-                />
-              </div>
-              <div className="hidden md:flex">
-                <img
-                  className="bannerImg"
-                  src="https://i.ibb.co/6mKWtD3/slider-1.png"
-                />
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="bg-white w-full lg:flex items-center">
-              <div className="lg:w-[50%] space-y-5">
-                <p className="border-l-2 pl-3 text-[#525258] font-normal border-[#F62977]">
-                  Best Ear <br /> Headphones
-                </p>
-                <h2 className="lg:text-7xl text-4xl font-bold pb-7">
-                  Find your <br /> Beats Studio.
-                </h2>
-                <button className="border border-[#080921] px-8 py-3 flex items-center gap-1 font-medium transition duration-300 ease-in-out hover:text-white hover:bg-[#080921]">
-                  <p>Shop Now</p>
-                  <GoArrowRight size={20} />
-                </button>
-              </div>
-
-              <div className="md:hidden pt-5 flex justify-end">
-                <img
-                  className="bannerMobileImg"
-                  src="https://i.ibb.co/wKnz9mt/slider-2.png"
-                />
-              </div>
-              <div className="hidden md:flex">
-                <img
-                  className="bannerImg"
-                  src="https://i.ibb.co/wKnz9mt/slider-2.png"
-                />
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="bg-white w-full lg:flex items-center">
-              <div className="lg:w-[50%] space-y-5">
-                <p className="border-l-2 pl-3 text-[#525258] font-normal border-[#F62977]">
-                  Best Ear <br /> Fill Your Heart
-                </p>
-                <h2 className="lg:text-7xl text-4xl font-bold pb-7">
-                  Music To <br /> Beats Studio.
-                </h2>
-                <button className="border border-[#080921] px-8 py-3 flex items-center gap-1 font-medium transition duration-300 ease-in-out hover:text-white hover:bg-[#080921]">
-                  <p>Shop Now</p>
-                  <GoArrowRight size={20} />
-                </button>
-              </div>
-
-              <div className="md:hidden pt-5 flex justify-end">
-                <img
-                  className="bannerMobileImg"
-                  src="https://i.ibb.co/9HSDk0M/slider-3.png"
-                />
-              </div>
-              <div className="hidden md:flex">
-                <img
-                  className="bannerImg"
-                  src="https://i.ibb.co/9HSDk0M/slider-3.png"
-                />
-              </div>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </Content>
+      </Swiper>
     </div>
   );
 };

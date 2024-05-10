@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 body{
-    font-family: "Roboto", sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 .primaryColor{
-    color: #525258;
+    color: #242424;
 }
 .secondaryColor{
     color: #F62977;
@@ -31,7 +31,6 @@ body{
     background-color: #F62977;
     color: white;
     font-weight: 500;
-    padding: 12px 30px;
     transition: all 0.3s ease-in-out;
 }
 .secondaryButton:hover{

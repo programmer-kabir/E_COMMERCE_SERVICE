@@ -8,7 +8,6 @@ import useDatas from "../../Components/Hooks/useData";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTShirt } from "../Redux/TShirt/tShirtSlice";
 import SizeInch from "../../Components/Design/SizeInch";
-import Tabs from "../../Components/Design/Tabs";
 
 const SingleShop = () => {
   const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
@@ -20,7 +19,6 @@ const SingleShop = () => {
   const { id } = useParams();
 
   const DetailsData = TShirts.filter((TShirt) => TShirt._id === id);
-  console.log(DetailsData);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeSize, setActiveSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -70,13 +68,11 @@ const SingleShop = () => {
                 </div>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-3/5">
               <h2 className="text-3xl font-semibold">{TShirt.title}</h2>
               <div className="pt-5">
                 <SizeInch />
-                <h2 className="text-3xl pt-3 text-gray-700 font-semibold">
-                      Tk {TShirt?.price}
-                    </h2>
+                
                 <div className="pt-2 ">
                   <h2 className="text-base font-semibold">Size</h2>
                   <div className="flex items-center text-xl  gap-6 pt-2">
@@ -84,7 +80,7 @@ const SingleShop = () => {
                       <div
                         onClick={() => handleSizeSelect(size)}
                         key={index}
-                        className={`border p-2 shadow-sm rounded-md hover:bg-[#080921] hover:text-white w-[64px] h-[50px] text-center flex items-center justify-center ${
+                        className={`border p-2 shadow-sm rounded-md hover:bg-[#080921] hover:text-white w-[54px] h-[40px] text-center flex items-center justify-center ${
                           size === activeSize
                             ? "bg-[#F62977] hover:bg-[#F62977] text-white"
                             : ""
@@ -94,7 +90,19 @@ const SingleShop = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-3  w-full pt-5 pb-8">
+                  {/* ad */}
+                  <div className="py-4">
+              <div className="space-y-1 text-[15px] w-full grid grid-cols-2">
+                {TShirt.productDescription.map((description, index) => (
+                  <div key={index}>{description}</div>
+                ))}
+              </div>
+             
+            </div>
+            <h2 className="text-3xl  text-gray-700 font-semibold">
+                      Tk {TShirt?.price}
+                    </h2>
+                  <div className="flex border-b items-center gap-3  w-full pt-5 pb-8">
                         {/* Quantity input */}
                         <div className="flex items-center gap-1 border border-gray-500 rounded w-[130px]">
                           <input
@@ -133,20 +141,13 @@ const SingleShop = () => {
                         <FiHeart size={27} />
                         </button>
                       </div>
-                      <div className="py-4 flex primaryColor items-center gap-3 border-y ">
-                        <FiPhone size={33} />{" "}
-                        <p className="font-semibold text-xl">
-                          Call For Order : 09613-800800
-                        </p>
-                      </div>
+                      
                 </div>
               </div>
             </div>
             </div>
             <div>
-            <div className="w-full">
-                  <Tabs TShirt={TShirt} />
-                </div>
+            
             </div>
           </section>
         ))}
