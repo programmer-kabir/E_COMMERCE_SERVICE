@@ -38,6 +38,8 @@ const Shop = () => {
   // Filter data
   const filterData = TShirts.filter(data => !selectedName || data.category === selectedName);
   // console.log(filterData);
+
+  
   return (
     <Content>
       <section className="mt-10 bg-white">

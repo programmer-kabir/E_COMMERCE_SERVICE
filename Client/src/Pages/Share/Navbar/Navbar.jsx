@@ -11,7 +11,9 @@ import MobileDropDown from "../../../Components/Design/MobileDropDown";
 import { MdArrowForwardIos } from "react-icons/md";
 import useAuth from "../../../Components/Hooks/useAuth";
 import Loader from "../../../Components/Loader/Loader";
+import { useFavoriteCount } from "../../../Components/Context/FavoriteCountContext";
 const Navbar = () => {
+  const { favoriteCount } = useFavoriteCount();
   const [letter, setLetter] = useState("");
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,6 +21,7 @@ const Navbar = () => {
   const { user, logOut, loading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  
   const handleNav = () => {
     setNav(!nav);
   };
@@ -162,10 +165,12 @@ const Navbar = () => {
                   </>
                 )}
 
+                <div className="flex items-center">
                 <FaRegHeart
                   size={23}
                   className="primaryColor hover:text-black cursor-pointer"
-                />
+                /> <span className="text-white mb-6 flex text-[12px] font-bold items-center justify-center border bg-black rounded-full w-5 h-5 border-black">{favoriteCount}</span>
+                </div>
                 
                 <FiShoppingCart
                   size={23}

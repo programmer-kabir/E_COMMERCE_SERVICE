@@ -10,8 +10,12 @@ import { fetchTShirt } from "../Redux/TShirt/tShirtSlice";
 import SizeInch from "../../Components/Design/SizeInch";
 import Tabs from "../../Components/Design/Tabs";
 import DeliveryOption from "../../Components/Design/DeliveryOption";
+import toast from "react-hot-toast";
+import { useFavoriteCount } from "../../Components/Context/FavoriteCountContext";
 
 const SingleShop = () => {
+  const { favoriteCount, setFavoriteCount } = useFavoriteCount();
+
   const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +28,7 @@ const SingleShop = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeSize, setActiveSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleSizeSelect = (size) => {
     setActiveSize(size);
@@ -37,130 +42,156 @@ const SingleShop = () => {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+  useEffect(() => {
+    // Check if the current product is in favorites when component mounts
+    const storedIdsString = localStorage.getItem("favoriteShoes");
+    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+    setIsFavorite(storedIds.includes(id));
+  }, [id]);
+  const handleAddToFavorite = () => {
+  
+    const storedIdsString = localStorage.getItem("favoriteShoes");
+    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+  
+    if (!storedIds.includes(id)) {
+      storedIds.push(id);
+      localStorage.setItem("favoriteShoes", JSON.stringify(storedIds));
+      setIsFavorite(true);
+      setFavoriteCount(favoriteCount + 1); // Update favorite count
+      toast.success("Item added to favorites");
+    } else {
+      toast.error("Item is already a favorite");
+    }
+  };
   return (
     <Content>
       <section className="pt-7 flex gap-7">
-       <div className="w-3/4  ">
-       {DetailsData.map((TShirt) => (
-          <section key={TShirt._id}>
-            <div className="lg:flex  justify-start gap-3">
-              <div className="md:w-[60%] px-5 text-start w-full overflow-hidden">
-                <div className=" flex flex-col justify-center ">
-                  <div className="  md:w-full px-5 mx-auto">
-                    <img
-                      className="h-[420px]  w-full mx-auto rounded-md transition-transform duration-300 transform hover:scale-125"
-                      src={TShirt.image[selectedImageIndex]}
-                      alt=""
-                    />
+        <div className="w-3/4  ">
+          {DetailsData.map((TShirt) => (
+            <section key={TShirt._id}>
+              <div className="lg:flex  justify-start gap-3">
+                <div className="md:w-[60%] px-5 text-start w-full overflow-hidden">
+                  <div className=" flex flex-col justify-center ">
+                    <div className="  md:w-full px-5 mx-auto">
+                      <img
+                        className="h-[420px]  w-full mx-auto rounded-md transition-transform duration-300 transform hover:scale-125"
+                        src={TShirt.image[selectedImageIndex]}
+                        alt=""
+                      />
+                    </div>
+                    <div className="flex items-center justify-center md:w-full gap-1 pt-2">
+                      {TShirt.image.map((data, index) => (
+                        <div
+                          key={index}
+                          onClick={() => setSelectedImageIndex(index)}
+                        >
+                          <img
+                            className={`w-[90px] h-[90px] border rounded-md p-1 ${
+                              selectedImageIndex === index
+                                ? "border-gray-700"
+                                : ""
+                            }`}
+                            src={data}
+                            alt=""
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex items-center justify-center md:w-full gap-1 pt-2">
-                    {TShirt.image.map((data, index) => (
-                      <div
-                        key={index}
-                        onClick={() => setSelectedImageIndex(index)}
-                      >
-                        <img
-                          className={`w-[90px] h-[90px] border rounded-md p-1 ${
-                            selectedImageIndex === index
-                              ? "border-gray-700"
+                </div>
+                <div className="w-3/5">
+                  <h2 className="text-3xl  text-gray-700 font-semibold">
+                    Tk {TShirt?.price}
+                  </h2>
+                  <div className="space-y-3 pt-3">
+                    <h2 className="text-3xl font-semibold">{TShirt.title}</h2>
+
+                    <h2 className="text-base font-semibold">Size</h2>
+                    <div className="flex items-center text-xl  gap-6">
+                      {TShirt.Size.map((size, index) => (
+                        <div
+                          onClick={() => handleSizeSelect(size)}
+                          key={index}
+                          className={`border p-2 shadow-sm rounded-md hover:bg-[#080921] hover:text-white w-[54px] h-[40px] text-center flex items-center justify-center ${
+                            size === activeSize
+                              ? "bg-[#F62977] hover:bg-[#F62977] text-white"
                               : ""
                           }`}
-                          src={data}
-                          alt=""
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="w-3/5">
-              <h2 className="text-3xl  text-gray-700 font-semibold">
-                      Tk {TShirt?.price}
-                    </h2>
-               <div className="space-y-3 pt-3">
-               <h2 className="text-3xl font-semibold">{TShirt.title}</h2>
-                
-                  
-                <h2 className="text-base font-semibold">Size</h2>
-                <div className="flex items-center text-xl  gap-6">
-                  {TShirt.Size.map((size, index) => (
-                    <div
-                      onClick={() => handleSizeSelect(size)}
-                      key={index}
-                      className={`border p-2 shadow-sm rounded-md hover:bg-[#080921] hover:text-white w-[54px] h-[40px] text-center flex items-center justify-center ${
-                        size === activeSize
-                          ? "bg-[#F62977] hover:bg-[#F62977] text-white"
-                          : ""
-                      }`}
-                    >
-                      {size}
+                        >
+                          {size}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                {/* ad */}
-                <p className="text-justify primaryColor">
-                  Elevate your game with the Real Madrid 2024 Half Sleeve
-                  Jersey, boasting unparalleled quality and style. Featuring
-                  meticulous logo embroidery, this jersey showcases the
-                  club's emblem with pride. Crafted from premium mesh
-                  fabric, it ensures optimal breathability and comfort on
-                  and off the field. Experience the perfect blend of
-                  performance and heritage in every stitch.
-                </p>
-                <div className="flex border-b items-center gap-3  w-full pt-7 pb-8">
-                  {/* Quantity input */}
-                  <div className="flex items-center gap-1 border border-gray-500 rounded w-[130px]">
-                    <input
-                      type="text"
-                      id="Quantity"
-                      value={quantity}
-                      className="h-10 outline-none w-10 pl-5 border-gray-200 text-center"
-                      readOnly
-                    />
-                    <button
-                      type="button"
-                      onClick={handleDecrement}
-                      className="w-7 h-7 mr-2 ml-3 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 transition hover:opacity-75"
-                    >
-                      &minus;
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleIncrement}
-                      className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 transition hover:opacity-75"
-                    >
-                      +
-                    </button>
+                    {/* ad */}
+                    <p className="text-justify primaryColor">
+                      Elevate your game with the Real Madrid 2024 Half Sleeve
+                      Jersey, boasting unparalleled quality and style. Featuring
+                      meticulous logo embroidery, this jersey showcases the
+                      club's emblem with pride. Crafted from premium mesh
+                      fabric, it ensures optimal breathability and comfort on
+                      and off the field. Experience the perfect blend of
+                      performance and heritage in every stitch.
+                    </p>
+                    <div className="flex border-b items-center gap-3  w-full pt-7 pb-8">
+                      {/* Quantity input */}
+                      <div className="flex items-center gap-1 border border-gray-500 rounded w-[130px]">
+                        <input
+                          type="text"
+                          id="Quantity"
+                          value={quantity}
+                          className="h-10 outline-none w-10 pl-5 border-gray-200 text-center"
+                          readOnly
+                        />
+                        <button
+                          type="button"
+                          onClick={handleDecrement}
+                          className="w-7 h-7 mr-2 ml-3 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 transition hover:opacity-75"
+                        >
+                          &minus;
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleIncrement}
+                          className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 transition hover:opacity-75"
+                        >
+                          +
+                        </button>
+                      </div>
+                      {/* Add to cart button */}
+                      <button
+                        onClick={() => handleAddToCart(TShirt._id)}
+                        className="uppercase flex items-center gap-2  primaryButton rounded-sm font-semibold justify-center w-[45%]"
+                      >
+                        <MdOutlineShoppingBag size={24} color="white" />
+                        ADD to cart
+                      </button>
+                      {/* Heart icon */}
+                      <div className=" ">
+                        <button
+                          onClick={handleAddToFavorite}
+                          className={
+                            isFavorite
+                              ? "border h-[42px] w-[40px] flex items-center justify-center bg-[#F62977] text-white transition duration-300"
+                              : "border border-gray-400 h-[42px] w-[40px] flex items-center justify-center text-black transition duration-300 hover:bg-[#F62977] hover:text-white hover:border-none"
+                          }
+                          
+                        >
+                          <FiHeart size={25} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  {/* Add to cart button */}
-                  <button
-                    onClick={() => handleAddToCart(DetailsShoes._id)}
-                    className="uppercase flex items-center gap-2  primaryButton rounded-sm font-semibold justify-center w-[45%]"
-                  >
-                    <MdOutlineShoppingBag size={24} color="white" />
-                    ADD to cart
-                  </button>
-                  {/* Heart icon */}
-                  <button
-                    onClick={() => handleAddToFavorite(DetailsShoes._id)}
-                  >
-                    <FiHeart size={27} />
-                  </button>
                 </div>
-             
-               </div>
-                
               </div>
-            </div>
-            <div>
-              <Tabs TShirt={TShirt} />
-            </div>
-          </section>
-        ))}
-       </div>
-       <div className="w-1/4">
-<DeliveryOption />
-       </div>
+              <div>
+                <Tabs TShirt={TShirt} />
+              </div>
+            </section>
+          ))}
+        </div>
+        <div className="w-1/4">
+          <DeliveryOption />
+        </div>
       </section>
     </Content>
   );
