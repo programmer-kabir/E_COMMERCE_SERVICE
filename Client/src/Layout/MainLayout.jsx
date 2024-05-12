@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../Pages/Share/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../Pages/Share/Footer/Footer";
@@ -7,6 +7,7 @@ import Loader from "../Components/Loader/Loader";
 
 const MainLayout = () => {
   const { loading } = useAuth();
+ 
   return (
     <>
       {loading ? (

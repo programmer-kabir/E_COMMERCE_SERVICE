@@ -11,24 +11,22 @@ import SizeInch from "../../Components/Design/SizeInch";
 import Tabs from "../../Components/Design/Tabs";
 import DeliveryOption from "../../Components/Design/DeliveryOption";
 import toast from "react-hot-toast";
-import { useFavoriteCount } from "../../Components/Context/FavoriteCountContext";
+import { Tooltip } from "react-tooltip";
+import { getData } from "../../Components/Context/GetAllLocalStoargeItem";
 
 const SingleShop = () => {
-  const { favoriteCount, setFavoriteCount } = useFavoriteCount();
-
+  const { id } = useParams();
   const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTShirt());
   }, []);
   // console.log(TShirts);
-  const { id } = useParams();
 
   const DetailsData = TShirts.filter((TShirt) => TShirt._id === id);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeSize, setActiveSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleSizeSelect = (size) => {
     setActiveSize(size);
@@ -42,27 +40,33 @@ const SingleShop = () => {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+  const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     // Check if the current product is in favorites when component mounts
-    const storedIdsString = localStorage.getItem("favoriteShoes");
+    const storedIdsString = localStorage.getItem("favoriteTShirt");
     const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
     setIsFavorite(storedIds.includes(id));
   }, [id]);
-  const handleAddToFavorite = () => {
-  
-    const storedIdsString = localStorage.getItem("favoriteShoes");
-    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+
+
+  const [storedIds,setId] = useState("")
+  const handleAddToFavorite = (id) => {
+    
+      const storedIdsString = localStorage.getItem("favoriteTShirt");
+      const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+      setId(storedIds)
   
     if (!storedIds.includes(id)) {
       storedIds.push(id);
-      localStorage.setItem("favoriteShoes", JSON.stringify(storedIds));
+      localStorage.setItem("favoriteTShirt", JSON.stringify(storedIds));
       setIsFavorite(true);
-      setFavoriteCount(favoriteCount + 1); // Update favorite count
-      toast.success("Item added to favorites");
+      toast.success("Item is added");
+      getData()
     } else {
       toast.error("Item is already a favorite");
     }
-  };
+  }
+  
   return (
     <Content>
       <section className="pt-7 flex gap-7">
@@ -167,17 +171,24 @@ const SingleShop = () => {
                       </button>
                       {/* Heart icon */}
                       <div className=" ">
-                        <button
-                          onClick={handleAddToFavorite}
-                          className={
-                            isFavorite
-                              ? "border h-[42px] w-[40px] flex items-center justify-center bg-[#F62977] text-white transition duration-300"
-                              : "border border-gray-400 h-[42px] w-[40px] flex items-center justify-center text-black transition duration-300 hover:bg-[#F62977] hover:text-white hover:border-none"
-                          }
-                          
+                        <a
+                          data-tooltip-id="favorite"
+                          data-tooltip-content="Add To Wishlist"
+                          data-tooltip-place="top"
                         >
-                          <FiHeart size={25} />
-                        </button>
+                          <Tooltip id="favorite" />
+
+                          <button
+                            onClick={() => handleAddToFavorite(TShirt._id)}
+                            className={
+                              isFavorite
+                                ? "border h-[42px] w-[40px] flex items-center justify-center bg-[#F62977] text-white transition duration-300"
+                                : "border border-gray-400 h-[42px] w-[40px] flex items-center justify-center text-black transition duration-300 hover:bg-[#F62977] hover:text-white hover:border-none"
+                            }
+                          >
+                            <FiHeart size={25} />
+                          </button>
+                        </a>
                       </div>
                     </div>
                   </div>

@@ -7,6 +7,7 @@ import Register from "../Pages/Authenction/Register";
 import Shop from "../Pages/Shop/Shop";
 import SingleShop from "../Pages/Shop/SingleShop";
 import Loader from "../Components/Loader/Loader";
+import Wishlist from "../Pages/Wishlist/wishlist";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
       },
       {
         path: "/shop",
