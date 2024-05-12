@@ -44,11 +44,11 @@ const Tabs = ({ TShirt }) => {
   // console.log(rating,reviewsNotes);
   const handleReviews = () => {
     const userReviews = {
-         productId : TShirt._id,
-         ratting : rating,
-         reviews : reviewsNotes
-    }
-    
+      productId: TShirt._id,
+      ratting: rating,
+      reviews: reviewsNotes,
+    };
+
     console.log(userReviews);
   };
   return (
@@ -79,16 +79,6 @@ const Tabs = ({ TShirt }) => {
               <span className="text-base">
                 {/* ({DetailsShoes?.reviews?.length}) */}sf
               </span>
-            </button>
-            <button
-              className={`shrink-0  px-1 pb-4 font-semibold ${
-                activeTab === "question"
-                  ? "border-[#F62977] border-b-2 primaryColor"
-                  : "border-gray-300 text-gray-500"
-              }`}
-              onClick={() => changeTab("question")}
-            >
-              Question & Answer
             </button>
           </nav>
           {activeTab === "description" && (
@@ -179,35 +169,6 @@ const Tabs = ({ TShirt }) => {
                       Add
                     </button>
                   </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === "question" && (
-            <div className="py-4">
-              <h2 className="font-semibold pb-5">
-                Questions About This Product (0)
-              </h2>
-              <div className="overflow-hidden  rounded p-2 border border-gray-200 shadow-sm ">
-                <textarea
-                  id="questionNotes"
-                  className="w-full outline-none pt-2 text-base resize-none border-none align-top "
-                  rows="4"
-                  value={questionNotes}
-                  onChange={(e) => setQuestionNotes(e.target.value)}
-                  placeholder="Ask Any Question to Seller..."
-                ></textarea>
-
-                <div className="flex border-t items-center px-5 py-2 justify-between gap-2 bg-white p-2">
-                  <p className=" text-start">
-                    Your question should not contain contact information such as
-                    email, phone or external web links. Visit "My Orders"
-                    <br /> if you have questions about your previous order.
-                  </p>
-                  <button type="button" className="secondaryButton rounded-md">
-                    ASK QUESTION
-                  </button>
                 </div>
               </div>
             </div>
