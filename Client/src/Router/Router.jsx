@@ -8,6 +8,9 @@ import Shop from "../Pages/Shop/Shop";
 import SingleShop from "../Pages/Shop/SingleShop";
 import Loader from "../Components/Loader/Loader";
 import Wishlist from "../Pages/Wishlist/wishlist";
+import Dashboard from "../Layout/Dashboard";
+import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
+import MyProfile from "../Pages/Dashboard/UserDashboard/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -42,8 +45,22 @@ const router = createBrowserRouter([
       {
         path: "/product-details/:id",
         element: <SingleShop />,
-        loader: ({ params }) => `http://localhost:5173/product-details/${params.id}`,
-
+        loader: ({ params }) =>
+          `http://localhost:5173/product-details/${params.id}`,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "my_orders",
+        element: <MyOrder />,
+      },
+      {
+        path: "my_profile",
+        element: <MyProfile />,
       },
     ],
   },

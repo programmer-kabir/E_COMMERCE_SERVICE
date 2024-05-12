@@ -50,6 +50,20 @@ async function run() {
       const result = await usersCollection.insertOne(user);
       res.send(result);
     });
+    // Update user data
+    app.put("/users", async (req, res) => {
+      const updatedUserData = req.body;
+      console.log(updatedUserData);
+      const query = { email: updatedUserData.email };
+      const existingUser = await usersCollection.findOne(query);
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const result = await usersCollection.updateOne(query, {
+        $set: updatedUserData,
+      });
+      res.send(result);
+    });
     // Get all user
     app.get("/users", async (req, res) => {
       const user = await usersCollection.find().toArray();

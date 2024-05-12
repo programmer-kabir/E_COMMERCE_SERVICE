@@ -4,7 +4,7 @@ export const fetchUser = createAsyncThunk("class/fetchUser", async () => {
   const res = await axios.get("http://localhost:5000/users");
   return res.data;
 });
-const shoesSlice = createSlice({
+const userSlice = createSlice({
   name: "users",
   initialState: {
     isLoading: false,
@@ -28,4 +28,4 @@ const shoesSlice = createSlice({
   },
 });
 
-export default shoesSlice.reducer;
+export default userSlice.reducer;

@@ -154,9 +154,10 @@ const Navbar = () => {
               </div>
               <div className="">
                 {user ? (
+                  <Link  to="/dashboard/my_profile">
                   <div className="rounded-full flex  justify-center items-center w-8 h-8 text-center p-1 font-semibold border-black border primaryColor">
                     <p>{letter}</p>
-                  </div>
+                  </div></Link>
                 ) : (
                   <>
                     <Link to={"/login"}>
