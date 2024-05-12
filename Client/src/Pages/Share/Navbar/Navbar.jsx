@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { HiOutlineMenuAlt2, HiOutlineMenuAlt3 } from "react-icons/hi";
-import { FaCodeCompare, FaMinus } from "react-icons/fa6";
+import { Link, useLocation } from "react-router-dom";
+import {  HiOutlineMenuAlt3 } from "react-icons/hi";
+import { FaArrowRightToBracket, FaCodeCompare } from "react-icons/fa6";
 import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import logo from "../../../assets/LOGO/logo.svg";
@@ -17,9 +17,13 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { user, logOut, loading } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleNav = () => {
     setNav(!nav);
+  };
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
   useEffect(() => {
     const handleScroll = () => {
@@ -119,17 +123,30 @@ const Navbar = () => {
                 >
                   Shop
                 </Link>
-                <DropDown name="Pages" items={pageItems} />
                 <DropDown name="Category" items={categoriesItems} />
                 <DropDown name="Brand" items={brandItems} />
-                <DropDown name="Store" items={storeItems} />
               </div>
 
               <div className="hidden md:flex  items-center space-x-5">
-                <FiSearch
+                {/* <FiSearch
                   size={22}
                   className="primaryColor hover:text-black cursor-pointer"
+                /> */}
+                 <div className="w-64 py-2 flex items-center gap-3 bg-gray-200 rounded-full">
+                {" "}
+                <div className="pl-4">
+                  <FiSearch className="primaryColor" size={23} />
+                </div>
+                <input
+                  type="search"
+                  name=""
+                  placeholder="Search"
+                  id=""
+                  className={`outline-none primaryColor bg-transparent ${
+                    nav ? "hidden" : ""
+                  }`}
                 />
+              </div>
                 {user ? (
                   <div className="rounded-full flex  justify-center items-center w-8 h-8 text-center p-1 font-semibold border-black border primaryColor">
                     <p>{letter}</p>
@@ -138,7 +155,7 @@ const Navbar = () => {
                   <>
                     <Link to={"/login"}>
                       <FiUser
-                        size={22}
+                        size={23}
                         className="primaryColor hover:text-black cursor-pointer"
                       />
                     </Link>
@@ -146,19 +163,17 @@ const Navbar = () => {
                 )}
 
                 <FaRegHeart
-                  size={22}
+                  size={23}
                   className="primaryColor hover:text-black cursor-pointer"
                 />
-                <FaCodeCompare
-                  size={22}
-                  className="primaryColor hover:text-black cursor-pointer rotate-90"
-                />
+                
                 <FiShoppingCart
-                  size={22}
+                  size={23}
+                  onClick={toggleSidebar}
                   className="primaryColor hover:text-black cursor-pointer"
                 />
               </div>
-
+              
               <div onClick={handleNav} className="block  md:hidden">
                 {nav ? (
                   <p />
@@ -217,6 +232,29 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+            <div className="flex justify-end">
+            {isSidebarOpen && (
+        <div className="fixed top-0 bottom-0 flex justify-end left-0 right-0 bg-black bg-opacity-50 z-50 transition-opacity duration-500 ease-in-out">
+          <div
+            className={`w-[480px] overflow-auto p-5 bg-white h-full transform transition-transform duration-500 ease-in-out ${
+              isSidebarOpen ? "translate-x-0" : "translate-x-full"
+            }`}
+          >
+            <div className="flex justify-between">
+              <h2 className="text-base font-medium">SHOPPING CART</h2>
+              <button
+                className="flex items-center gap-2 hover:text-blue-500"
+                onClick={toggleSidebar}
+              >
+                <span className="text-base">close</span>
+                <FaArrowRightToBracket size={20} />
+              </button>
+            </div>
+            <div className="pt-4 px-2">{/* Your cart content here */}</div>
+          </div>
+        </div>
+      )}
+      </div>
           </div>
         </nav>
     </div>

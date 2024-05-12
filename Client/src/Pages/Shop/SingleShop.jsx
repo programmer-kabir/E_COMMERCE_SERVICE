@@ -77,7 +77,7 @@ const SingleShop = () => {
               <h2 className="text-3xl  text-gray-700 font-semibold">
                       Tk {TShirt?.price}
                     </h2>
-               <div className="space-y-3">
+               <div className="space-y-3 pt-3">
                <h2 className="text-3xl font-semibold">{TShirt.title}</h2>
                 
                   
