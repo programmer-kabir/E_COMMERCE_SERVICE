@@ -48,6 +48,10 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           `http://localhost:5173/product-details/${params.id}`,
       },
+      {
+        path: "checkout",
+        element: <CheckOut />,
+      },
     ],
   },
   {
@@ -62,10 +66,7 @@ const router = createBrowserRouter([
         path: "my_profile",
         element: <MyProfile />,
       },
-      {
-        path: "checkout",
-        element: <CheckOut />,
-      },
+      
     ],
   },
 ]);

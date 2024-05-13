@@ -9,7 +9,7 @@ const PriceInfo = ({subtotal,length}) => {
     delivery = 150 + (length - 1) * 150;
   }
   
-  console.log(delivery);
+
   // const delivery = 150;
     const total = subtotal + delivery;
     let discount = 0;

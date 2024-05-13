@@ -148,10 +148,13 @@ const MyOrder = () => {
                   ))}
                   <PriceInfo subtotal={subtotal} length={cartTShirts.length} />
                   <div className="flex justify-end pt-7">
-                    <Link to='../checkout'>
-                    <button className="secondaryButton rounded-md font-medium w-[250px] py-3">
-                      Proceed to checkout
-                    </button></Link>
+                    
+                    <Link to={{ pathname: '/checkout', state: { cartTShirts } }}>
+  <button className="secondaryButton rounded-md font-medium w-[250px] py-3">
+    Proceed to checkout
+  </button>
+</Link>
+
                   </div>
                 </section>
               )}
