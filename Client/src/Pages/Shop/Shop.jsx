@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Content from "../../Components/Content/Content";
 import useCategories from "../../Components/Hooks/useCategories";
@@ -6,6 +6,7 @@ import useDatas from "../../Components/Hooks/useData";
 import ProductCard from "../../Components/Design/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTShirt } from "../Redux/TShirt/tShirtSlice";
+import { WishListDataContext } from "../../Components/Context/WishlistData";
 
 const Shop = () => {
   const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
@@ -16,18 +17,17 @@ const Shop = () => {
   // console.log(TShirts);
   const [selectedTShirt, setSelectedTShirt] = useState("footballClub");
   const [selectedName, setSelectedName] = useState(null);
-// console.log(selectedName);
+  // console.log(selectedName);
   const [categories] = useCategories();
-  const [datas] = useDatas();
   // Football Club List
   const footballClubs = categories.filter(
     (item) => item.category === "footballClub"
   );
-// Football Country List
+  // Football Country List
   const footballCountry = categories.filter(
     (item) => item.category === "footballCountry"
   );
-// Category 
+  // Category
   const handleCategoryChange = (category) => {
     setSelectedTShirt(category);
   };
@@ -36,10 +36,11 @@ const Shop = () => {
     setSelectedName(title);
   };
   // Filter data
-  const filterData = TShirts.filter(data => !selectedName || data.category === selectedName);
+  const filterData = TShirts.filter(
+    (data) => !selectedName || data.category === selectedName
+  );
   // console.log(filterData);
 
-  
   return (
     <Content>
       <section className="mt-10 bg-white">
@@ -112,26 +113,17 @@ const Shop = () => {
                       ))}
                     </div>
                   )}
-                  {/* {selectedTShirt === "footballCountry" && (
-                    <div className="flex flex-col gap-2 pl-5 py-2">
-                      {footballCountry.map((category, index) => (
-                        <div className="cursor-pointer " key={index}                           onClick={() => handleNameCollect(category.title)}
-                        >
-                          {category.title}
-                        </div>
-                      ))}
-                    </div>
-                  )} */}
+                  
                 </div>
               </div>
             </div>
           </div>
 
-        <div className="grid grid-cols-3 gap-4">
-          {filterData.map((TShirt) => (
-                  <ProductCard key={TShirt._id} TShirt={TShirt} />
-                ))}
-        </div>
+          <div className="grid grid-cols-3 gap-4">
+            {filterData.map((TShirt) => (
+              <ProductCard key={TShirt._id} TShirt={TShirt} />
+            ))}
+          </div>
         </div>
       </section>
     </Content>

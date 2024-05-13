@@ -1,24 +1,20 @@
-import React from "react";
-import PriceInfo from "../../../Components/Design/PriceInfo";
+import React from 'react'
 
-const MyOrder = () => {
-  const discount = 100.25;
-  const subtotal = 100.25;
-  const vatRate = 0.5;
-  const discountedTotal = 0.5;
+const PriceInfo = ({subtotal}) => {
+    const vatRate = 0.05;
+    const total = subtotal * (1 + vatRate);
+    let discount = 0;
+  if (total >= 3000) {
+    discount = 150;
+  } else if (total >= 6000) {
+    discount = 300;
+  } else if (total >= 9000) {
+    discount = 500;
+  }
+  const discountedTotal = total - discount;
   return (
-    <div className="px-5 pt-7 ">
-      <div className="mt-40 border-b-2 pb-7 flex px-10 items-center flex-col justify-center ">
-        <img
-          className="p-2"
-          src="https://i.ibb.co/8XZwct2/empty-cart.png"
-          alt=""
-        />
-        <p className="py-5 font-medium ">Your Cart is empty</p>
-        <button className="primaryButton w-[140px]">Go To Shop</button>
-      </div>
-      {/* {booked.length > 0 && ( */}
-        {/* <div className="mt-8 flex justify-end border-t border-gray-400 pt-8">
+    <div>
+         <div className="mt-8 flex justify-end border-t border-gray-400 pt-8">
           <div className="w-screen max-w-lg space-y-4">
             <dl className="space-y-0.5 text-sm text-gray-700">
               <div className="flex justify-between">
@@ -73,11 +69,9 @@ const MyOrder = () => {
               )}
             </div>
           </div>
-        </div> */}
-        <PriceInfo subtotal={5000}/>
-      {/* )}{" "} */}
+        </div>
     </div>
-  );
-};
+  )
+}
 
-export default MyOrder;
+export default PriceInfo

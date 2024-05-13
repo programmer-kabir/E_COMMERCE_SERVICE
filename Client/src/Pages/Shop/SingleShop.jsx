@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AiFillStar } from "react-icons/ai";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { FiHeart, FiPhone } from "react-icons/fi";
+import { FiHeart } from "react-icons/fi";
 import Content from "../../Components/Content/Content";
-import useDatas from "../../Components/Hooks/useData";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTShirt } from "../Redux/TShirt/tShirtSlice";
-import SizeInch from "../../Components/Design/SizeInch";
 import Tabs from "../../Components/Design/Tabs";
 import DeliveryOption from "../../Components/Design/DeliveryOption";
 import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
-import { getData } from "../../Components/Context/GetAllLocalStoargeItem";
+import { WishListDataContext } from "../../Components/Context/WishlistData";
 
 const SingleShop = () => {
+  const { favoriteTShirtCount, setFavoriteTShirtCount } = useContext(WishListDataContext);
   const { id } = useParams();
   const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTShirt());
   }, []);
-  // console.log(TShirts);
 
   const DetailsData = TShirts.filter((TShirt) => TShirt._id === id);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -48,25 +45,20 @@ const SingleShop = () => {
     setIsFavorite(storedIds.includes(id));
   }, [id]);
 
-
-  const [storedIds,setId] = useState("")
   const handleAddToFavorite = (id) => {
-    
-      const storedIdsString = localStorage.getItem("favoriteTShirt");
-      const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
-      setId(storedIds)
-  
+    const storedIdsString = localStorage.getItem("favoriteTShirt");
+    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
     if (!storedIds.includes(id)) {
       storedIds.push(id);
       localStorage.setItem("favoriteTShirt", JSON.stringify(storedIds));
       setIsFavorite(true);
+      setFavoriteTShirtCount((pre) => pre + 1);
       toast.success("Item is added");
-      getData()
     } else {
       toast.error("Item is already a favorite");
     }
-  }
-  
+  };
+
   return (
     <Content>
       <section className="pt-7 flex gap-7">

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { FaArrowRightToBracket, FaCodeCompare } from "react-icons/fa6";
@@ -11,9 +11,9 @@ import MobileDropDown from "../../../Components/Design/MobileDropDown";
 import { MdArrowForwardIos } from "react-icons/md";
 import useAuth from "../../../Components/Hooks/useAuth";
 import Loader from "../../../Components/Loader/Loader";
-import { getData } from "../../../Components/Context/GetAllLocalStoargeItem";
+import { WishListDataContext } from "../../../Components/Context/WishlistData";
 const Navbar = () => {
-  const [favoriteCount, setFavoriteCount] = useState(0);
+  const {favoriteTShirtCount, setFavoriteTShirtCount}= useContext(WishListDataContext);
 
   const [letter, setLetter] = useState("");
   const [nav, setNav] = useState(false);
@@ -21,12 +21,8 @@ const Navbar = () => {
   const location = useLocation();
   const { user, logOut, loading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const data = getData();
-  useEffect(() => {
-    const data = getData();
-    setFavoriteCount(data);
-  }, [getData]);
- 
+  const data = false;
+
   const handleNav = () => {
     setNav(!nav);
   };
@@ -61,19 +57,7 @@ const Navbar = () => {
     }
   }, [user]);
 
-  const pageItems = [
-    "FAQs",
-    "Privacy & Policy",
-    "Terms & Conditions",
-    "Login",
-    "Register",
-    "Forgot Password",
-    "My Cart",
-    "My Wishlist",
-    "My Compare",
-    "Checkout",
-    "Error 404",
-  ];
+  
 
   const categoriesItems = [
     "Ipad Phone & Tablets",
@@ -176,7 +160,7 @@ const Navbar = () => {
                   className="primaryColor  hover:text-black cursor-pointer"
                 />{" "}
                 <span className="text-white  absolute mb-5 ml-3 flex text-[12px] font-bold items-center justify-center border-2 border-white bg-black rounded-full w-5 h-5 ">
-                  {favoriteCount?.length}
+                  {favoriteTShirtCount}
                 </span>
               </Link>
               <div className="flex relative items-center">
@@ -186,7 +170,7 @@ const Navbar = () => {
                   className="primaryColor  hover:text-black cursor-pointer"
                 />{" "}
                 <span className="text-white  absolute mb-5 ml-3 flex text-[12px] font-bold items-center justify-center border-2 border-white bg-black rounded-full w-5 h-5 ">
-                  {favoriteCount?.length}
+                  {/* {favoriteCount?.length} */}1
                 </span>
               </div>
 
@@ -242,7 +226,6 @@ const Navbar = () => {
                   <Link className="w-full pb-2 border-b text-start  text-black hover:text-[#F62977] ">
                     Shop
                   </Link>
-                  <MobileDropDown name="Pages" items={pageItems} />
                   <MobileDropDown name="Category" items={categoriesItems} />
                   <MobileDropDown name="Brand" items={brandItems} />
                   <MobileDropDown name="Store" items={storeItems} />
@@ -275,7 +258,7 @@ const Navbar = () => {
                       <FaArrowRightToBracket size={20} />
                     </button>
                   </div>
-                  <div className="mt-40 border-b-2 pb-7 flex px-10 items-center flex-col justify-center ">
+                  {/* <div className="mt-40 border-b-2 pb-7 flex px-10 items-center flex-col justify-center ">
                     <img
                       className="p-2"
                       src="https://i.ibb.co/8XZwct2/empty-cart.png"
@@ -343,7 +326,7 @@ const Navbar = () => {
                 </div>
               </div>
               </div>
-            )}
+            )} */}
                 </div>
               </div>
             )}
