@@ -22,7 +22,7 @@ const Sidebar = () => {
   return (
     <div className="flex">
       <div
-        className={`bg-white border-r shadow-lg md:w-1/4  w-[70%] h-screen fixed md:block ${
+        className={`bg-white border-r shadow-lg md:w-1/4 fixed  w-[70%] h-screen md:block ${
           isSidebarOpen ? "block" : "hidden"
         }`}
       >
@@ -98,6 +98,17 @@ const Sidebar = () => {
               
             </div>
           )}
+          <NavLink
+            to="checkout"
+            className={({ isActive }) =>
+              `font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center  gap-2 px-5 capitalize ${
+                isActive ? activeLinkClass : ""
+              }`
+            }
+          >
+            <span>Check out</span>
+            <FaArrowRightToBracket className="w-5 h-5" />
+          </NavLink>
           <NavLink
             to="/"
             className={({ isActive }) =>

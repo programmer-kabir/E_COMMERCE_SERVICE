@@ -1,12 +1,16 @@
 import React from 'react'
 
 const PriceInfo = ({subtotal,length}) => {
-  let delivery=0;
-  if(length==1){
-    delivery=150
+  let delivery = 0;
+
+  if (length === 1) {
+    delivery = 150;
+  } else if (length > 1) {
+    delivery = 150 + (length - 1) * 150;
   }
-  console.log(length);
-    // const delivery = 150;
+  
+  console.log(delivery);
+  // const delivery = 150;
     const total = subtotal + delivery;
     let discount = 0;
   if (total >= 3000) {
@@ -21,29 +25,29 @@ const PriceInfo = ({subtotal,length}) => {
     <div>
          <div className="mt-8 flex justify-end border-t border-gray-400 pt-8">
           <div className="w-screen max-w-lg space-y-4">
-            <dl className="space-y-0.5 text-sm text-gray-700">
+            <dl className="space-y-0.5 text-base text-gray-700">
               <div className="flex justify-between">
-                <span className="text-gray-600">Discount:</span>
+                <span className="primaryColor font-medium">Discount:</span>
                 <span className="font-bold text-gray-900">
                   {discount.toFixed(2)} TK
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Subtotal:</span>
+                <span className="primaryColor font-medium">Subtotal:</span>
                 <span className="font-bold text-gray-900">
                   {subtotal.toFixed(2)} TK
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">
-                  VAT ({(delivery * 100).toFixed(0)}%):
+                <span className="primaryColor font-medium">
+                  Delivery Charge:
                 </span>
                 <span className="font-bold text-gray-900">
-                  {(subtotal * delivery).toFixed(2)} TK
+                  {delivery} TK
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Total:</span>
+                <span className="primaryColor font-medium">Total:</span>
                 <span className="font-bold text-gray-900">
                   {discountedTotal.toFixed(2)} TK
                 </span>

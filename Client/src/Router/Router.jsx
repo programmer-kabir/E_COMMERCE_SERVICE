@@ -10,6 +10,7 @@ import Wishlist from "../Pages/Wishlist/Wishlist";
 import Dashboard from "../Layout/Dashboard";
 import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
 import MyProfile from "../Pages/Dashboard/UserDashboard/MyProfile";
+import CheckOut from "../Pages/Dashboard/UserDashboard/CheckOut";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "my_profile",
         element: <MyProfile />,
+      },
+      {
+        path: "checkout",
+        element: <CheckOut />,
       },
     ],
   },
