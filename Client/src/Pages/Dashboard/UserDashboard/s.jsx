@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../../Redux/User/userSlice";
-import { useForm } from "react-hook-form";
+import { GrFormEdit } from "react-icons/gr";
 import useAuth from "../../../Components/Hooks/useAuth";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { fetchUser } from "../../Redux/User/userSlice";
 import District from "../../../Components/Apis/Distric";
 import Division from "../../../Components/Apis/Division";
 import upZillah from "../../../Components/Apis/upZillah";
-import axios from "axios";
-import toast from "react-hot-toast";
-const MyProfile = () => {
+const Profile = () => {
   const { isLoading, users, error } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUser());
   }, [users]);
+
+  // console.log(users);
   const {
     handleSubmit,
     control,
@@ -21,13 +25,16 @@ const MyProfile = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const { user } = useAuth();
+  const { user,  } = useAuth();
   const matchingUsers = users.filter(
     (userData) => userData.email === user?.email
   );
+
+  // console.log(user?.email);
   const [district] = District();
   const [division] = Division();
   const [upZillahs] = upZillah();
+  // console.log(upZillahs);
   const [selectedDivision, setSelectedDivision] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedUpzillah, setSelectedUpzillah] = useState("");
@@ -48,6 +55,7 @@ const MyProfile = () => {
   }, [division]);
   let firstName;
   let lastName;
+
   // Check if matchingUsers has any elements
   if (matchingUsers.length > 0) {
     const [firstNames, lastNames] = matchingUsers[0].name.split(" ");
@@ -84,51 +92,59 @@ const MyProfile = () => {
     const email = user?.email;
     // Get the input element by its ID
     const phoneNumberInput = document.getElementById("number");
-    const number = phoneNumberInput.value;
+    const number = phoneNumberInput.value
     // Log the input value to the console
-
-    const data = { email, number };
+    
+    const data = {email, number};
     console.log(data);
     const response = await axios
-      .put(`${import.meta.env.VITE_LOCALHOST_KEY}/users`, data)
+      .put(
+        `${import.meta.env.VITE_LOCALHOST_KEY}/users`,
+        data
+      )
       .then((data) => {
         // console.log(data.data);
         if (data.data.modifiedCount > 0) {
           // dispatch(updateUser(data));
-          phoneNumberInput.value = "";
+          phoneNumberInput.value = '';
           toast.success("Successfully Your Number added");
         }
       });
   };
   return (
-    <section className="px-5 pt-7">
-      <h2 className="text-2xl font-semibold">ACCOUNT INFORMATION</h2>
-      <p className="primaryColor text-sm">
-        This section contains your personal information
-      </p>
+    <div className="px-5 pt-7 ">
+      <div className="">
+        <h2 className="text-xl font-semibold">ACCOUNT INFORMATION</h2>
+        <p className="text-gray-700 text-sm">
+          This section contains your personal information
+        </p>
 
-      <div
-  className={`py-5 my-10 bg-white w-2/3 ${isEditMode ? 'h-[610px]' : 'h-[450px]'}`}
-  style={{
-          boxShadow:
-            "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
-        }}
-      >
-        <div className="flex justify-between  px-6 pb-7">
-          <p className="text-xl  font-semibold">Personal Information</p>
-          <button
-            className="px-4  bg-black py-2 rounded-md text-white"
-            onClick={() => setEditMode(!isEditMode)}
+        {/* Profile */}
+        <div className="pt-10 ">
+          <div
+            className="py-5 bg-white w-2/3"
+            style={{
+              boxShadow:
+                "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+            }}
           >
-            {isEditMode ? "Cancel" : "Edit"}
-          </button>
-        </div>
-          {/* <hr className="my-5" /> */}
-        {/* Content */}
-        {isEditMode ? (
-          <div className="px-4">
-            <form className="space-y-4">
-             
+            <div className="flex justify-between px-6 ">
+              <p className="text-xl  font-semibold">Personal Information</p>
+              <button
+                className="px-4 bg-black py-2 rounded-md text-white"
+                onClick={() => setEditMode(!isEditMode)} // Toggle edit mode
+              >
+                {isEditMode ? "Cancel" : "Edit"}
+              </button>
+            </div>
+            
+            <hr className="my-5" />
+
+            {isEditMode ? (
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="px-5 space-y-4"
+              >
                 {/* First Name */}
                 <label
                   htmlFor="firstName"
@@ -353,86 +369,90 @@ const MyProfile = () => {
                     </label>
                   </div>
                 </div>
-                <div className="flex justify-end text-center">
-                  <button className="primaryButton w-40 rounded">Save Changes</button>
-                </div>{" "}
-              
-            </form>
-          </div>
-        ) : (
-          <div className="px-5  flex justify-between">
-            <div className="space-y-4">
-              <div>
-                <p className="text-gray-800">First Name</p>
-                <p className="font-semibold">{firstName}</p>
-              </div>
-              <div>
-                <p className="text-gray-800">Email</p>
-                <p className="font-semibold">{matchingUsers[0]?.email}</p>
-              </div>
-              <div>
-                <p className="text-gray-800">Gender</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.gender ? matchingUsers[0]?.gender : "N/A"}
-                </p>
-              </div>
 
-              <div>
-                <p className="text-gray-800">Division Name</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.divison
-                    ? matchingUsers[0]?.divison
-                    : "N/A"}
-                </p>
+                <button className="bg-black px-3 py-3 rounded-md text-white">
+                  Save Changes
+                </button>
+              </form>
+            ) : (
+              <div className="px-5  flex justify-between">
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-gray-800">First Name</p>
+                    <p className="font-semibold">{firstName}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Email</p>
+                    <p className="font-semibold">{matchingUsers[0]?.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Gender</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.gender
+                        ? matchingUsers[0]?.gender
+                        : "N/A"}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-gray-800">Division Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.divison
+                        ? matchingUsers[0]?.divison
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Up Zillah Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.upZillah
+                        ? matchingUsers[0]?.upZillah
+                        : "N/A"}
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="text-start">
+                    <p className="text-gray-800">Last Name</p>
+                    <p className="font-semibold">{lastName}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Phone Number</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.number
+                        ? matchingUsers[0]?.number
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Date of Birth</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.date ? matchingUsers[0]?.date : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">District Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.district
+                        ? matchingUsers[0]?.district
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Village Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.village
+                        ? matchingUsers[0]?.village
+                        : "N/A"}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-gray-800">Up Zillah Name</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.upZillah
-                    ? matchingUsers[0]?.upZillah
-                    : "N/A"}
-                </p>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="text-start">
-                <p className="text-gray-800">Last Name</p>
-                <p className="font-semibold">{lastName}</p>
-              </div>
-              <div>
-                <p className="text-gray-800">Phone Number</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.number ? matchingUsers[0]?.number : "N/A"}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-800">Date of Birth</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.date ? matchingUsers[0]?.date : "N/A"}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-800">District Name</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.district
-                    ? matchingUsers[0]?.district
-                    : "N/A"}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-800">Village Name</p>
-                <p className="font-semibold">
-                  {matchingUsers[0]?.village
-                    ? matchingUsers[0]?.village
-                    : "N/A"}
-                </p>
-              </div>
-            </div>
+            )}
           </div>
-        )}
-      </div>
-      {/* Add a Phone Number */}
-      {!isEditMode && (
+        </div>
+        {/* Add a Phone Number */}
+        {!isEditMode && (
           <div className="my-7 w-2/3">
             <div
               className="py-5 "
@@ -471,8 +491,9 @@ const MyProfile = () => {
             </div>
           </div>
         )}
-    </section>
+      </div>
+    </div>
   );
 };
 
-export default MyProfile;
+export default Profile;

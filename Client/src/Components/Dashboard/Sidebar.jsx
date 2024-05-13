@@ -18,15 +18,15 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
-  const activeLinkClass = "text-[#7A8BFE]";
+  const activeLinkClass = "text-[#F62977] bg-[#FEF1F6] rounded";
   return (
     <div className="flex">
       <div
-        className={`bg-white border-r shadow-lg md:w-1/4  w-[70%] z-50 h-screen fixed md:block ${
+        className={`bg-white border-r shadow-lg md:w-1/4  w-[70%] h-screen fixed md:block ${
           isSidebarOpen ? "block" : "hidden"
         }`}
       >
-        {/* Header */}
+        
         <div className="border-b h-16 border-black/20 flex md:block items-center justify-around">
           <Link to={"/"} className="pt-5">
             <img
@@ -40,15 +40,15 @@ const Sidebar = () => {
           </button>
         </div>
         {/* Left side Content */}
-        <div className="px-5 pt-10 space-y-3">
-          <h2 className="text-base font-medium text-gray-700 pb-5">MENU</h2>
+        <div className="pt-10 px-5 space-y-3">
+          <h2 className="text-base  font-medium text-gray-700 pb-5">MENU</h2>
          
           {isAdmin && (
             <div className="space-y-5 pt-2  pb-2">
               <NavLink
                 to="manage_user"
                 className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : "text-[#6D7080]"
                   }`
                 }
@@ -59,7 +59,7 @@ const Sidebar = () => {
               <NavLink
                 to="add-product"
                 className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : "text-[#6D7080]"
                   }`
                 }
@@ -70,11 +70,11 @@ const Sidebar = () => {
             </div>
           )}
           {!isAdmin && (
-            <div className="space-y-5 pt-2  pb-2">
+            <div className="space-y-2">
               <NavLink
                 to="my_profile"
                 className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all text-base py-3 hover:text-[#F62977] primaryColor   w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : "text-[#6D7080]"
                   }`
                 }
@@ -86,7 +86,7 @@ const Sidebar = () => {
               <NavLink
                 to="my_orders"
                 className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : ""
                   }`
                 }
@@ -95,23 +95,13 @@ const Sidebar = () => {
                 <span>My Orders</span>
               </NavLink>
 
-              <NavLink
-                to="reward-points"
-                className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : ""
-                  }`
-                }
-              >
-                {/* <FaUser className="w-5 h-5" /> */}
-                <span>My Reward Points</span>
-              </NavLink>
+              
             </div>
           )}
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center  gap-2 px-5 capitalize ${
+              `font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center  gap-2 px-5 capitalize ${
                 isActive ? activeLinkClass : ""
               }`
             }
@@ -126,7 +116,7 @@ const Sidebar = () => {
         <div className="h-16">
           <Heading toggleSidebar={toggleSidebar} />
         </div>
-        <div className="md:w-3/4 overflow-y-scroll w-full ml-auto">
+        <div className="md:w-3/4  w-full ml-auto">
           <Outlet />
         </div>
       </div>
