@@ -1,8 +1,13 @@
 import React from 'react'
 
-const PriceInfo = ({subtotal}) => {
-    const vatRate = 0.05;
-    const total = subtotal * (1 + vatRate);
+const PriceInfo = ({subtotal,length}) => {
+  let delivery=0;
+  if(length==1){
+    delivery=150
+  }
+  console.log(delivery);
+    // const delivery = 150;
+    const total = subtotal + delivery;
     let discount = 0;
   if (total >= 3000) {
     discount = 150;
@@ -31,10 +36,10 @@ const PriceInfo = ({subtotal}) => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">
-                  VAT ({(vatRate * 100).toFixed(0)}%):
+                  VAT ({(delivery * 100).toFixed(0)}%):
                 </span>
                 <span className="font-bold text-gray-900">
-                  {(subtotal * vatRate).toFixed(2)} TK
+                  {(subtotal * delivery).toFixed(2)} TK
                 </span>
               </div>
               <div className="flex justify-between">

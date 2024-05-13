@@ -10,9 +10,15 @@ import DeliveryOption from "../../Components/Design/DeliveryOption";
 import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import { WishListDataContext } from "../../Components/Context/WishlistData";
+import { AddToCartContext } from "../../Components/Context/AddToCart";
+import useAuth from "../../Components/Hooks/useAuth";
 
 const SingleShop = () => {
-  const { favoriteTShirtCount, setFavoriteTShirtCount } = useContext(WishListDataContext);
+  const {user} = useAuth()
+  // console.log(user.email);
+  const { favoriteTShirtCount, setFavoriteTShirtCount } =
+    useContext(WishListDataContext);
+  const { cartTShirtCount, setCartTShirtCount } = useContext(AddToCartContext);
   const { id } = useParams();
   const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
   const dispatch = useDispatch();
@@ -37,6 +43,7 @@ const SingleShop = () => {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+  // WishList
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     // Check if the current product is in favorites when component mounts
@@ -57,6 +64,31 @@ const SingleShop = () => {
     } else {
       toast.error("Item is already a favorite");
     }
+  };
+  // Cart
+  const [isCartTShirt, setIsCartTShirt] = useState(false);
+  useEffect(() => {
+    // Check if the current product is in favorites when component mounts
+    const storedIdsString = localStorage.getItem("cartTShirt");
+    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+    setIsCartTShirt(storedIds.includes(id));
+  }, [id]);
+
+ 
+  const handleAddToCart = (id) => {
+    
+      const storedIdsString = localStorage.getItem("cartTShirt");
+    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+    if (!storedIds.includes(id)) {
+      storedIds.push(id);
+      localStorage.setItem("cartTShirt", JSON.stringify(storedIds));
+      setIsCartTShirt(true);
+      setCartTShirtCount((pre) => pre + 1);
+      toast.success("Item is added");
+    } else {
+      toast.error("Item is already a favorite");
+    }
+    
   };
 
   return (
@@ -156,7 +188,12 @@ const SingleShop = () => {
                       {/* Add to cart button */}
                       <button
                         onClick={() => handleAddToCart(TShirt._id)}
-                        className="uppercase flex items-center gap-2  primaryButton rounded-sm font-semibold justify-center w-[45%]"
+
+                        className={`w-[200px] uppercase rounded-sm font-semibold h-[42px] flex items-center gap-2  justify-center transition duration-300
+                          ${isCartTShirt
+                            ? "border   bg-[#F62977] text-white "
+                            : "primaryButton border"}
+                        `}
                       >
                         <MdOutlineShoppingBag size={24} color="white" />
                         ADD to cart
@@ -174,7 +211,7 @@ const SingleShop = () => {
                             onClick={() => handleAddToFavorite(TShirt._id)}
                             className={
                               isFavorite
-                                ? "border h-[42px] w-[40px] flex items-center justify-center bg-[#F62977] text-white transition duration-300"
+                                ? "border h-[42px] w-[50px] flex items-center justify-center bg-[#F62977] text-white transition duration-300"
                                 : "border border-gray-400 h-[42px] w-[40px] flex items-center justify-center text-black transition duration-300 hover:bg-[#F62977] hover:text-white hover:border-none"
                             }
                           >

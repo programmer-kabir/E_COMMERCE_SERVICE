@@ -12,9 +12,10 @@ import { MdArrowForwardIos } from "react-icons/md";
 import useAuth from "../../../Components/Hooks/useAuth";
 import Loader from "../../../Components/Loader/Loader";
 import { WishListDataContext } from "../../../Components/Context/WishlistData";
+import { AddToCartContext } from "../../../Components/Context/AddToCart";
 const Navbar = () => {
   const {favoriteTShirtCount, setFavoriteTShirtCount}= useContext(WishListDataContext);
-
+  const {cartTShirtCount, setCartTShirtCount}= useContext(AddToCartContext);
   const [letter, setLetter] = useState("");
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -170,7 +171,7 @@ const Navbar = () => {
                   className="primaryColor  hover:text-black cursor-pointer"
                 />{" "}
                 <span className="text-white  absolute mb-5 ml-3 flex text-[12px] font-bold items-center justify-center border-2 border-white bg-black rounded-full w-5 h-5 ">
-                  {/* {favoriteCount?.length} */}1
+                {cartTShirtCount}
                 </span>
               </div>
 
@@ -242,9 +243,9 @@ const Navbar = () => {
             {isSidebarOpen && (
               <div className="fixed top-0 bottom-0 flex justify-end left-0 right-0 bg-black bg-opacity-50 z-50 transition-opacity ease-in-out duration-500">
                 <div
-                  className={`w-[380px] overflow-auto   bg-white h-full  transform transition-transform duration-500 ease-in-out ${
+                  className={`w-[360px]   bg-white h-full  transform transition-transform duration-500 ease-in-out ${
                     isSidebarOpen
-                      ? "translate-x-0 transition-all duration-700 ease-in-out"
+                      ? "translate-x-0 overflow-auto transition-all duration-700 ease-in-out"
                       : "translate-x-full transition-all 0.3s ease-in-out"
                   }`}
                 >
@@ -258,7 +259,7 @@ const Navbar = () => {
                       <FaArrowRightToBracket size={20} />
                     </button>
                   </div>
-                  {/* <div className="mt-40 border-b-2 pb-7 flex px-10 items-center flex-col justify-center ">
+                  <div className="mt-32 border-b-2 pb-7 flex px-10 items-center flex-col justify-center ">
                     <img
                       className="p-2"
                       src="https://i.ibb.co/8XZwct2/empty-cart.png"
@@ -269,64 +270,7 @@ const Navbar = () => {
                       Go To Shop
                     </button>
                   </div>
-                  {booked.length > 0 && (
-                  <div className="mt-8 flex justify-end border-t border-gray-400 pt-8">
-                    <div className="w-screen max-w-lg space-y-4">
-                      <dl className="space-y-0.5 text-sm text-gray-700">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Discount:</span>
-                          <span className="font-bold text-gray-900">
-                            {discount.toFixed(2)} TK
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Subtotal:</span>
-                          <span className="font-bold text-gray-900">
-                            {subtotal.toFixed(2)} TK
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">
-                            VAT ({(vatRate * 100).toFixed(0)}%):
-                          </span>
-                          <span className="font-bold text-gray-900">
-                            {(subtotal * vatRate).toFixed(2)} TK
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Total:</span>
-                          <span className="font-bold text-gray-900">
-                            {discountedTotal.toFixed(2)} TK
-                          </span>
-                        </div>
-                      </dl>
-                      
-                      <div className="flex justify-end">
-                        {discount > 0 && (
-                          <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="currentColor"
-                              className="-ms-1 me-1.5 h-4 w-4"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-                              />
-                            </svg>
-                            <p className="whitespace-nowrap text-xs">
-                              {discount} TK Discount Applied
-                            </p>
-                          </span>
-                        )}
-                </div>
-              </div>
-              </div>
-            )} */}
+                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, alias! Nobis provident sunt quod architecto tenetur praesentium, doloremque quos neque quaerat repellendus id accusamus pariatur ratione magnam accusantium ipsam animi? Voluptatum neque sapiente officiis dolor tempore et, magnam vel quia! Quos fugiat neque fuga quaerat vitae ducimus sunt est impedit reprehenderit, a quae aut accusamus maxime magnam suscipit veritatis, odit odio accusantium laboriosam quisquam voluptates. Eos odit accusantium saepe cumque unde excepturi nulla provident labore quia, pariatur impedit, numquam ab veniam debitis perferendis corrupti! Quis minima, quas eaque quibusdam perferendis dolorem non adipisci molestiae corrupti a earum, doloremque, aperiam culpa provident hic. Illum officia deserunt non ea corporis temporibus dolore repellat aliquid nesciunt dignissimos? Quas nisi pariatur necessitatibus sunt sit vitae dicta at quaerat impedit officia illum nam et, dolores qui commodi ipsam, sequi, minima eius totam veritatis soluta! Libero placeat blanditiis porro cumque animi tempora soluta sunt, minus eum?
                 </div>
               </div>
             )}

@@ -1,81 +1,209 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PriceInfo from "../../../Components/Design/PriceInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTShirt } from "../../Redux/TShirt/tShirtSlice";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const MyOrder = () => {
-  const discount = 100.25;
-  const subtotal = 100.25;
-  const vatRate = 0.5;
-  const discountedTotal = 0.5;
-  return (
-    <div className="px-5 pt-7 ">
-      <div className="mt-40 border-b-2 pb-7 flex px-10 items-center flex-col justify-center ">
-        <img
-          className="p-2"
-          src="https://i.ibb.co/8XZwct2/empty-cart.png"
-          alt=""
-        />
-        <p className="py-5 font-medium ">Your Cart is empty</p>
-        <button className="primaryButton w-[140px]">Go To Shop</button>
-      </div>
-      {/* {booked.length > 0 && ( */}
-        {/* <div className="mt-8 flex justify-end border-t border-gray-400 pt-8">
-          <div className="w-screen max-w-lg space-y-4">
-            <dl className="space-y-0.5 text-sm text-gray-700">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Discount:</span>
-                <span className="font-bold text-gray-900">
-                  {discount.toFixed(2)} TK
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Subtotal:</span>
-                <span className="font-bold text-gray-900">
-                  {subtotal.toFixed(2)} TK
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">
-                  VAT ({(vatRate * 100).toFixed(0)}%):
-                </span>
-                <span className="font-bold text-gray-900">
-                  {(subtotal * vatRate).toFixed(2)} TK
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Total:</span>
-                <span className="font-bold text-gray-900">
-                  {discountedTotal.toFixed(2)} TK
-                </span>
-              </div>
-            </dl>
+  const { isLoading, TShirts, error } = useSelector((state) => state.TShirts);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTShirt());
+  }, [dispatch]);
+  const [activeTab, setActiveTab] = useState("Completed");
+  const tabs = ["Completed", "Incomplete"];
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+  const FavoriteDataRaw = localStorage.getItem("cartTShirt");
+  const FavoriteData = FavoriteDataRaw ? JSON.parse(FavoriteDataRaw) : [];
+  const cartTShirts = TShirts.filter((shirt) =>
+    FavoriteData.includes(shirt._id)
+  );
+  const subtotal = cartTShirts.reduce(
+    (acc, item) => acc + parseFloat(item.price),
+    0
+  );
+  
+  // console.log(subtotal);
 
-            <div className="flex justify-end">
-              {discount > 0 && (
-                <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="-ms-1 me-1.5 h-4 w-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-                    />
-                  </svg>
-                  <p className="whitespace-nowrap text-xs">
-                    {discount} TK Discount Applied
-                  </p>
-                </span>
+  return (
+    <div className="pt-7 px-5">
+      <div className="flex border-b px-5  border-gray-400">
+        {tabs.map((tab) => (
+          <div
+            key={tab}
+            onClick={() => handleTabClick(tab)}
+            className={`cursor-pointer  px-4 py-2 border-b ${
+              activeTab === tab
+                ? "border-black font-bold"
+                : "border-transparent"
+            }`}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
+      {activeTab === "Completed" && (
+        <section>
+          <div className="mx-auto px-6">
+            <div className="mt-1">
+              {cartTShirts?.length === 0 ? (
+                <div className="mt-32  pb-7 flex px-10 items-center flex-col justify-center ">
+                  <img
+                    className="p-2"
+                    src="https://i.ibb.co/8XZwct2/empty-cart.png"
+                    alt=""
+                  />
+                  <p className="py-5 font-medium ">Your Cart is empty</p>
+                  <button className="primaryButton w-[140px]">
+                    Go To Shop
+                  </button>
+                </div>
+              ) : (
+                <section>
+                  <h3 className="text-xl  font-semibold primaryColor">
+                    View Your Cart ({cartTShirts.length})
+                  </h3>
+                  {cartTShirts.map((tShirt) => (
+                <div key={tShirt._id}>
+                  <div className="flex flex-col space-y-4 ">
+                    <ul className="flex flex-col ">
+                      <li className="flex flex-col py-4 sm:flex-row sm:justify-between">
+                        <div className="flex w-full space-x-2 sm:space-x-4">
+                          <div className="border-gray-500 border rounded p-1 ">
+
+                          <img
+                            className="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
+                            src={tShirt?.image[0]}
+                            alt="Polaroid camera"
+                          />
+                          </div>
+                          <div className="flex flex-col justify-between w-full pb-4">
+                            <div className="flex justify-between w-full pb-2 space-x-2">
+                              <div className="space-y-1">
+                                <h3 className="text-lg font-semibold  sm:pr-8">
+                                  {tShirt?.title}
+                                </h3>
+                                <p className="text-sm f">
+                                SKU: <span className="font-medium">{tShirt?.SKU}</span>
+                                </p>
+                                <p className="text-sm">
+                                Club Name: <span className="font-medium">{tShirt?.category}</span>
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-lg font-semibold">
+                                  TK {tShirt?.price}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex text-sm divide-x">
+                              <button
+                                onClick={() => handleDelete(tShirt._id)}
+                                type="button"
+                                className="flex items-center px-2 py-1 pl-0 space-x-1"
+                              >
+                                <RiDeleteBin6Line className="w-4 h-4 fill-current" />
+                                <span>Remove</span>
+                              </button>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              ))}
+              <PriceInfo subtotal={subtotal} length={cartTShirts.length}/>
+                </section>
               )}
             </div>
           </div>
-        </div> */}
-        <PriceInfo subtotal={5000}/>
-      {/* )}{" "} */}
+        </section>
+      )}
+      {activeTab === "Incomplete" && (
+        <section>
+          <div className="mx-auto px-6">
+            <div className="mt-1">
+              {cartTShirts?.length === 0 ? (
+                <div className="mt-32  pb-7 flex px-10 items-center flex-col justify-center ">
+                  <img
+                    className="p-2"
+                    src="https://i.ibb.co/8XZwct2/empty-cart.png"
+                    alt=""
+                  />
+                  <p className="py-5 font-medium ">Your Cart is empty</p>
+                  <button className="primaryButton w-[140px]">
+                    Go To Shop
+                  </button>
+                </div>
+              ) : (
+                <section>
+                  <h3 className="text-xl  font-semibold primaryColor">
+                    View Your Cart ({cartTShirts.length})
+                  </h3>
+                  {cartTShirts.map((tShirt) => (
+                <div key={tShirt._id}>
+                  <div className="flex flex-col space-y-4 ">
+                    <ul className="flex flex-col ">
+                      <li className="flex flex-col py-4 sm:flex-row sm:justify-between">
+                        <div className="flex w-full space-x-2 sm:space-x-4">
+                          <div className="border-gray-500 border rounded p-1 ">
+
+                          <img
+                            className="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
+                            src={tShirt?.image[0]}
+                            alt="Polaroid camera"
+                          />
+                          </div>
+                          <div className="flex flex-col justify-between w-full pb-4">
+                            <div className="flex justify-between w-full pb-2 space-x-2">
+                              <div className="space-y-1">
+                                <h3 className="text-lg font-semibold  sm:pr-8">
+                                  {tShirt?.title}
+                                </h3>
+                                <p className="text-sm f">
+                                SKU: <span className="font-medium">{tShirt?.SKU}</span>
+                                </p>
+                                <p className="text-sm">
+                                Club Name: <span className="font-medium">{tShirt?.category}</span>
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-lg font-semibold">
+                                  TK {tShirt?.price}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex text-sm divide-x">
+                              <button
+                                onClick={() => handleDelete(tShirt._id)}
+                                type="button"
+                                className="flex items-center px-2 py-1 pl-0 space-x-1"
+                              >
+                                <RiDeleteBin6Line className="w-4 h-4 fill-current" />
+                                <span>Remove</span>
+                              </button>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              ))}
+              <PriceInfo subtotal={subtotal}/>
+                </section>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+     
+
     </div>
   );
 };
