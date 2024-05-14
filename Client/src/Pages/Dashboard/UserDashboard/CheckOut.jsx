@@ -8,6 +8,10 @@ import Loader from "../../../Components/Loader/Loader";
 import { fetchTShirt } from "../../Redux/TShirt/tShirtSlice";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import District from "../../../Components/Apis/Distric";
+import Division from "../../../Components/Apis/Division";
+import upZillah from "../../../Components/Apis/upZillah";
 const CheckOut = () => {
   const { user } = useAuth();
   const { isLoading: TShirtLoading, TShirts } = useSelector(
@@ -19,7 +23,7 @@ const CheckOut = () => {
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchTShirt());
-  }, [ ]);
+  }, []);
 
   const FavoriteDataRaw = localStorage.getItem("cartTShirt");
   const FavoriteData = FavoriteDataRaw ? JSON.parse(FavoriteDataRaw) : [];
@@ -48,11 +52,11 @@ const CheckOut = () => {
   }
   const total = subtotal + delivery;
   let discount = 0;
-  if (total >= 4000) {
+  if (total >= 5000) {
     discount = 150;
-  } else if (total >= 8000) {
+  } else if (total >= 10000) {
     discount = 300;
-  } else if (total >= 12000) {
+  } else if (total >= 15000) {
     discount = 450;
   }
   const discountedTotal = total - discount;
@@ -63,6 +67,28 @@ const CheckOut = () => {
     setShowCheckOutBox(!showCheckOutBox);
     setIcon(!icon);
   };
+  const [district] = District();
+  const [division] = Division();
+  const [upZillahs] = upZillah();
+  const [selectedDivision, setSelectedDivision] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedUpzillah, setSelectedUpzillah] = useState("");
+  const selectedDivisionId = division.find(
+    (div) => div.name === selectedDivision
+  )?.id;
+  // console.log("selectedDistrict", selectedDistrict);
+  const districtsInSelectedDivision = selectedDivisionId
+    ? district.filter((dist) => dist.division_id === selectedDivisionId)
+    : [];
+
+  // Upzillah
+  const upzillahsInSelectedDistrict = selectedDistrict
+    ? upZillahs.filter((upzillah) => upzillah.district_id === selectedDistrict)
+    : [];
+  useEffect(() => {
+    // console.log("Divisions:", division);
+  }, [division]);
+
   const {
     handleSubmit,
     control,
@@ -71,8 +97,22 @@ const CheckOut = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
+    const districtId = data.district
+    data.totalPrice = discountedTotal
+    data.productPrice = subtotal
+    data.deliveryCharge=delivery
+    data.productId = selectedProduct;
+    const currentDistrict  = district.find(dis => dis.id === districtId)
+    data.district = currentDistrict ? currentDistrict.name : '';
+
     console.log(data);
-  }
+    axios
+      .post(`${import.meta.env.VITE_LOCALHOST_KEY}/CheckOut`,  data )
+      .then((data) => {
+        console.log(data);
+      });
+  };
   return (
     <section className="p-2">
       {isLoading ? (
@@ -84,7 +124,10 @@ const CheckOut = () => {
             <Breadcrumb name={"CheckOut"} />
           </div>
           <Content>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex pt-12 gap-7">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex pt-12 gap-7"
+            >
               <div className="w-1/2">
                 <h2 className="text-2xl border-b pb-2 font-semibold">
                   Billing Details
@@ -123,46 +166,88 @@ const CheckOut = () => {
                   {/* District  zilla */}
                   <div className="flex gap-5 w-full">
                     {/* District Name */}
-                    <div className=" space-y-2  w-full">
+                    <div className="space-y-2  w-full">
                       <p className="primaryColor font-medium text-sm">
-                        Division Name <span className="text-red-600">*</span>
+                        Divison Name <span className="text-red-600">*</span>
                       </p>
-                      <input
-                        type="text"
-                        placeholder="District Name"
-                        {...register("divison", { required: true })}
-                        className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id="divison"
-                      />
+                      <label
+                        htmlFor="division"
+                        className="block bg-[#f5f5f8]   overflow-hidden px-3 shadow-sm outline-none "
+                      >
+                        <select
+                          id="division"
+                          {...register("divison", { required: true })}
+                          value={selectedDivision}
+                          onChange={(e) => setSelectedDivision(e.target.value)}
+                          className=" py-4 w-full border-none bg-transparent p-0 placeholder-transparent text-base outline-none"
+                        >
+                          <option value="" disabled>
+                            Select Division
+                          </option>
+                          {division.map((divisions) => (
+                            <option key={divisions.id} value={divisions.name}>
+                              {divisions.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
                     </div>
                     {/* zilla Name */}
-                    <div className=" space-y-2  w-full">
+                    <div className="space-y-2  w-full">
                       <p className="primaryColor font-medium text-sm">
-                        Zilla Name <span className="text-red-600">*</span>
+                      Zilla Name <span className="text-red-600">*</span>
                       </p>
-                      <input
-                        type="text"
-                        placeholder="Zilla Name"
-                        {...register("district", { required: true })}
-                        className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id="district"
-                      />
+                      <label
+                        htmlFor="district"
+                        className="block bg-[#f5f5f8]   overflow-hidden  px-3 shadow-sm outline-none "
+                      >
+                        <select
+                          id="district"
+                          {...register("district", { required: true })}
+                          value={selectedDistrict}
+                          onChange={(e) => setSelectedDistrict(e.target.value)}
+                          className="   py-4 w-full border-none bg-transparent p-0 placeholder-transparent text-base outline-none"
+                        >
+                          <option value="" disabled>
+                            Select Zilla
+                          </option>
+                          {districtsInSelectedDivision.map((district) => (
+                          <option key={district.id} value={district.id}>
+                            {district.name}
+                          </option>
+                        ))}
+                        </select>
+                      </label>
                     </div>
                   </div>
 
                   <div className="flex gap-5 w-full">
                     {/* Up Zilla Name */}
-                    <div className=" space-y-2  w-full">
+                    <div className="space-y-2  w-full">
                       <p className="primaryColor font-medium text-sm">
-                        Up Zilla <span className="text-red-600">*</span>
+                      Up Zilla Name <span className="text-red-600">*</span>
                       </p>
-                      <input
-                        type="text"
-                        placeholder="Up Zilla Name"
-                        {...register("upZillah", { required: true })}
-                        className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id="upZillah"
-                      />
+                      <label
+                        htmlFor="upZillah"
+                        className="block  bg-[#f5f5f8]   overflow-hidden px-3 shadow-sm outline-none "
+                      >
+                        <select
+                          id="upZillah"
+                          {...register("upZillah", { required: true })}
+                          value={selectedUpzillah}
+                        onChange={(e) => setSelectedUpzillah(e.target.value)}
+                          className="  text-base  py-4 w-full border-none bg-transparent p-0 placeholder-transparent  outline-none"
+                        >
+                          <option value="" disabled>
+                            Select Up Zilla
+                          </option>
+                          {upzillahsInSelectedDistrict.map((upzillah) => (
+                          <option key={upzillah.id} value={upzillah.name}>
+                            {upzillah.name}
+                          </option>
+                        ))}
+                        </select>
+                      </label>
                     </div>
                     {/* Up Zilla Name */}
                     <div className=" space-y-2  w-full">
@@ -219,7 +304,7 @@ const CheckOut = () => {
                       rows={5}
                       placeholder="Notes about your order, e.g. special notes for delivery."
                       name=""
-                      {...register("notes", { required: true })}
+                      {...register("notes")}
                       className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
                       id="notes"
                     />
@@ -270,7 +355,11 @@ const CheckOut = () => {
                   className="pt-10 px-5 hover:text-[#F62977] flex justify-between font-bold pb-2"
                 >
                   <p>Apply Coupon Code</p>
-                  {showCheckOutBox ? <FaMinus color="red" /> : <FaPlus color="black" />}
+                  {showCheckOutBox ? (
+                    <FaMinus color="red" />
+                  ) : (
+                    <FaPlus color="black" />
+                  )}
                 </div>
                 <div>
                   <div className="flex gap-5 w-full">
@@ -287,7 +376,6 @@ const CheckOut = () => {
                               type="text"
                               placeholder="Enter Coupon Code"
                               name=""
-                              
                               {...register("coupon")}
                               className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
                               id="coupon"
@@ -309,7 +397,7 @@ const CheckOut = () => {
                           id="transaction"
                         />
                       </div>
-                      <button  className="secondaryButton w-full py-4">
+                      <button className="secondaryButton w-full py-4">
                         Place order
                       </button>
                     </div>
