@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, signOut } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
+import axios from "axios";
 const auth = getAuth(app);
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
@@ -13,17 +14,17 @@ const AuthProvider = ({ children }) => {
 
       // console.log(currentUser);
       //  Get and Set token
-    //   if (currentUser) {
-    //     axios
-    //       .post(`${import.meta.env.VITE_LOCALHOST_KEY}/jwt`, {
-    //         email: currentUser?.email,
-    //       })
-    //       .then((data) => {
-    //         localStorage.setItem("access-token", data.data.token);
-    //       });
-    //   } else {
-    //     localStorage.removeItem("access-token");
-    //   }
+      if (currentUser) {
+        axios
+          .post(`${import.meta.env.VITE_LOCALHOST_KEY}/jwt`, {
+            email: currentUser?.email,
+          })
+          .then((data) => {
+            localStorage.setItem("access-token", data.data.token);
+          });
+      } else {
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
     });
     return () => {

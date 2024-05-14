@@ -11,6 +11,8 @@ import Dashboard from "../Layout/Dashboard";
 import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
 import MyProfile from "../Pages/Dashboard/UserDashboard/MyProfile";
 import CheckOut from "../Pages/Dashboard/UserDashboard/CheckOut";
+import ManageUser from "../Pages/Dashboard/AdminDashboard/ManageUser";
+import AdminBoard from "../Pages/Dashboard/AdminDashboard/AdminBoard";
 
 const router = createBrowserRouter([
   {
@@ -66,7 +68,15 @@ const router = createBrowserRouter([
         path: "my_profile",
         element: <MyProfile />,
       },
-      
+      // Admin Router
+      {
+        path:"manage_user",
+        element:<ManageUser />
+      },
+      {
+        path:"admin_board",
+        element:<AdminBoard />
+      },
     ],
   },
 ]);

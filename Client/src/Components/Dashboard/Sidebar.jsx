@@ -4,10 +4,11 @@ import Heading from "./Heading";
 import { FaArrowLeftLong, FaArrowRightToBracket } from "react-icons/fa6";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../../assets/LOGO/logo.svg";
+import useAdmin from "../Hooks/useAdmin";
 const Sidebar = () => {
-  const { user,logOut } = useAuth();
+  const { user, logOut } = useAuth();
 
-  const isAdmin = false;
+  const [isAdmin] = useAdmin();
 
   // console.log(isAdmin);
 
@@ -16,9 +17,9 @@ const Sidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
   const activeLinkClass = "text-[#F62977] bg-[#FEF1F6] rounded";
-  const handleLogout = () =>{
-    logOut()
-  }
+  const handleLogout = () => {
+    logOut();
+  };
   return (
     <div className="flex">
       <div
@@ -39,25 +40,14 @@ const Sidebar = () => {
           </button>
         </div>
         {/* Left side Content */}
-        <div className="pt-10 px-5 space-y-3">
-          <h2 className="text-base  font-medium text-gray-700 pb-5">MENU</h2>
-          <NavLink
-                to="my_profile"
-                className={({ isActive }) =>
-                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : ""
-                  }`
-                }
-              >
-                {/* <FaUser className="w-5 h-5" /> */}
-                <span>My Profile</span>
-              </NavLink>
+        <div className="pt-5 px-5 space-y-1">
+          
           {isAdmin && (
-            <div className="space-y-5 pt-2  pb-2">
+            <div className="space-y-1  ">
               <NavLink
                 to="manage_user"
                 className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : "text-[#6D7080]"
                   }`
                 }
@@ -66,20 +56,31 @@ const Sidebar = () => {
                 <span>Manage User</span>
               </NavLink>
               <NavLink
-                to="add-product"
+                to="admin_board"
                 className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : "text-[#6D7080]"
                   }`
                 }
               >
                 {/* <FaCircleUser className="w-5 h-5" /> */}
-                <span>Add Product</span>
+                <span>Dashboard</span>
               </NavLink>
             </div>
           )}
           {!isAdmin && (
-            <div className="space-y-2">
+            <div className="space-y-1">
+              <NavLink
+            to="my_profile"
+            className={({ isActive }) =>
+              `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                isActive ? activeLinkClass : ""
+              }`
+            }
+          >
+            {/* <FaUser className="w-5 h-5" /> */}
+            <span>My Profile</span>
+          </NavLink>
               <NavLink
                 to="my_orders"
                 className={({ isActive }) =>
@@ -94,7 +95,10 @@ const Sidebar = () => {
             </div>
           )}
 
-          <button onClick={handleLogout} className="font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center  gap-2 px-5 capitalize">
+          <button
+            onClick={handleLogout}
+            className="font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center pt-1  gap-2 px-5 capitalize"
+          >
             <span>Log out</span>
             <FaArrowRightToBracket className="w-5 h-5" />
           </button>

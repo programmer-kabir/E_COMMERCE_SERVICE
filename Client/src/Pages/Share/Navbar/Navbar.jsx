@@ -1,4 +1,4 @@
-import React, {  useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { FaArrowRightToBracket, FaCodeCompare } from "react-icons/fa6";
@@ -13,18 +13,32 @@ import useAuth from "../../../Components/Hooks/useAuth";
 import Loader from "../../../Components/Loader/Loader";
 import { WishListDataContext } from "../../../Components/Context/WishlistData";
 import { AddToCartContext } from "../../../Components/Context/AddToCart";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../Redux/User/userSlice";
 const Navbar = () => {
-  const {favoriteTShirtCount, setFavoriteTShirtCount}= useContext(WishListDataContext);
-  const {cartTShirtCount, setCartTShirtCount}= useContext(AddToCartContext);
+  const { user, logOut, loading } = useAuth();
+
+  const { isLoading, users } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+  const currentUser = users.find(
+    (loggedUser) => loggedUser?.email === user?.email
+  );
+  const { favoriteTShirtCount, setFavoriteTShirtCount } =
+    useContext(WishListDataContext);
+  const { cartTShirtCount, setCartTShirtCount } = useContext(AddToCartContext);
   const [letter, setLetter] = useState("");
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { user, logOut, loading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleNav = () => {
     setNav(!nav);
   };
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -55,8 +69,6 @@ const Navbar = () => {
       console.log("User email not available");
     }
   }, [user]);
-
-  
 
   const categoriesItems = [
     "Ipad Phone & Tablets",
@@ -134,9 +146,9 @@ const Navbar = () => {
                   }`}
                 />
               </div>
-              <div className="">
+              {/* <div className="">
                 {user ? (
-                  <Link to="/dashboard/my_profile">
+                  <Link to="/dashboard">
                     <div className="rounded-full flex  justify-center items-center w-8 h-8 text-center p-1 font-semibold border-black border primaryColor">
                       <p>{letter}</p>
                     </div>
@@ -150,6 +162,32 @@ const Navbar = () => {
                       />
                     </Link>
                   </>
+                )}
+              </div> */}
+              <div className="">
+                {user ? (
+                  <>
+                    {user.role === "admin" ? (
+                      <Link to="/dashboard/admin_board">
+                        <div className="rounded-full flex justify-center items-center w-8 h-8 text-center p-1 font-semibold border-black border primaryColor">
+                          <p>{letter}</p>
+                        </div>
+                      </Link>
+                    ) : (
+                      <Link to="/dashboard/my_profile">
+                        <div className="rounded-full flex justify-center items-center w-8 h-8 text-center p-1 font-semibold border-black border primaryColor">
+                          <p>{letter}</p>
+                        </div>
+                      </Link>
+                    )}
+                  </>
+                ) : (
+                  <Link to={"/login"}>
+                    <FiUser
+                      size={23}
+                      className="primaryColor hover:text-black cursor-pointer"
+                    />
+                  </Link>
                 )}
               </div>
 
@@ -169,7 +207,7 @@ const Navbar = () => {
                   className="primaryColor  hover:text-black cursor-pointer"
                 />{" "}
                 <span className="text-white  absolute mb-5 ml-3 flex text-[12px] font-bold items-center justify-center border-2 border-white bg-black rounded-full w-5 h-5 ">
-                {cartTShirtCount}
+                  {cartTShirtCount}
                 </span>
               </div>
 
@@ -268,7 +306,25 @@ const Navbar = () => {
                       Go To Shop
                     </button>
                   </div>
-                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, alias! Nobis provident sunt quod architecto tenetur praesentium, doloremque quos neque quaerat repellendus id accusamus pariatur ratione magnam accusantium ipsam animi? Voluptatum neque sapiente officiis dolor tempore et, magnam vel quia! Quos fugiat neque fuga quaerat vitae ducimus sunt est impedit reprehenderit, a quae aut accusamus maxime magnam suscipit veritatis, odit odio accusantium laboriosam quisquam voluptates. Eos odit accusantium saepe cumque unde excepturi nulla provident labore quia, pariatur impedit, numquam ab veniam debitis perferendis corrupti! Quis minima, quas eaque quibusdam perferendis dolorem non adipisci molestiae corrupti a earum, doloremque, aperiam culpa provident hic. Illum officia deserunt non ea corporis temporibus dolore repellat aliquid nesciunt dignissimos? Quas nisi pariatur necessitatibus sunt sit vitae dicta at quaerat impedit officia illum nam et, dolores qui commodi ipsam, sequi, minima eius totam veritatis soluta! Libero placeat blanditiis porro cumque animi tempora soluta sunt, minus eum?
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui,
+                  alias! Nobis provident sunt quod architecto tenetur
+                  praesentium, doloremque quos neque quaerat repellendus id
+                  accusamus pariatur ratione magnam accusantium ipsam animi?
+                  Voluptatum neque sapiente officiis dolor tempore et, magnam
+                  vel quia! Quos fugiat neque fuga quaerat vitae ducimus sunt
+                  est impedit reprehenderit, a quae aut accusamus maxime magnam
+                  suscipit veritatis, odit odio accusantium laboriosam quisquam
+                  voluptates. Eos odit accusantium saepe cumque unde excepturi
+                  nulla provident labore quia, pariatur impedit, numquam ab
+                  veniam debitis perferendis corrupti! Quis minima, quas eaque
+                  quibusdam perferendis dolorem non adipisci molestiae corrupti
+                  a earum, doloremque, aperiam culpa provident hic. Illum
+                  officia deserunt non ea corporis temporibus dolore repellat
+                  aliquid nesciunt dignissimos? Quas nisi pariatur
+                  necessitatibus sunt sit vitae dicta at quaerat impedit officia
+                  illum nam et, dolores qui commodi ipsam, sequi, minima eius
+                  totam veritatis soluta! Libero placeat blanditiis porro cumque
+                  animi tempora soluta sunt, minus eum?
                 </div>
               </div>
             )}

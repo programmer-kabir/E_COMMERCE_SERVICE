@@ -25,7 +25,7 @@ const Login = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    singIn(data.email, data.password)
+    singIn(data?.email, data?.password)
     .then((result) => {
       const loggedUser = result.user;
       toast.success('login successful')
