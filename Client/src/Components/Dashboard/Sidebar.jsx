@@ -41,7 +41,17 @@ const Sidebar = () => {
         {/* Left side Content */}
         <div className="pt-10 px-5 space-y-3">
           <h2 className="text-base  font-medium text-gray-700 pb-5">MENU</h2>
-
+          <NavLink
+                to="my_profile"
+                className={({ isActive }) =>
+                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                    isActive ? activeLinkClass : ""
+                  }`
+                }
+              >
+                {/* <FaUser className="w-5 h-5" /> */}
+                <span>My Profile</span>
+              </NavLink>
           {isAdmin && (
             <div className="space-y-5 pt-2  pb-2">
               <NavLink
@@ -84,10 +94,10 @@ const Sidebar = () => {
             </div>
           )}
 
-          <NavLink onClick={handleLogout} className="font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center  gap-2 px-5 capitalize">
+          <button onClick={handleLogout} className="font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center  gap-2 px-5 capitalize">
             <span>Log out</span>
             <FaArrowRightToBracket className="w-5 h-5" />
-          </NavLink>
+          </button>
         </div>
       </div>
       <div className="md:flex-1 w-[100%] ">

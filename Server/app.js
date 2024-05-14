@@ -34,9 +34,9 @@ async function run() {
       .db("TShirtCollection")
       .collection("AllTShirt");
     const usersCollection = client.db("TShirtCollection").collection("users");
-    const reviewsCollection = client
+    const checkoutCollection = client
       .db("TShirtCollection")
-      .collection("reviews");
+      .collection("checkout");
 
     // User Collection
     // post user
@@ -75,7 +75,10 @@ async function run() {
       res.send(allTShirt);
     });
 
-   
+    app.post("/checkout", async (req, res) => {
+      const body = req.body;
+      console.log(body);
+    });
 
     await client.db("admin").command({ ping: 1 });
     console.log("MONGODB Connect successfully😊😊😊");

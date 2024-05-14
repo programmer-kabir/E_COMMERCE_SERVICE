@@ -189,8 +189,8 @@ const CheckOut = () => {
                         type="email"
                         placeholder="Email Address"
                         {...register("email", { required: true })}
-                        value={currentUser?.email}
-                        disabled
+                        value={user?.email}
+                        // disabled
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
                         id="email"
                       />

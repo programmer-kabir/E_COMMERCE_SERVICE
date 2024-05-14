@@ -22,8 +22,6 @@ const Navbar = () => {
   const location = useLocation();
   const { user, logOut, loading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const data = false;
-
   const handleNav = () => {
     setNav(!nav);
   };
