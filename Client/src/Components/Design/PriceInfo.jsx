@@ -13,12 +13,12 @@ const PriceInfo = ({subtotal,length}) => {
   // const delivery = 150;
     const total = subtotal + delivery;
     let discount = 0;
-  if (total >= 3000) {
+  if (total >= 4000) {
     discount = 150;
-  } else if (total >= 6000) {
+  } else if (total >= 8000) {
     discount = 300;
-  } else if (total >= 9000) {
-    discount = 500;
+  } else if (total >= 12000) {
+    discount = 450;
   }
   const discountedTotal = total - discount;
   return (

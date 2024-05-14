@@ -6,10 +6,8 @@ import { fetchUser } from "../../Redux/User/userSlice";
 import useAuth from "../../../Components/Hooks/useAuth";
 import Loader from "../../../Components/Loader/Loader";
 import { fetchTShirt } from "../../Redux/TShirt/tShirtSlice";
-import { useLocation } from "react-router-dom";
-import PriceInfo from "../../../Components/Design/PriceInfo";
-import { FaPlus } from "react-icons/fa6";
-
+import { FaPlus, FaMinus } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
 const CheckOut = () => {
   const { user } = useAuth();
   const { isLoading: TShirtLoading, TShirts } = useSelector(
@@ -21,8 +19,8 @@ const CheckOut = () => {
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchTShirt());
-  }, []);
- 
+  }, [ ]);
+
   const FavoriteDataRaw = localStorage.getItem("cartTShirt");
   const FavoriteData = FavoriteDataRaw ? JSON.parse(FavoriteDataRaw) : [];
   const cartTShirts = TShirts.filter((shirt) =>
@@ -43,29 +41,38 @@ const CheckOut = () => {
   );
   let delivery = 0;
 
-//   if (cartTShirts.length === 1) {
-//     delivery = 150;
-//   } else if (cartTShirts.length > 1) {
-//     delivery = 150 + (length - 1) * 150;
-//   }
-if (cartTShirts.length === 1) {
+  if (cartTShirts.length === 1) {
     delivery = 150;
   } else if (cartTShirts.length > 1) {
     delivery = 150 + (cartTShirts.length - 1) * 150;
   }
   const total = subtotal + delivery;
-console.log(total);
   let discount = 0;
-  if (total >= 3000) {
+  if (total >= 4000) {
     discount = 150;
-  } else if (total >= 6000) {
+  } else if (total >= 8000) {
     discount = 300;
-  } else if (total >= 9000) {
-    discount = 500;
+  } else if (total >= 12000) {
+    discount = 450;
   }
   const discountedTotal = total - discount;
   const [showCheckOutBox, setShowCheckOutBox] = useState(false);
+  const [icon, setIcon] = useState(false);
 
+  const handleToggleCheckOutBox = () => {
+    setShowCheckOutBox(!showCheckOutBox);
+    setIcon(!icon);
+  };
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  }
   return (
     <section className="p-2">
       {isLoading ? (
@@ -77,12 +84,12 @@ console.log(total);
             <Breadcrumb name={"CheckOut"} />
           </div>
           <Content>
-            <section className="flex pt-12 gap-7">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex pt-12 gap-7">
               <div className="w-1/2">
                 <h2 className="text-2xl border-b pb-2 font-semibold">
                   Billing Details
                 </h2>
-                <form className="space-y-5 pt-5">
+                <div className="space-y-5 pt-5">
                   {/* First Last name c */}
                   <div className="flex gap-5 w-full">
                     {/* First Name */}
@@ -94,9 +101,9 @@ console.log(total);
                         type="text"
                         placeholder="First Name"
                         name=""
-                        defaultValue={firstName}
+                        {...register("firstName", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="firstName"
                       />
                     </div>
                     {/* Last Name */}
@@ -107,10 +114,9 @@ console.log(total);
                       <input
                         type="text"
                         placeholder="Last Name"
-                        name=""
-                        defaultValue={lastName}
+                        {...register("lastName", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="lastName"
                       />
                     </div>
                   </div>
@@ -124,10 +130,9 @@ console.log(total);
                       <input
                         type="text"
                         placeholder="District Name"
-                        name=""
-                        defaultValue={currentUser?.divison}
+                        {...register("divison", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="divison"
                       />
                     </div>
                     {/* zilla Name */}
@@ -138,10 +143,9 @@ console.log(total);
                       <input
                         type="text"
                         placeholder="Zilla Name"
-                        name=""
-                        defaultValue={currentUser?.district}
+                        {...register("district", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="district"
                       />
                     </div>
                   </div>
@@ -155,10 +159,9 @@ console.log(total);
                       <input
                         type="text"
                         placeholder="Up Zilla Name"
-                        name=""
-                        defaultValue={currentUser?.upZillah}
+                        {...register("upZillah", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="upZillah"
                       />
                     </div>
                     {/* Up Zilla Name */}
@@ -169,9 +172,9 @@ console.log(total);
                       <input
                         type="text"
                         placeholder="Postcode / Zip "
-                        name=""
+                        {...register("postCode", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="Postcode"
                       />
                     </div>
                   </div>
@@ -185,11 +188,11 @@ console.log(total);
                       <input
                         type="email"
                         placeholder="Email Address"
-                        name=""
-                        defaultValue={currentUser?.email}
+                        {...register("email", { required: true })}
+                        value={currentUser?.email}
                         disabled
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="email"
                       />
                     </div>
                     {/* Phone  */}
@@ -200,16 +203,34 @@ console.log(total);
                       <input
                         type="text"
                         placeholder="Phone Number"
-                        name=""
-                        defaultValue={currentUser?.number}
+                        name="number"
+                        {...register("number", { required: true })}
                         className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
+                        id="number"
                       />
                     </div>
                   </div>
-                </form>
+                  <div className=" space-y-2 w-full">
+                    <p className="primaryColor font-medium text-sm">
+                      Order Notes
+                    </p>
+                    <textarea
+                      type="text"
+                      rows={5}
+                      placeholder="Notes about your order, e.g. special notes for delivery."
+                      name=""
+                      {...register("notes", { required: true })}
+                      className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
+                      id="notes"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="w-1/2 border-2 px-10 py-4">
+              <div
+                className={`w-1/2 border-2 px-10 py-4 transition-height ease-in-out duration-500 ${
+                  showCheckOutBox ? "h-[890px]" : "h-[806px]"
+                }`}
+              >
                 <h2 className="text-3xl border-b pb-2 font-semibold">
                   Your order
                 </h2>
@@ -219,7 +240,10 @@ console.log(total);
                 </div>
                 <div>
                   {cartTShirts.map((tShirt) => (
-                    <div key={tShirt._id} className="flex justify-between pt-7 font-medium pb-2 border-b">
+                    <div
+                      key={tShirt._id}
+                      className="flex justify-between pt-7 font-medium pb-2 border-b"
+                    >
                       <h2>{tShirt?.title}</h2>
                       <h2>{tShirt?.price}</h2>
                     </div>
@@ -241,29 +265,58 @@ console.log(total);
                   <h2>Total Order </h2>
                   <h2>{discountedTotal}</h2>
                 </div>
-                <div  onClick={() => setShowCheckOutBox(!showCheckOutBox)} className="pt-10 px-5 hover:text-[#F62977] flex justify-between font-bold pb-2">
-                    <p>Direct Bkash Transfer</p>
-                    <FaPlus color="black"/>
+                <div
+                  onClick={handleToggleCheckOutBox}
+                  className="pt-10 px-5 hover:text-[#F62977] flex justify-between font-bold pb-2"
+                >
+                  <p>Apply Coupon Code</p>
+                  {showCheckOutBox ? <FaMinus color="red" /> : <FaPlus color="black" />}
                 </div>
-                {showCheckOutBox && <div>
-                    <div className="flex gap-5 w-full">
+                <div>
+                  <div className="flex gap-5 w-full">
                     {/* First Name */}
-                    <div className="space-y-2 w-full">
-                      
-                      <input
-                        type="text"
-                        placeholder="First Name"
-                        name=""
-                        defaultValue={firstName}
-                        className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
-                        id=""
-                      />
+                    <div className="space-y-3 pt-2 w-full">
+                      {showCheckOutBox && (
+                        <div className="transition-all  ease-in-out duration-500 w-full top-0  overflow-auto ">
+                          <div className="space-y-2 w-full">
+                            <p className="primaryColor font-medium text-sm">
+                              Coupon Code
+                              <span className="text-red-600">*</span>
+                            </p>
+                            <input
+                              type="text"
+                              placeholder="Enter Coupon Code"
+                              name=""
+                              
+                              {...register("coupon")}
+                              className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
+                              id="coupon"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <div>
+                        <p className="primaryColor font-medium text-sm">
+                          transaction Id <span className="text-red-600">*</span>
+                        </p>
+                        <input
+                          type="text"
+                          placeholder="Enter Your Transaction Id"
+                          name=""
+                          {...register("transaction", { required: true })}
+                          className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
+                          id="transaction"
+                        />
+                      </div>
+                      <button  className="secondaryButton w-full py-4">
+                        Place order
+                      </button>
                     </div>
-                    
                   </div>
-                    </div>}
+                </div>
               </div>
-            </section>
+            </form>
           </Content>
         </>
       )}
