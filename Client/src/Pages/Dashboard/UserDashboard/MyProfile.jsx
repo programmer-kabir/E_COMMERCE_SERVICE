@@ -128,7 +128,7 @@
 //         {isEditMode ? (
 //           <div className="px-4">
 //             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-             
+
 //                 {/* First Name */}
 //                 <label
 //                   htmlFor="firstName"
@@ -356,7 +356,7 @@
 //                 <div className="flex justify-end text-center">
 //                   <button className="primaryButton w-40 rounded">Save Changes</button>
 //                 </div>{" "}
-              
+
 //             </form>
 //           </div>
 //         ) : (
@@ -477,12 +477,58 @@
 
 // export default MyProfile;
 
-import React from 'react'
-
+import React from "react";
+import totalOrderIcon from "../../../assets/Icon/TotalOrder.svg";
+import pendingOrderIcon from "../../../assets/Icon/Pendding.svg";
+import processingOrderIcon from "../../../assets/Icon/Processing.svg";
+import completeOrderIcon from "../../../assets/Icon/Complete.svg";
+import useAuth from "../../../Components/Hooks/useAuth";
 const MyProfile = () => {
+  const { user } = useAuth();
   return (
-    <div>MyProfile</div>
-  )
-}
+    <section className="pt-16 px-5 overflow-y-auto">
+      <h2 className="text-2xl font-semibold">Welcome {user?.displayName}</h2>
+      <div className="flex w-full pt-20 pb-72 gap-10">
+        <div className="w-full flex py-5 flex-col items-center justify-center space-y-2 border">
+          <div className="w-1/3  relative ">
+            <img className="" src={totalOrderIcon} alt="" />
+            <span className="absolute top-2 right-1 rounded-full w-7 h-7 flex items-center justify-center text-white font-medium border-2 border-white bg-[#F62977]">
+              0
+            </span>
+          </div>
+          <h5 className="font-semibold text-xl">Total Order</h5>
+        </div>
+        <div className="w-full flex py-5 flex-col items-center justify-center space-y-2 border">
+          <div className="w-1/3  relative ">
+            <img className="" src={pendingOrderIcon} alt="" />
+            <span className="absolute top-1 right-[-10px] rounded-full w-7 h-7 flex items-center justify-center text-white font-medium border-2 border-white bg-[#F62977]">
+              0
+            </span>
+          </div>
+          <h5 className="font-semibold text-xl">Pending Order</h5>
+        </div>
+        <div className="w-full flex py-5 flex-col items-center justify-center space-y-2 border">
+          <div className="w-1/3  relative ">
+            <img className="" src={processingOrderIcon} alt="" />
+            <span className="absolute top-2 right-1 rounded-full w-7 h-7 flex items-center justify-center text-white font-medium border-2 border-white bg-[#F62977]">
+              0
+            </span>
+          </div>
+          <h5 className="font-semibold text-xl">Processing Order</h5>
+        </div>
+        <div className="w-full flex py-5 flex-col items-center justify-center space-y-2 border">
+          <div className="w-1/3  relative ">
+            <img className="" src={completeOrderIcon} alt="" />
+            <span className="absolute top-1 right-0 rounded-full w-7 h-7 flex items-center justify-center text-white font-medium border-2 border-white bg-[#F62977]">
+              0
+            </span>
+          </div>
+          <h5 className="font-semibold text-xl">Complete Order
+</h5>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-export default MyProfile
+export default MyProfile;
