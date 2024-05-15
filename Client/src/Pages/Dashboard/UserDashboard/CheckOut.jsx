@@ -12,19 +12,22 @@ import axios from "axios";
 import District from "../../../Components/Apis/Distric";
 import Division from "../../../Components/Apis/Division";
 import upZillah from "../../../Components/Apis/upZillah";
+import { fetchCheckout } from "../../Redux/CheckOut/checkoutSlice";
+import { generateOrderId } from "../../../Components/Ulitis/GenarateId";
 const CheckOut = () => {
   const { user } = useAuth();
-  const { isLoading: TShirtLoading, TShirts } = useSelector(
-    (state) => state.TShirts
+
+  const { isLoading:isCheckoutLoading, checkouts } = useSelector(
+    (state) => state.checkouts
   );
 
   const { isLoading, users } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUser());
-    dispatch(fetchTShirt());
+    dispatch(fetchCheckout());
   }, []);
-
+ 
   const cartDataRaw = localStorage.getItem("cartTShirt");
   const cartData = cartDataRaw ? JSON.parse(cartDataRaw) : [];
 
@@ -99,10 +102,15 @@ const CheckOut = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+   
+const orderId = generateOrderId()
+
     const selectedProduct = cartData.map((tShirt) => tShirt._id);
     const districtId = data.district;
+    data.orderId = orderId,
     data.totalPrice = discountedTotal;
     data.productPrice = subtotal;
+    data.status='Confirm Payment';
     data.deliveryCharge = delivery;
     data.productId = selectedProduct;
     const currentDistrict = district.find((dis) => dis.id === districtId);
@@ -114,6 +122,7 @@ const CheckOut = () => {
       .then((data) => {
         console.log(data);
       });
+   
   };
   return (
     <section className="p-2">

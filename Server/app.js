@@ -128,18 +128,43 @@ async function run() {
       const allTShirt = await TShirtCollection.find().toArray();
       res.send(allTShirt);
     });
+    async function fetchCurrentInvoiceId() {
+      // Query the checkout collection to find the document with the highest invoiceId
+      const highestInvoiceDoc = await checkoutCollection.find().sort({ invoiceId: -1 }).limit(1).toArray();
+      
+      if (highestInvoiceDoc.length === 0 || !highestInvoiceDoc[0].invoiceId) {
+        // If no documents are found or invoiceId is not present, return a default value (e.g., starting invoice ID)
+        return 10000;
+      }
+      
+      // Extract and return the invoiceId from the highest document
+      return parseInt(highestInvoiceDoc[0].invoiceId, 10); // Ensure it's parsed as an integer
+    }
 
     app.post("/checkout", async (req, res) => {
       const body = req.body;
+      const orderId = req.body.orderId;
+      console.log(orderId);
+      let currentInvoiceId = await fetchCurrentInvoiceId();
+      currentInvoiceId++;
+      body.invoiceId = currentInvoiceId;
+
+      const query = { orderId: body.orderId };
+      // console.log(query);
+     
+      const existingData = await checkoutCollection.findOne(query);
+      if (existingData) {
+        return res.status(404).json({ message: "Invoice Id already Exist" });
+      }
       const result = await checkoutCollection.insertOne(body);
-      res.send(result);
+      res.send({ invoiceId: currentInvoiceId });
     });
     app.get("/checkout", async (req, res) => {
-      const result = await checkoutCollection.find( ).toArray();
+      const result = await checkoutCollection.find().toArray();
       res.send(result);
     });
 
-    app.get('/checkout', async(req,res) =>{
+    app.get("/checkout", async (req, res) => {
       const email = req.query.email;
       console.log(email);
       if (!email) {
@@ -148,7 +173,7 @@ async function run() {
       const query = { email: email };
       const data = await checkoutCollection.find(query).toArray();
       res.send(data);
-    })
+    });
     await client.db("admin").command({ ping: 1 });
     console.log("MONGODB Connect successfully😊😊😊");
   } finally {
