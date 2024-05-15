@@ -134,6 +134,10 @@ async function run() {
       const result = await checkoutCollection.insertOne(body);
       res.send(result);
     });
+    app.get("/checkout", async (req, res) => {
+      const result = await checkoutCollection.find( ).toArray();
+      res.send(result);
+    });
 
     app.get('/checkout', async(req,res) =>{
       const email = req.query.email;

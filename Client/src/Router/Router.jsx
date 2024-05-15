@@ -13,6 +13,7 @@ import MyProfile from "../Pages/Dashboard/UserDashboard/MyProfile";
 import CheckOut from "../Pages/Dashboard/UserDashboard/CheckOut";
 import ManageUser from "../Pages/Dashboard/AdminDashboard/ManageUser";
 import AdminBoard from "../Pages/Dashboard/AdminDashboard/AdminBoard";
+import Orders from "../Pages/Dashboard/AdminDashboard/Orders";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path:"admin_board",
         element:<AdminBoard />
+      },
+      {
+        path:"orders",
+        element:<Orders />
       },
     ],
   },

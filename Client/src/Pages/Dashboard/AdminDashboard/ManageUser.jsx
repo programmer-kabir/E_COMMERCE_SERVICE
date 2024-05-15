@@ -52,7 +52,7 @@ const ManageUser = () => {
 
           <tbody className="divide-y divide-gray-200">
             {users?.map((User) => (
-              <tr>
+              <tr key={User._id}>
                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                   {User.name}
                 </td>

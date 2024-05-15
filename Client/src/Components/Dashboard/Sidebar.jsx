@@ -44,17 +44,7 @@ const Sidebar = () => {
           
           {isAdmin && (
             <div className="space-y-1  ">
-              <NavLink
-                to="manage_user"
-                className={({ isActive }) =>
-                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : "text-[#6D7080]"
-                  }`
-                }
-              >
-                {/* <FaCircleUser className="w-5 h-5" /> */}
-                <span>Manage User</span>
-              </NavLink>
+             
               <NavLink
                 to="admin_board"
                 className={({ isActive }) =>
@@ -65,6 +55,28 @@ const Sidebar = () => {
               >
                 {/* <FaCircleUser className="w-5 h-5" /> */}
                 <span>Dashboard</span>
+              </NavLink>
+              <NavLink
+                to="orders"
+                className={({ isActive }) =>
+                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                    isActive ? activeLinkClass : "text-[#6D7080]"
+                  }`
+                }
+              >
+                {/* <FaCircleUser className="w-5 h-5" /> */}
+                <span>Orders</span>
+              </NavLink>
+              <NavLink
+                to="manage_user"
+                className={({ isActive }) =>
+                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                    isActive ? activeLinkClass : "text-[#6D7080]"
+                  }`
+                }
+              >
+                {/* <FaCircleUser className="w-5 h-5" /> */}
+                <span>Manage User</span>
               </NavLink>
             </div>
           )}
