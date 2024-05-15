@@ -163,7 +163,19 @@ async function run() {
       const result = await checkoutCollection.find().toArray();
       res.send(result);
     });
+app.put('/checkout', async(req, res) =>{
+  const { id, status } = req.body; 
+  // const query = { _id: new ObjectId(id) };
+  const updatedCheckout = await checkoutCollection.findOneAndUpdate(
+    { _id: new ObjectId(id) }, // Filter by the checkout ID
+    { $set: { status: status } }, // Update the status
+    { new: true } // Return the updated document
+  );
+  // const existingData = await checkoutCollection.findOne(query);
+ 
 
+  res.send(updatedCheckout);
+})
     app.get("/checkout", async (req, res) => {
       const email = req.query.email;
       console.log(email);

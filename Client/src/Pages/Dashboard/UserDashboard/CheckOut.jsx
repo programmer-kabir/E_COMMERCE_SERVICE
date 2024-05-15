@@ -104,6 +104,8 @@ const CheckOut = () => {
   const onSubmit = (data) => {
    
 const orderId = generateOrderId()
+const currentDate = new Date();
+const formattedDate = currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
     const selectedProduct = cartData.map((tShirt) => tShirt._id);
     const districtId = data.district;
@@ -115,6 +117,7 @@ const orderId = generateOrderId()
     data.productId = selectedProduct;
     const currentDistrict = district.find((dis) => dis.id === districtId);
     data.district = currentDistrict ? currentDistrict.name : "";
+    data.orderDate = formattedDate;
 
     console.log(data);
     axios
