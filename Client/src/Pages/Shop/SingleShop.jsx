@@ -75,22 +75,51 @@ const SingleShop = () => {
   }, [id]);
 
  
-  const handleAddToCart = (id) => {
-    
-      const storedIdsString = localStorage.getItem("cartTShirt");
-    const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
-    if (!storedIds.includes(id)) {
-      storedIds.push(id);
-      localStorage.setItem("cartTShirt", JSON.stringify(storedIds));
-      setIsCartTShirt(true);
-      setCartTShirtCount((pre) => pre + 1);
-      toast.success("Item is added");
-    } else {
-      toast.error("Item is already a favorite");
-    }
-    
-  };
+  // const handleAddToCart = (id) => {
+  //   // const Quantity = quantity;
 
+  //   const storedQuantity = localStorage.getItem(`quantity_${id}`);
+  //   const Quantity = storedQuantity ? parseInt(storedQuantity) : quantity;
+  //     const storedIdsString = localStorage.getItem("cartTShirt");
+  //   const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+  //   if (!storedIds.includes(id)) {
+  //     storedIds.push(id);
+  //     localStorage.setItem("cartTShirt", JSON.stringify(storedIds));
+  //     setIsCartTShirt(true);
+  //     setCartTShirtCount((pre) => pre + 1);
+  //     toast.success("Item is added");
+  //   } else {
+  //     toast.error("Item is already a favorite");
+  //   }
+    
+  // };
+  const handleAddToCart = (TShirt) => {
+    const { _id, title,price } = TShirt;
+  
+    const storedItemsString = localStorage.getItem("cartTShirt");
+    const storedItems = storedItemsString ? JSON.parse(storedItemsString) : [];
+  
+    // Check if the item with the given ID is already in the cart
+    const existingItemIndex = storedItems.findIndex((item) => item.id === id);
+  
+    if (existingItemIndex !== -1) {
+      // If the item already exists, update its quantity
+      storedItems[existingItemIndex].quantity += quantity;
+    } else {
+      // If the item doesn't exist, add it to the cart
+      storedItems.push({ _id, title,price, quantity });
+    }
+  
+    // Save the updated cart items back to localStorage
+    localStorage.setItem("cartTShirt", JSON.stringify(storedItems));
+  
+    setIsCartTShirt(true);
+    setCartTShirtCount((prevCount) => prevCount + quantity);
+    toast.success("Item is added");
+  };
+  
+  
+  
   return (
     <Content>
       <section className="pt-7 flex gap-7">
@@ -187,7 +216,7 @@ const SingleShop = () => {
                       </div>
                       {/* Add to cart button */}
                       <button
-                        onClick={() => handleAddToCart(TShirt._id)}
+                        onClick={() => handleAddToCart(TShirt)}
 
                         className={`w-[200px] uppercase rounded-sm font-semibold h-[42px] flex items-center gap-2  justify-center transition duration-300
                           ${isCartTShirt

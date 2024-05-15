@@ -25,11 +25,8 @@ const CheckOut = () => {
     dispatch(fetchTShirt());
   }, []);
 
-  const FavoriteDataRaw = localStorage.getItem("cartTShirt");
-  const FavoriteData = FavoriteDataRaw ? JSON.parse(FavoriteDataRaw) : [];
-  const cartTShirts = TShirts.filter((shirt) =>
-    FavoriteData.includes(shirt._id)
-  );
+  const cartDataRaw = localStorage.getItem("cartTShirt");
+  const cartData = cartDataRaw ? JSON.parse(cartDataRaw) : [];
 
   let firstName = "";
   let lastName = "";
@@ -39,16 +36,21 @@ const CheckOut = () => {
     const fullName = currentUser.name;
     [firstName, lastName] = fullName.split(" ");
   }
-  const subtotal = cartTShirts.reduce(
-    (acc, item) => acc + parseFloat(item.price),
+  // const subtotal = cartData.reduce(
+  //   (acc, item) => acc + parseFloat(item?.price),
+  //   0
+  // );
+  const subtotal = cartData.reduce(
+    (acc, item) => acc + parseFloat(item?.price * item?.quantity),
     0
   );
+
   let delivery = 0;
 
-  if (cartTShirts.length === 1) {
+  if (cartData.length === 1) {
     delivery = 150;
-  } else if (cartTShirts.length > 1) {
-    delivery = 150 + (cartTShirts.length - 1) * 150;
+  } else if (cartData.length > 1) {
+    delivery = 150 + (cartData.length - 1) * 150;
   }
   const total = subtotal + delivery;
   let discount = 0;
@@ -97,18 +99,18 @@ const CheckOut = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
-    const districtId = data.district
-    data.totalPrice = discountedTotal
-    data.productPrice = subtotal
-    data.deliveryCharge=delivery
+    const selectedProduct = cartData.map((tShirt) => tShirt._id);
+    const districtId = data.district;
+    data.totalPrice = discountedTotal;
+    data.productPrice = subtotal;
+    data.deliveryCharge = delivery;
     data.productId = selectedProduct;
-    const currentDistrict  = district.find(dis => dis.id === districtId)
-    data.district = currentDistrict ? currentDistrict.name : '';
+    const currentDistrict = district.find((dis) => dis.id === districtId);
+    data.district = currentDistrict ? currentDistrict.name : "";
 
     console.log(data);
     axios
-      .post(`${import.meta.env.VITE_LOCALHOST_KEY}/CheckOut`,  data )
+      .post(`${import.meta.env.VITE_LOCALHOST_KEY}/CheckOut`, data)
       .then((data) => {
         console.log(data);
       });
@@ -195,7 +197,7 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                     {/* zilla Name */}
                     <div className="space-y-2  w-full">
                       <p className="primaryColor font-medium text-sm">
-                      Zilla Name <span className="text-red-600">*</span>
+                        Zilla Name <span className="text-red-600">*</span>
                       </p>
                       <label
                         htmlFor="district"
@@ -212,10 +214,10 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                             Select Zilla
                           </option>
                           {districtsInSelectedDivision.map((district) => (
-                          <option key={district.id} value={district.id}>
-                            {district.name}
-                          </option>
-                        ))}
+                            <option key={district.id} value={district.id}>
+                              {district.name}
+                            </option>
+                          ))}
                         </select>
                       </label>
                     </div>
@@ -225,7 +227,7 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                     {/* Up Zilla Name */}
                     <div className="space-y-2  w-full">
                       <p className="primaryColor font-medium text-sm">
-                      Up Zilla Name <span className="text-red-600">*</span>
+                        Up Zilla Name <span className="text-red-600">*</span>
                       </p>
                       <label
                         htmlFor="upZillah"
@@ -235,17 +237,17 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                           id="upZillah"
                           {...register("upZillah", { required: true })}
                           value={selectedUpzillah}
-                        onChange={(e) => setSelectedUpzillah(e.target.value)}
+                          onChange={(e) => setSelectedUpzillah(e.target.value)}
                           className="  text-base  py-4 w-full border-none bg-transparent p-0 placeholder-transparent  outline-none"
                         >
                           <option value="" disabled>
                             Select Up Zilla
                           </option>
                           {upzillahsInSelectedDistrict.map((upzillah) => (
-                          <option key={upzillah.id} value={upzillah.name}>
-                            {upzillah.name}
-                          </option>
-                        ))}
+                            <option key={upzillah.id} value={upzillah.name}>
+                              {upzillah.name}
+                            </option>
+                          ))}
                         </select>
                       </label>
                     </div>
@@ -263,7 +265,21 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                       />
                     </div>
                   </div>
-
+                  {/* Village */}
+                  <div>
+                    <div className=" space-y-2  w-full">
+                      <p className="primaryColor font-medium text-sm">
+                        Village Name <span className="text-red-600">*</span>
+                      </p>
+                      <input
+                        type="text"
+                        placeholder="Your Village Name "
+                        {...register("village", { required: true })}
+                        className="w-full text-base py-4 px-5 focus:border-[#F62977] focus:border border border-[#f5f5f8] focus:bg-transparent outline-none bg-[#f5f5f8] "
+                        id="village"
+                      />
+                    </div>
+                  </div>
                   <div className="flex gap-5 w-full">
                     {/* Email Address  */}
                     <div className=" space-y-2 w-full">
@@ -324,13 +340,17 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                   <h2>Total</h2>
                 </div>
                 <div>
-                  {cartTShirts.map((tShirt) => (
+                  {cartData.map((tShirt) => (
                     <div
-                      key={tShirt._id}
+                      key={tShirt?._id}
                       className="flex justify-between pt-7 font-medium pb-2 border-b"
                     >
-                      <h2>{tShirt?.title}</h2>
-                      <h2>{tShirt?.price}</h2>
+                      <h2 className="font-semibold flex gap-1 items-center">
+                        {tShirt?.title}
+                        <FaPlus className="rotate-45" size={17} />
+                        {tShirt.quantity}
+                      </h2>
+                      <h2>{tShirt ? tShirt.price * tShirt.quantity : 0}</h2>
                     </div>
                   ))}
                 </div>
@@ -348,7 +368,9 @@ const selectedProduct = cartTShirts.map(tShirt => tShirt._id)
                 </div>
                 <div className="flex justify-between pt-7 font-medium pb-2 ">
                   <h2>Total Order </h2>
-                  <h2>{discountedTotal}</h2>
+                  <h2 className="secondaryColor font-medium">
+                    {discountedTotal}
+                  </h2>
                 </div>
                 <div
                   onClick={handleToggleCheckOutBox}

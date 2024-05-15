@@ -55,7 +55,7 @@ async function run() {
     const usersCollection = client.db("TShirtCollection").collection("users");
     const checkoutCollection = client
       .db("TShirtCollection")
-      .collection("checkout");
+      .collection("AllCheckout");
     // JWT
     app.post("/jwt", (req, res) => {
       const user = req.body;
@@ -96,22 +96,22 @@ async function run() {
       const user = await usersCollection.find().toArray();
       res.send(user);
     });
-       // Update user to admin
-       app.patch("/users/admin/:id", async (req, res) => {
-        const id = req.params.id;
-        const filter = { _id: new ObjectId(id) };
-        console.log(filter);
-        const updatedDoc = {
-          $set: {
-            role: "admin",
-            status:"active"
-          },
-        };
-        const result = await usersCollection.updateOne(filter, updatedDoc);
-        res.send(result);
-      });
+    // Update user to admin
+    app.patch("/users/admin/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      console.log(filter);
+      const updatedDoc = {
+        $set: {
+          role: "admin",
+          status: "active",
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updatedDoc);
+      res.send(result);
+    });
 
-          // Get admin
+    // Get admin
     app.get("/users/admin/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
 
@@ -131,9 +131,20 @@ async function run() {
 
     app.post("/checkout", async (req, res) => {
       const body = req.body;
-      console.log(body);
+      const result = await checkoutCollection.insertOne(body);
+      res.send(result);
     });
 
+    app.get('/checkout', async(req,res) =>{
+      const email = req.query.email;
+      console.log(email);
+      if (!email) {
+        res.send([]);
+      }
+      const query = { email: email };
+      const data = await checkoutCollection.find(query).toArray();
+      res.send(data);
+    })
     await client.db("admin").command({ ping: 1 });
     console.log("MONGODB Connect successfully😊😊😊");
   } finally {
