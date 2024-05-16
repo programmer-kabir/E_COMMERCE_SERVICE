@@ -6,39 +6,58 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { IoEye } from "react-icons/io5";
 import { RiPrinterFill } from "react-icons/ri";
 import axios from "axios";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import Pagination from "react-js-pagination";
+import ReactPaginate from "react-paginate";
+
 const Orders = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedEmail, setSelectedEmail] = useState("");
-
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const { isLoading, checkouts } = useSelector((state) => state.checkouts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCheckout());
   }, [dispatch]);
-  // console.log(checkouts);
+
   const handleChange = (event) => {
     // setSelectedOption(event.target.value);
-    const email = checkouts?.find(checkout => checkout._id === event.target.id)?.email;
+    const email = checkouts?.find(
+      (checkout) => checkout._id === event.target.id
+    )?.email;
     setSelectedEmail(email);
-    const data =  {
-      id:event.target.id,
-      email:email,
-      status:event.target.value
-    }
+    const data = {
+      id: event.target.id,
+      email: email,
+      status: event.target.value,
+    };
     console.log(data);
-    axios.put(`${import.meta.env.VITE_LOCALHOST_KEY}/checkout`,data)
-    .then(data=>{
-      if(data.status==200){
-        toast.success('status update')
-        console.log(data.data);
-        setSelectedOption(data.data.status)
-      }
-    })
+    axios
+      .put(`${import.meta.env.VITE_LOCALHOST_KEY}/checkout`, data)
+      .then((data) => {
+        if (data.status == 200) {
+          toast.success("status update");
+          console.log(data.data);
+          setSelectedOption(data.data.status);
+        }
+      });
   };
-  console.log(selectedOption);
+
+  const pageCount = Math.ceil(checkouts.length / itemsPerPage);
+
+  // Function to handle page change
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  // Calculate the index of the first and last item for the current page
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = checkouts.slice(startIndex, endIndex);
+
+console.log(currentItems);
   return (
     <section className="bg-[#F1F5F9] p-7 ">
       <div className="space-y-1">
@@ -53,13 +72,12 @@ const Orders = () => {
         }}
       >
         <div className="flex items-center justify-between pb-9">
-          <div className="md:flex hidden px-2 py-1 rounded-md  border w-64  gap-2 items-center ">
+          <div className="md:flex hidden px-2 py-1 rounded-md border w-64 gap-2 items-center">
             <AiOutlineSearch className="w-7 h-7" color="#64748b" />
             <input
               type="search"
               name=""
-              className="w-full text-gray-700 text-sm   focus:outline-none"
-              id=""
+              className="w-full text-gray-700 text-sm focus:outline-none"
               placeholder="Search by invoice no"
             />
           </div>
@@ -92,43 +110,44 @@ const Orders = () => {
               <tr className="uppercase text-[#C5C8D4] text-[12px] font-semibold">
                 <th className="whitespace-nowrap px-4 py-2  ">INVOICE NO</th>
                 <th className="whitespace-nowrap px-8 py-2 ">CUSTOMER</th>
-                <th className="whitespace-nowrap px-4 py-2 ">Email</th>
-                <th className="whitespace-nowrap px-4 py-2 ">Product</th>
-                <th className="whitespace-nowrap px-4 py-2 ">Transition No</th>
-                <th className="whitespace-nowrap px-4 py-2 ">Product Price</th>
-                <th className="whitespace-nowrap px-4 py-2 ">Total Price</th>
-                <th className="whitespace-nowrap px-4 py-2 ">STATUS</th>
-                <th className="whitespace-nowrap px-4 py-2 ">DATE</th>
-                <th className="whitespace-nowrap px-4 py-2 ">ACTION</th>
-                <th className="whitespace-nowrap px-4 py-2 ">INVOICE</th>
+                <th className="whitespace-nowrap px-8 py-2 ">Email</th>
+                <th className="whitespace-nowrap px-8 py-2 ">Product</th>
+                <th className="whitespace-nowrap px-8 py-2 ">Transition No</th>
+                <th className="whitespace-nowrap px-8 py-2 ">Product Price</th>
+                <th className="whitespace-nowrap px-8 py-2 ">Total Price</th>
+                <th className="whitespace-nowrap px-8 py-2 ">STATUS</th>
+                <th className="whitespace-nowrap px-8 py-2 ">DATE</th>
+                <th className="whitespace-nowrap px-8 py-2 ">ACTION</th>
+                <th className="whitespace-nowrap px-8 py-2 ">INVOICE</th>
               </tr>
             </thead>
 
             <tbody className="divide-y text-[14px] divide-gray-200 text-black">
-              {checkouts?.map((checkout) => (
+              {currentItems?.map((checkout) => (
                 <tr key={checkout._id}>
                   <td className="px-5 py-2 font-normal ">
                     #{checkout?.invoiceId}
                   </td>
-                  <td className="whitespace-nowrap font-semibold px-4 py-2">
+
+                  <td className="whitespace-nowrap font-semibold px-8 py-2">
                     {checkout?.firstName} {checkout?.lastName}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">
                     {checkout?.email}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
+                  <td className="whitespace-nowrap px-8 py-2">
                     {checkout?.productId.length}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
+                  <td className="whitespace-nowrap px-8 py-2">
                     {checkout?.transaction}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
+                  <td className="whitespace-nowrap px-8 py-2">
                     {checkout?.productPrice}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
+                  <td className="whitespace-nowrap px-8 py-2">
                     {checkout?.totalPrice}
                   </td>
-                  <td className="whitespace-nowrap   px-4 py-2">
+                  <td className="whitespace-nowrap   px-8 py-2">
                     <span
                       className={`px-3 font-semibold py-1 rounded-lg text-[11px] ${
                         checkout?.status === "Confirm Payment"
@@ -148,18 +167,17 @@ const Orders = () => {
                     </span>
                   </td>
 
-                  <td className="whitespace-nowrap px-4 py-2">
+                  <td className="whitespace-nowrap px-8 py-2">
                     {checkout?.orderDate}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
+                  <td className="whitespace-nowrap px-8 py-2">
                     <div className="w-full">
                       <label
                         htmlFor="district"
                         className="block border  focus:border-gray-400  rounded overflow-hidden shadow-sm outline-none"
                       >
                         <select
-                            id={checkout._id}
-
+                          id={checkout._id}
                           value={checkout?.status}
                           onChange={handleChange}
                           className="p-2 border-none bg-transparent placeholder-transparent outline-none"
@@ -175,11 +193,14 @@ const Orders = () => {
                       </label>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
-                   <div className="flex items-center gap-4">
-                    <IoEye className="bg-gray-200 p-2 rounded-md" size={38}/>
-                    <RiPrinterFill className="p-2 rounded-md bg-gray-200" size={38}/>
-                   </div>
+                  <td className="whitespace-nowrap px-8 py-2">
+                    <div className="flex items-center gap-4">
+                      <IoEye className="bg-gray-200 p-2 rounded-md" size={38} />
+                      <RiPrinterFill
+                        className="p-2 rounded-md bg-gray-200"
+                        size={38}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -187,6 +208,24 @@ const Orders = () => {
           </table>
         </div>
       </section>
+      <div className="flex flex-row  my-4">
+  <ReactPaginate
+    previousLabel={"Previous"}
+    nextLabel={"Next"}
+    breakLabel={"..."}
+    pageCount={pageCount}
+    onPageChange={handlePageChange}
+    className="flex"
+    containerClassName={"pagination"}
+    activeClassName={"bg-blue-500"}
+    previousClassName={"px-3 py-1 border border-gray-300 rounded-md mr-2"}
+    nextClassName={"px-3 py-1 border border-gray-300 rounded-md ml-2"}
+    pageClassName={"px-3 py-1 border border-gray-300 rounded-md mx-1"}
+    disabledClassName={"text-gray-500 cursor-not-allowed"}
+    breakClassName={"mx-2"}
+  />
+</div>
+
     </section>
   );
 };
