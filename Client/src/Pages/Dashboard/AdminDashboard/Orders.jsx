@@ -9,11 +9,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Pagination from "react-js-pagination";
 import ReactPaginate from "react-paginate";
+import { MdDoubleArrow } from "react-icons/md";
 
 const Orders = () => {
-  const [selectedOption, setSelectedOption] = useState("");
   const [selectedEmail, setSelectedEmail] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
   const { isLoading, checkouts } = useSelector((state) => state.checkouts);
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ const Orders = () => {
   }, [dispatch]);
 
   const handleChange = (event) => {
-    // setSelectedOption(event.target.value);
     const email = checkouts?.find(
       (checkout) => checkout._id === event.target.id
     )?.email;
@@ -33,14 +32,11 @@ const Orders = () => {
       email: email,
       status: event.target.value,
     };
-    console.log(data);
     axios
       .put(`${import.meta.env.VITE_LOCALHOST_KEY}/checkout`, data)
       .then((data) => {
         if (data.status == 200) {
-          toast.success("status update");
-          console.log(data.data);
-          setSelectedOption(data.data.status);
+          toast.success(`Now Order is ${data.data.status} `);
         }
       });
   };
@@ -57,7 +53,7 @@ const Orders = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = checkouts.slice(startIndex, endIndex);
 
-console.log(currentItems);
+  console.log(currentItems);
   return (
     <section className="bg-[#F1F5F9] p-7 ">
       <div className="space-y-1">
@@ -104,7 +100,7 @@ console.log(currentItems);
             </div>
           </div>
         </div>
-        <div className="overflow-x-scroll pb-5">
+        <div className="overflow-x-scroll ">
           <table className="divide-y-2 divide-gray-200 bg-white text-sm">
             <thead className="text-left ">
               <tr className="uppercase text-[#C5C8D4] text-[12px] font-semibold">
@@ -206,26 +202,28 @@ console.log(currentItems);
               ))}
             </tbody>
           </table>
+          <div className="flex justify-between items-center my-4">
+            <p className="text-sm">Showing 1 - 10 of {checkouts.length}</p>
+            <ReactPaginate
+              previousLabel={<MdDoubleArrow className="rotate-180" />}
+              nextLabel={<MdDoubleArrow />}
+              breakLabel={"..."}
+              pageCount={pageCount}
+              onPageChange={handlePageChange}
+              className="flex items-center"
+              containerClassName={"pagination"}
+              activeClassName={"bg-[#F62977] text-white"}
+              previousClassName={
+                "w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md mr-2"
+              }
+              nextClassName={"w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md ml-2"}
+              pageClassName={"w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md mx-1"}
+              disabledClassName={"text-gray-500 cursor-not-allowed"}
+              breakClassName={"mx-2"}
+            />
+          </div>
         </div>
       </section>
-      <div className="flex flex-row  my-4">
-  <ReactPaginate
-    previousLabel={"Previous"}
-    nextLabel={"Next"}
-    breakLabel={"..."}
-    pageCount={pageCount}
-    onPageChange={handlePageChange}
-    className="flex"
-    containerClassName={"pagination"}
-    activeClassName={"bg-blue-500"}
-    previousClassName={"px-3 py-1 border border-gray-300 rounded-md mr-2"}
-    nextClassName={"px-3 py-1 border border-gray-300 rounded-md ml-2"}
-    pageClassName={"px-3 py-1 border border-gray-300 rounded-md mx-1"}
-    disabledClassName={"text-gray-500 cursor-not-allowed"}
-    breakClassName={"mx-2"}
-  />
-</div>
-
     </section>
   );
 };
