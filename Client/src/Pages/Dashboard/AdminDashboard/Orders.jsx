@@ -21,7 +21,6 @@ const Orders = () => {
   useEffect(() => {
     dispatch(fetchCheckout());
   }, [dispatch]);
-
   const handleChange = (event) => {
     const email = checkouts?.find(
       (checkout) => checkout._id === event.target.id
@@ -53,7 +52,6 @@ const Orders = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = checkouts.slice(startIndex, endIndex);
 
-  console.log(currentItems);
   return (
     <section className="bg-[#F1F5F9] p-7 ">
       <div className="space-y-1">
@@ -175,12 +173,11 @@ const Orders = () => {
                         <select
                           id={checkout._id}
                           value={checkout?.status}
+                          placeholder="select"
                           onChange={handleChange}
-                          className="p-2 border-none bg-transparent placeholder-transparent outline-none"
+                          className="p-2 border-none bg-transparent  outline-none"
                         >
-                          <option value="" disabled hidden>
-                            select
-                          </option>
+                          <option disabled>select</option>
                           <option value="delivered">Delivered</option>
                           <option value="pending">Pending</option>
                           <option value="processing">Processing</option>
@@ -216,8 +213,12 @@ const Orders = () => {
               previousClassName={
                 "w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md mr-2"
               }
-              nextClassName={"w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md ml-2"}
-              pageClassName={"w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md mx-1"}
+              nextClassName={
+                "w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md ml-2"
+              }
+              pageClassName={
+                "w-[35px] h-[35px] flex items-center justify-center border border-gray-300 rounded-md mx-1"
+              }
               disabledClassName={"text-gray-500 cursor-not-allowed"}
               breakClassName={"mx-2"}
             />
