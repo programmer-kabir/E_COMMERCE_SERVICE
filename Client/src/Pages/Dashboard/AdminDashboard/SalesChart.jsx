@@ -3,7 +3,7 @@ import Chart from "chart.js/auto"; // Make sure to use 'chart.js/auto' for Chart
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCheckout } from "../../Redux/CheckOut/checkoutSlice";
 
-const LineChart = () => {
+const SalesChart = () => {
   const { isLoading, checkouts } = useSelector((state) => state.checkouts);
   const dispatch = useDispatch();
 
@@ -20,13 +20,14 @@ const LineChart = () => {
     }
 
     // Create new chart instance
-    const checkoutsByMonth = Array(12).fill(0); 
+    const checkoutsByMonth = Array(12).fill(0);
 
-    checkouts.forEach(checkout => {
+    checkouts.forEach((checkout) => {
       const date = new Date(checkout.orderDate);
-      const month = date.getMonth(); 
-      if (checkout.status === 'delivered') { // Condition to count only delivered checkouts
-        checkoutsByMonth[month] += 1; 
+      const month = date.getMonth();
+      if (checkout.status === "delivered") {
+        // Condition to count only delivered checkouts
+        checkoutsByMonth[month] += 1;
       }
     });
     chartInstance.current = new Chart(chartContainer.current, {
@@ -48,10 +49,12 @@ const LineChart = () => {
         ],
         datasets: [
           {
-            label: "My First Dataset",
-            data: checkoutsByMonth,
+            label: "Sales",
+            // data: checkoutsByMonth,
+            data: [2, 9, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
             fill: false,
-            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "#10B981",
+            borderColor: "#10B981",
             tension: 0.1,
           },
         ],
@@ -78,4 +81,4 @@ const LineChart = () => {
   );
 };
 
-export default LineChart;
+export default SalesChart;
