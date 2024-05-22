@@ -14,6 +14,8 @@ import CheckOut from "../Pages/Dashboard/UserDashboard/CheckOut";
 import ManageUser from "../Pages/Dashboard/AdminDashboard/ManageUser";
 import AdminBoard from "../Pages/Dashboard/AdminDashboard/AdminBoard";
 import Orders from "../Pages/Dashboard/AdminDashboard/Orders";
+import ProductList from "../Pages/Dashboard/AdminDashboard/Product/ProductList";
+import AddProduct from "../Pages/Dashboard/AdminDashboard/Product/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +83,14 @@ const router = createBrowserRouter([
       {
         path:"orders",
         element:<Orders />
+      },
+      {
+        path:"product-list",
+        element:<ProductList />
+      },
+      {
+        path:"add-product",
+        element:<AddProduct />
       },
     ],
   },

@@ -5,9 +5,15 @@ import { FaArrowLeftLong, FaArrowRightToBracket } from "react-icons/fa6";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../../assets/LOGO/logo.svg";
 import useAdmin from "../Hooks/useAdmin";
+import { BsGrid } from "react-icons/bs";
+import { AiOutlineFileDone } from "react-icons/ai";
+import productIcon from '../../assets/Dashboard/productIcon.svg'
 const Sidebar = () => {
   const { user, logOut } = useAuth();
-
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const handleNavLinkClick = () => {
+    setIsSubMenuOpen(!isSubMenuOpen);
+  };
   const [isAdmin] = useAdmin();
 
   // console.log(isAdmin);
@@ -48,30 +54,71 @@ const Sidebar = () => {
               <NavLink
                 to="admin_board"
                 className={({ isActive }) =>
-                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : "text-[#6D7080]"
+                  `font-medium transition-all py-3 text-base hover:text-black text-black   w-full flex items-center gap-4 px-5 capitalize ${
+                    isActive ? activeLinkClass : "text-black"
                   }`
                 }
               >
                 {/* <FaCircleUser className="w-5 h-5" /> */}
-                <span>Dashboard</span>
+                <span className="flex items-center gap-2 ">
+                  <BsGrid size={20}/>
+                  Dashboard</span>
               </NavLink>
               <NavLink
                 to="orders"
                 className={({ isActive }) =>
-                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : "text-[#6D7080]"
+                  `font-medium transition-all py-3 text-base hover:text-black text-black  w-full flex items-center gap-4 px-5 capitalize ${
+                    isActive ? activeLinkClass : "text-black"
                   }`
                 }
               >
-                {/* <FaCircleUser className="w-5 h-5" /> */}
-                <span>Orders</span>
+                
+                <span className="flex items-center gap-2 ">
+                  <AiOutlineFileDone size={20}/>
+                  Orders</span>
               </NavLink>
+              <div className="px-5 cursor-pointer font-medium py-2">
+      <div
+       
+        className={({ isActive }) =>
+          `font-medium transition-all py-3  text-base hover:text-black text-black w-full flex items-center gap-4 px-5 capitalize ${
+            isActive ? "bg-transparent" : "text-black"
+          }`
+        }
+        onClick={handleNavLinkClick}
+      >
+        <span className="flex items-center gap-2">
+          {/* <AiOutlineFileDone size={20}/> */}
+          <img src={productIcon} alt="Product Icon" />
+          Products
+        </span>
+      </div>
+      {isSubMenuOpen && (
+        <ul className="pl-6 pt-2">
+          <li>
+            <NavLink
+              to="product-list"
+              className="font-medium  text-sm transition-all   hover:text-black text-black w-full flex items-center gap-4 px-5 capitalize"
+            >
+              Product List
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="add-product"
+              className="font-medium transition-all py-2 text-sm hover:text-black text-black w-full flex items-center gap-4 px-5 capitalize"
+            >
+              Add Product
+            </NavLink>
+          </li>
+        </ul>
+      )}
+    </div>
               <NavLink
                 to="manage_user"
                 className={({ isActive }) =>
-                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : "text-[#6D7080]"
+                  `font-medium transition-all py-3 text-base hover:text-black text-black  w-full flex items-center gap-4 px-5 capitalize ${
+                    isActive ? activeLinkClass : "text-black"
                   }`
                 }
               >
@@ -85,7 +132,7 @@ const Sidebar = () => {
               <NavLink
             to="my_profile"
             className={({ isActive }) =>
-              `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+              `font-medium transition-all py-3 text-base hover:text-black text-black  w-full flex items-center gap-4 px-5 capitalize ${
                 isActive ? activeLinkClass : ""
               }`
             }
@@ -96,7 +143,7 @@ const Sidebar = () => {
               <NavLink
                 to="my_orders"
                 className={({ isActive }) =>
-                  `font-medium transition-all py-3 text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
+                  `font-medium transition-all py-3 text-base hover:text-black text-black  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : ""
                   }`
                 }
@@ -109,7 +156,7 @@ const Sidebar = () => {
 
           <button
             onClick={handleLogout}
-            className="font-medium transition-all text-base hover:text-[#F62977] text-[#6D7080]  w-full flex items-center pt-1  gap-2 px-5 capitalize"
+            className="font-medium transition-all text-base hover:text-black text-black  w-full flex items-center pt-1  gap-2 px-5 capitalize"
           >
             <span>Log out</span>
             <FaArrowRightToBracket className="w-5 h-5" />
